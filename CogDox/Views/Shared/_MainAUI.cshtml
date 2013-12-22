@@ -1,0 +1,53 @@
+﻿<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9"> <![endif]-->
+<!--[if !IE]><!--> <html lang="en"> <!--<![endif]-->
+<!-- BEGIN HEAD -->
+<head>
+	<meta charset="utf-8" />
+	<title>@ViewBag.Title</title>
+	<meta content="width=device-width, initial-scale=1.0" name="viewport" />
+	<meta content="" name="description" />
+	<meta content="" name="author" />
+	<script src="http://cdn.alloyui.com/2.0.0/aui/aui-min.js"></script>
+    <link href="http://cdn.alloyui.com/2.0.0/aui-css/css/bootstrap.min.css" rel="stylesheet"></link>
+    
+    <link rel="shortcut icon" href="favicon.ico" />
+    <style>
+        #wrap {
+          min-height: 100%;
+          height: auto !important;
+          height: 100%;
+          margin: 0 auto -54px;
+          background: #FCFCFC;
+        }
+
+    </style>
+</head>
+<body class="yui3-skin-sam">
+
+  <div id="wrap">
+
+      <div>
+		@Html.Partial("TopNavbarAUI")
+	  </div>
+	<div class='row-fluid'>
+   <div class="span4">PIERWSZY</div>
+   <div class="span4">DRUGI</div>
+   <div class="span4">TRZECI</div>
+</div>
+      
+      <div class="page-container row-fluid">
+		@Html.Partial("MainMenuAUI")
+		<div class="page-content">
+			<div class="container-fluid">
+				<div class="row-fluid">
+					<div class="span12">
+						@RenderBody()
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+    </div>
+</body>
