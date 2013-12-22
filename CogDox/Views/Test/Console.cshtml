@@ -1,0 +1,38 @@
+﻿@{
+    ViewBag.Title = "Console";
+}
+@model Boo.Lang.Compiler.CompilerContext
+
+<form>
+    <div class="container-fluid">
+        <div class="row-fluid">
+            @if (Model != null)
+            {
+                <div class="span8">
+                    <div class="alert">
+                        <ul>
+                            @foreach (var err in Model.Errors)
+                            {
+                                <li>@err.ToString()</li>
+                            }
+                        </ul>
+                    </div>    
+                </div>
+                
+            }
+        </div>
+        <div class="row-fluid">
+            <div class="span12">
+                <textarea name="eval" rows="20" style="width:100%">@Request["eval"]</textarea>
+   
+
+            </div>
+        </div>
+        <div class="row-fluid">
+            <div class="span4">
+                <input type="submit" value="Send" />
+            </div>
+        </div>
+    </div>
+    
+</form>

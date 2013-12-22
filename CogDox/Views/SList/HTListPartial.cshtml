@@ -1,0 +1,78 @@
+﻿@model SIMVerification.Models.HTListModel
+@using SIMVer.Services
+@{
+    var currentPage = (int)((Model.Query.Start / Model.Query.Take) + 1);
+    var hasMore = Model.Data.Total > Model.Query.Start + Model.Data.Rows.Count;
+}               
+<input type="hidden" name="take" value="@Model.Query.Take" />
+<input type="hidden" name="skip" value="@Model.Query.Start" />
+<input type="hidden" name="sort" value="@Model.Query.Sort" />
+<input type="hidden" name="dir" value="@Model.Query.Dir" />
+<input type="hidden" name="total" value="@Model.Data.Total" />
+<input type="hidden" name="pageSize" value="@Model.Query.Take" />
+    
+<table class="table table-striped table-bordered table-hover" id="data_grid_m">
+	<thead>
+		<tr>
+            @foreach (var c in Model.ListDef.Columns)
+            {
+                string cls = "sorting";
+                if (c.Field == Model.Query.Sort)
+                {
+                    cls = Model.Query.Dir == "desc" ? "sorting_desc" : "sorting_asc";
+                }
+                <th class="@cls sv_col_sortable" role="columnheader" tabindex="0" aria-controls="sample_1" aria-label="Username: activate to sort column ascending" dataf="@c.Field">@c.Label</th>
+            }
+		</tr>
+	</thead>
+    <tbody>
+    @foreach (var r in Model.Data.Rows)
+    {
+        <tr class="@(r.Attributes.ContainsKey("class") ? r.Attributes["class"] : null)" style="@(r.Attributes.ContainsKey("style") ? r.Attributes["style"] : null)">    
+        @foreach(var c in r.Data)
+        { 
+            <td>@c</td>
+        }
+        </tr>
+    }
+    </tbody>
+</table>
+<div class="pagination">
+    <ul>
+    <li class='@(currentPage > 1 ? "" : "disabled")'><a href="#" class="page_prev">@I18N.GetText("Pagination.Prev")</a></li>
+    <li  class='active'><a href="#">@currentPage</a></li>
+    <!--<li><a href="#">2</a></li>
+    <li><a href="#">3</a></li>
+    <li><a href="#">4</a></li>
+    <li><a href="#">5</a></li>-->
+    <li class='@(hasMore ? "" : "disabled")'><a href="#" class="page_next">@I18N.GetText("Pagination.Next")</a></li>
+    </ul>
+</div>
+    
+<script type="text/javascript">
+$(document).ready(function () {
+    var f = $("#listForm1");
+    $('table th.sv_col_sortable', f).click(function (v) {
+        var th = v.currentTarget;
+        var col = th.attributes['dataf'];
+        if (!col) return;
+        f.find('input[name=sort]').val(col.value);
+        dirf = f.find('input[name=dir]');
+        dirf.val(dirf.val() == "asc" ? "desc" : "asc");
+        f.submit();
+    });
+    $('div.pagination a.page_next', f).click(function () {
+        var sf = f.find('input[name=skip]');
+        sf.val(parseInt(sf.val()) + parseInt(f.find('input[name=pageSize]').val()));
+        //console.log(sf.val());
+        f.submit();
+    });
+    $('div.pagination a.page_prev', f).click(function () {
+        var sf = f.find('input[name=skip]');
+        var val = parseInt(sf.val()) - parseInt(f.find('input[name=pageSize]').val());
+        val = val > 0 ? val : 0;
+        sf.val(val);
+        f.submit();
+    });
+});
+</script>

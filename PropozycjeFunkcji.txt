@@ -1,0 +1,57 @@
+I. Funkcje ogólnego przeznaczenia
+
+1. Zadania, TODO lista
+2. Wnioski. Edytor formularzy dla wniosków.
+3. Za³¹czniki
+4. Full text search
+5. Workflow engine
+6. Szablony widoku list i szczegó³ów, definiowalne dla poszczególnych rodzajów dokumentu
+7. Konfigurowalne formularze + podstawowe elementy UI 
+8. £atwo definiowalne operacje na dokumentach i uprawnienia do nich
+9. System eventowy do dystrybucji zdarzeñ sync i async
+10. Mechanizm regu³ do definiowania np powiadomieñ lub innych akcji wystêpuj¹cych w reakcji na okreœlone zdarzenie
+11. API
+12. Wbudowany nginn.bpm (in process moze byc, choc to utrudni skalowanie)
+13. Powi¹zania miêdzy obiektami/dokumentami (np obiekt moze byc za³¹cznikiem do innego obiektu)
+14. Wysy³anie/odbieranie emaili i smsów
+15. Grupy / jednostki organizacyjne. 
+    Struktura org. Prze³o¿eni jednostek i ich pracownicy.
+16. Baza pracownicza
+    Samodzielna lub synchronizowana z syst. zewnêtrznym
+17. Przegl¹darka plików/dokumentów
+
+I.I Us³ugi ogólnego przeznaczenia
+Ca³a aplikacja musi opieraæ siê na us³ugach. Nie mówiê tu o np podczytywaniu dostêpnych wartoœci dla pola, ale na wykonywaniu okreœlonych 
+akcji, np 'zamroŸ zg³oszenie do daty takiej i takiej' powinno byæ w api repreznetowane 
+
+
+
+
+II. Funkcje HR-owe i zarz¹dcze
+1. Urlopy i nieobecnoœci
+    Przegl¹d, planowanie, prezentacja, kalendarze nieobecnoœci
+    Dni robocze i wolne od pracy
+2. Rozliczanie czasu pracy 
+    Rejestracja czasu pracy uzytkownika (logowanie/wylogowanie) + podzia³ czasu wg realizowanych zadañ
+3. Dy¿ury
+    Planowanie dy¿urów, automatyczne kierowanie zg³oszeñ do dy¿urnych grup lub ludzi
+4. 'Presence'
+    U¿ytkownik mo¿e odfajkowaæ czy chce ¿eby mu system sam przydziela³ zadania, czy jest 'nieaktywny'
+5. Grafik godzin roboczych 
+    
+III. Zarz¹dzanie systemami IT
+1. Wnioski o konta, zmiany uprawnieñ
+2. Rejestr posiadanych kont i uprawnieñ
+
+
+IV. Automatyzacja zadañ
+1. Zarz¹dzanie MS Exchange
+2. Zarz¹dzanie Active Directory
+
+
+V. Repozytorium dokumentów
+1. Organizacja workflow wokó³ dokumentów
+2. Definiowanie struktury dokumentu (schemat danych)
+3. Zadania stowarzyszone z dokumentami (np jako menu akcji)
+4. Obs³uga dokumentów samodzielnych oraz w ramach workflow
+5. Czy dowolnej klasy obiekt mo¿e byæ dokumentem??? To by nie by³o g³upie...
