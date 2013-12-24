@@ -11,6 +11,7 @@ using NLog;
 using NHibernate;
 using System.Transactions;
 using CogDox.Core.Services;
+using CogDox.Core.Lists;
 
 namespace CogDox
 {
@@ -156,6 +157,8 @@ namespace CogDox
             Application["_wc"] = wc;
             Application["_cfg"] = cfg;
             Application["_schema"] = sb.ToString();
+            ListManager lm = (ListManager)wc.Resolve<IListManager>();
+            foreach (var ld in ListDefs.GetListDefinitions()) lm.AddList(ld);
         }
     }
 }

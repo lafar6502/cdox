@@ -7,16 +7,21 @@ using System.Web.Routing;
 using System.Web.Security;
 using CogDox.Models;
 using CogDox.Core;
+using CogDox.Core.Lists;
 using CogDox.Core.Services;
 using BL = Boo.Lang;
 using BLI = Boo.Lang.Interpreter;
 using NGinnBPM.MessageBus;
+using NHibernate;
+using NHibernate.Criterion;
+using CogDox.Core.BusinessObjects;
 
 namespace CogDox.Controllers
 {
     public class TestController : Controller
     {
         public IServiceResolver ServiceResolver { get; set; }
+        public CogDox.Core.Lists.IListManager ListManager { get; set; }
 
         [Authorize]
         public ActionResult Console(string eval)
@@ -42,7 +47,37 @@ import NLog");
             return View();
         }
 
-        
+        public ActionResult FormBuilder()
+        {
+            return View();
+        }
+
+        public ActionResult DiagramEditor()
+        {
+            return View();
+        }
+
+        [Authorize]
+        public ActionResult TodoList()
+        {
+            
+            ListQuery lq = new ListQuery
+            {
+                Start = 0,
+                Limit = 20,
+                QueryParameters = new Dictionary<string, object>(),
+                Sort = null
+            };
+            var result = ListManager.Query(lq, "TODO");
+
+
+            return View(new Models.ListSearchModel
+            {
+                List = result.List,
+                Query = lq,
+                Results = result
+            });
+        }
 
     }
 }

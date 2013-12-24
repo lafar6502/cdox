@@ -43,42 +43,7 @@ namespace CogDox.Controllers
         [Authorize]
         public ActionResult TodoList()
         {
-            ListDef ld = new ListDef
-            {
-                ListId = "TODO",
-                DaoRecordType = typeof(BaseTask),
-                GetId = x => ((BaseTask)x).Id,
-                BuildSearchFilter = prm =>
-                {
-                    var r = Restrictions.Where<BaseTask>(x => x.TODOList && x.AssigneeGroup.IsIn(UserContext.CurrentUser.MyGroupIds) && x.Status.IsIn(new object[] { TaskStatus.Assigned, TaskStatus.Executing, TaskStatus.InGroupQueue }));
-                    return r;
-                }
-            };
-            ld.Columns.Add(new ListDef.ColumnDef
-            {
-                DataField = "Id",
-                HeaderText = "Id",
-                Sortable = true,
-                GetVal = x => new HtmlString(string.Format("<a href='{1}'>{0}</a>", ((BaseTask)x).Id, Url.Action("Details", "Task", new { id = ((BaseTask) x).Id })))
-            });
-            ld.Columns.Add(new ListDef.ColumnDef
-            {
-                DataField = "CreatedDate",
-                HeaderText = "CreatedDate",
-                Sortable = true,
-                GetVal = x => ((BaseTask)x).CreatedDate
-            });
-            ld.AddColumn<BaseTask>(new ListDef.ColumnDef
-            {
-                DataField = "Status",
-                HeaderText = I18N.GetText("BaseTask.Status")
-            }, x => I18N.GetText(x.Status));
-            ld.AddColumn<BaseTask>(new ListDef.ColumnDef
-            {
-                DataField = "Summary",
-                HeaderText = I18N.GetText("BaseTask.Summary"),
-                Sortable = true
-            }, x => x.Summary);
+           
 
             ListQuery lq = new ListQuery
             {
@@ -87,7 +52,7 @@ namespace CogDox.Controllers
                 QueryParameters = new Dictionary<string, object>(),
                 Sort = null
             };
-            var result = ListManager.Query(lq, ld);
+            var result = ListManager.Query(lq, "TODO");
 
 
             return View("../SList/HTList", new Models.ListSearchModel

@@ -145,6 +145,8 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\ListController.cs" />
+    <Compile Include="ListDefs.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\TestController.cs" />
     <Compile Include="Controllers\TaskController.cs" />
@@ -259,23 +261,17 @@
     <Content Include="Views\Shared\_Main.cshtml" />
     <Content Include="Views\Shared\MainMenuPartial.cshtml" />
     <Content Include="Views\Shared\TopNavbarPartial.cshtml" />
-    <Content Include="Views\SList\CampaignList.cshtml" />
-    <Content Include="Views\SList\CampaignListFiltersPartial.cshtml" />
-    <Content Include="Views\SList\CampaignListHeaderPartial.cshtml" />
-    <Content Include="Views\SList\CampaignScriptListFiltersPartial.cshtml" />
-    <Content Include="Views\SList\CampaignScriptListHeaderPartial.cshtml" />
     <Content Include="Views\SList\HTList.cshtml" />
     <Content Include="Views\SList\HTListPartial.cshtml" />
-    <Content Include="Views\SList\MessageTemplateListFiltersPartial.cshtml" />
-    <Content Include="Views\SList\MessageTemplateListHeaderPartial.cshtml" />
-    <Content Include="Views\SList\ProcessListFiltersPartial.cshtml" />
-    <Content Include="Views\SList\ProcessListHeaderPartial.cshtml" />
-    <Content Include="Views\SList\UserListFiltersPartial.cshtml" />
-    <Content Include="Views\SList\UserListHeaderPartial.cshtml" />
-    <Content Include="Views\SList\VoiceScriptListFiltersPartial.cshtml" />
-    <Content Include="Views\SList\VoiceScriptListHeaderPartial.cshtml" />
     <Content Include="Views\Test\Console.cshtml" />
     <Content Include="Views\Shared\_MainAUI.cshtml" />
+    <Content Include="Views\Shared\TopNavbarAUI.cshtml" />
+    <Content Include="Views\Shared\MainMenuAUI.cshtml" />
+    <Content Include="Views\Shared\UI\TopMenu.cshtml" />
+    <Content Include="Views\Shared\TopNavbarYamm.cshtml" />
+    <Content Include="Views\Test\FormBuilder.cshtml" />
+    <Content Include="Views\Test\DiagramEditor.cshtml" />
+    <Content Include="Views\Test\TodoList.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
