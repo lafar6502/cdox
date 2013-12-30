@@ -11,24 +11,30 @@
 
 <script type="text/javascript">
 YUI().use(
-  'aui-datatable',
+  'aui-datatable', 'datasource',  "datatable", "datatable-datasource", "datasource-local",    "datasource-jsonschema",
   function (Y) {
-      var columns = ['name', 'address', 'city', 'state'];
+      var myDataSource = new Y.DataSource.IO({ source: '@Url.Action("ListData", "List", new { id = "TODO" })' });
+      myDataSource.plug({
+          fn: Y.Plugin.DataSourceJSONSchema, cfg: {
+              schema: {
+                  resultListLocator: "Data",
+                  resultFields: ["Id", "Summary", "Status"]
+              }
+          }
+      });
+      
+      var columns = ['Id', 'Summary', 'Status'];
+      var dtable = new Y.DataTable.Base({
+          columns: columns,
+          summary: "Shopping cart items",
+          caption: "Table with JSON data from api"
+      });
 
-      var data = [
-        { address: '1236 Some Street', city: 'San Francisco', name: 'John A. Smith', state: 'CA' },
-        { address: '3271 Another Ave', city: 'New York', name: 'Joan B. Jones', state: 'NY' },
-        { address: '9996 Random Road', city: 'Los Angeles', name: 'Bob C. Uncle', state: 'CA' },
-        { address: '1623 Some Street', city: 'San Francisco', name: 'John D. Smith', state: 'CA' },
-        { address: '9899 Random Road', city: 'Los Angeles', name: 'Bob F. Uncle', state: 'CA' }
-      ];
-
-      new Y.DataTable.Base(
-        {
-            columnset: columns,
-            recordset: data
-        }
-      ).render('#myDataTable');
+      dtable.plug(Y.Plugin.DataTableDataSource, {
+          datasource: myDataSource
+      });
+      dtable.render('#myDataTable');
+      dtable.datasource.load({});
   }
 );
 </script>

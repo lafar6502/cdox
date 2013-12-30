@@ -27,9 +27,23 @@ namespace CogDox.Controllers
                 SortAsc = "asc".Equals(dir, StringComparison.InvariantCultureIgnoreCase)
             };
             ListQueryResults res = ListManager.Query(lq, id);
-            res.RawData = null;
-            res.List.RecordType = null;
-            return Json(res, JsonRequestBehavior.AllowGet);
+
+
+            List<Dictionary<string, object>> lst = new List<Dictionary<string, object>>();
+            foreach (var row in res.Rows)
+            {
+                Dictionary<string, object> dic = new Dictionary<string, object>();
+                for (int i = 0; i < res.List.Columns.Count; i++)
+                {
+                    dic[res.List.Columns[i].DataField] = row.Data[i];
+                }
+                lst.Add(dic);
+            }
+            return Json(new
+            {
+                Data = lst,
+                totalItems = 500
+            }, JsonRequestBehavior.AllowGet);
         }
 
     }

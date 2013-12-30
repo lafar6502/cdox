@@ -13,9 +13,15 @@
     <link href="@Url.Content("~/Content/bootstrap/css/bootstrap.min.css")" rel="stylesheet"></link>
     <link rel="stylesheet" href="@Url.Content("~/Content/bootstrap/css/bootstrap-responsive.css")" />
     <link rel="stylesheet" href="@Url.Content("~/Content/yamm-master/assets/css/yamm.css")" />
-    <script src="@Url.Content("~/Content/jquery-1.9.1.js")"></script>
-    <script src="@Url.Content("~/Content/bootstrap/js/bootstrap.min.js")"></script>
+    
+    <script src="@Url.Content("~/scripts/require.js")"></script>
 
+    <script>
+        requirejs.config({ baseUrl: '@Url.Content("~/Content")', paths: {} });
+    </script>    <script>
+        require(['jquery', 'bootstrap/js/bootstrap.min', 'fuelux/all'], function ($, FL) {
+        });
+    </script>
     <link rel="shortcut icon" href="favicon.ico" />
     <style>
        
