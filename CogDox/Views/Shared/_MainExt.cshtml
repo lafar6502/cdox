@@ -1,0 +1,25 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" href="@Url.Content("~/jqui/assets/css/bootstrap.min.css")">
+    <link rel="stylesheet" href="@Url.Content("~/jqui/assets/css/bootstrap-responsive.min.css")">
+    <link href="@Url.Content("~/ext/resources/css/ext-all.css")" rel="stylesheet" type="text/css"/>
+
+    <script src="@Url.Content("~/jqui/assets/js/jquery-1.9.1.min.js")"></script>
+    <script src="@Url.Content("~/jqui/assets/js/bootstrap.min.js")"></script>
+    <script src="@Url.Content("~/ext/ext-all-debug.js")"></script> 
+    
+
+    @RenderSection("ScriptAndCss", false)
+</head>
+
+<body>
+
+<div class="container" id="container">
+    @RenderBody()
+</div>
+        
+</body>
+</html>

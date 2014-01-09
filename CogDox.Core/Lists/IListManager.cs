@@ -28,6 +28,10 @@ namespace CogDox.Core.Lists
         /// cell's css class
         /// </summary>
         public string Css { get; set; }
+        /// <summary>
+        /// grid-dependent data type
+        /// </summary>
+        public string DataType { get; set; }
     }
 
     public class ListModel

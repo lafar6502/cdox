@@ -1,6 +1,9 @@
-﻿1. Zawartosc ekranu glownego
-'Dashboard' + 'TODO' lista
+﻿1. Zawartosc ekranu glownego (dashboard)
 
+- TODO lista
+- powiadomienia (mogą też być na TODO)
+- komunikaty/zdarzenia (na bieżąco aktualizowana lista zdarzeń o których user jest powiadamiany).
+- kalendarz na najblizszy dzień
 
 
 2. Menu

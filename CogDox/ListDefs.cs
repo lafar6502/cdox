@@ -39,11 +39,14 @@ namespace CogDox
             };
             ld.AddColumn<BaseTask>(new ListDef.ColumnDef {
                 DataField = "Id",
-                HeaderText = "Id"
+                DataType = "numeric",
+                HeaderText = "Id",
+                Sortable = true
             }, x => x.Id);
             ld.Columns.Add(new ListDef.ColumnDef
             {
                 DataField = "CreatedDate",
+                DataType = "date",
                 HeaderText = "CreatedDate",
                 Sortable = true,
                 GetVal = x => ((BaseTask)x).CreatedDate
@@ -51,14 +54,23 @@ namespace CogDox
             ld.AddColumn<BaseTask>(new ListDef.ColumnDef
             {
                 DataField = "Status",
-                HeaderText = I18N.GetText("BaseTask.Status")
+                DataType = "text",
+                HeaderText = I18N.GetText("BaseTask.Status"),
+                Sortable = true
             }, x => I18N.GetText(x.Status));
             ld.AddColumn<BaseTask>(new ListDef.ColumnDef
             {
                 DataField = "Summary",
+                DataType = "text",
                 HeaderText = I18N.GetText("BaseTask.Summary"),
-                Sortable = true
+                Sortable = false
             }, x => x.Summary);
+            ld.AddColumn<BaseTask>(new ListDef.ColumnDef
+            {
+                DataField = "AssigneeGroup",
+                HeaderText = I18N.GetText("BaseTask.AssigneeGroup"),
+                Sortable = true
+            }, x => x.AssigneeGroup.Name);
 
             return ld;
         }

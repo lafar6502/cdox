@@ -27,6 +27,12 @@ namespace CogDox.Controllers
             return View();
         }
 
+        [Authorize]
+        public ActionResult AuiTest()
+        {
+            return View();
+        }
+
         public ActionResult DBSchema()
         {
             return Content(Convert.ToString(this.ControllerContext.HttpContext.Application["_schema"]));

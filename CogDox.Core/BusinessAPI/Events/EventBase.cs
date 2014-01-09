@@ -5,9 +5,15 @@ using System.Text;
 
 namespace CogDox.Core.BusinessAPI.Events
 {
+    /// <summary>
+    /// Base event
+    /// </summary>
     public class EventBase
     {
         public DateTime Timestamp { get; set; }
+        /// <summary>
+        /// User who generated the event
+        /// </summary>
         public int UserId { get; set; }
 
         public EventBase()

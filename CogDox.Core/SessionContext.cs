@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using NHibernate;
+using System.Linq.Expressions;
 
 namespace CogDox.Core
 {
@@ -17,7 +18,7 @@ namespace CogDox.Core
             set 
             { 
                 _ses = value; 
-                _rollback = false; 
+                _rollback = false;
             }
         }
 

@@ -1,8 +1,22 @@
-﻿@{
-    ViewBag.Title = "Home Page";
-}
+﻿@section ScriptAndCss {
 
-<h2>@ViewBag.Message</h2>
-<p>
-    To learn more about ASP.NET MVC visit <a href="http://asp.net/mvc" title="ASP.NET MVC Website">http://asp.net/mvc</a>.
-</p>
+    
+}
+<div id="mydiv1">
+   <div class="x-panel-body" >sdf</div>
+</div>
+
+<script>
+        Ext.onReady(function () {
+            var v = Ext.create('Ext.container.Viewport', {
+                layout: 'border', renderTo: Ext.getBody(), 
+                items: [
+                    {
+                        xtype: 'panel', region: 'north', border: false, applyTo: '#mydiv1',
+                        height: 40
+                    },
+                    {xtype: 'panel', html: '<b> to ja panel </b>', region: 'center'}
+                ]
+            });
+        });
+    </script>

@@ -53,7 +53,9 @@ namespace CogDox.Core.Lists
                     Resizable = c.Resizable,
                     Sortable = c.Sortable,
                     Width = c.Width,
-                    Flex = c.Flex                    
+                    Flex = c.Flex,
+                    DataType = c.DataType
+           
                 }))
             };
             return lm;
@@ -68,6 +70,11 @@ namespace CogDox.Core.Lists
                 var md = SessionFactory.GetClassMetadata(list.DaoRecordType);
                 lq.Sort = md.IdentifierPropertyName;
                 lq.SortAsc = false;
+            }
+            int cid;
+            if (Int32.TryParse(lq.Sort, out cid))
+            {
+                lq.Sort = list.Columns[cid].DataField;
             }
             var qf = list.BuildSearchFilter(lq.QueryParameters);
             var crit = ses.CreateCriteria(list.DaoRecordType);

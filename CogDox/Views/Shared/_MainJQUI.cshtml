@@ -1,0 +1,125 @@
+﻿<!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="utf-8">
+            <title>Download jQuery UI Bootstrap</title>
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <meta name="description" content="A preview of the jQuery UI Bootstrap theme.">
+            <meta name="author" content="Addy Osmani">
+
+            <!-- Le styles -->
+			<link rel="stylesheet" href="@Url.Content("~/jqui/assets/css/bootstrap.min.css")">
+            <link rel="stylesheet" href="@Url.Content("~/jqui/assets/css/bootstrap-responsive.min.css")">
+
+			<link rel="stylesheet" href="@Url.Content("~/jqui/css/custom-theme/jquery-ui-1.10.3.custom.css")">
+            <link rel="stylesheet" href="@Url.Content("~/jqui/assets/css/font-awesome.min.css")">
+
+            <!--[if IE 7]>
+            <link rel="stylesheet" href="@Url.Content("~/jqui/assets/css/font-awesome-ie7.min.css")">
+            <![endif]-->
+            <!--[if lt IE 9]>
+            <link rel="stylesheet" href="@Url.Content("~/jqui/css/custom-theme/jquery.ui.1.10.3.ie.css")">
+            <![endif]-->
+            <link rel="stylesheet" href="@Url.Content("~/dtables/media/css/jquery.dataTables.css")">
+            <link rel="stylesheet" href="@Url.Content("~/dtables/media/css/jquery.dataTables_themeroller.css")">
+
+            
+            <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+            <!--[if lt IE 9]>
+            <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+            <![endif]-->
+
+            <!-- Le fav and touch icons -->
+            <link rel="apple-touch-icon-precomposed" sizes="144x144" href="@Url.Content("~/jqui/assets/ico/apple-touch-icon-144-precomposed.png")">
+            <link rel="apple-touch-icon-precomposed" sizes="114x114" href="@Url.Content("~/jqui/assets/ico/apple-touch-icon-114-precomposed.png")">
+            <link rel="apple-touch-icon-precomposed" sizes="72x72" href="@Url.Content("~/jqui/assets/ico/apple-touch-icon-72-precomposed.png")">
+            <link rel="apple-touch-icon-precomposed" href="@Url.Content("~/jqui/assets/ico/apple-touch-icon-57-precomposed.png")">
+            <link rel="shortcut icon" href="@Url.Content("~/jqui/assets/ico/favicon.png")">
+            
+            <script src="@Url.Content("~/jqui/assets/js/jquery-1.9.1.min.js")"></script>
+            <script src="@Url.Content("~/jqui/assets/js/bootstrap.min.js")"></script>
+            <script src="@Url.Content("~/jqui/assets/js/holder.js")"></script>
+            <script src="@Url.Content("~/jqui/assets/js/jquery-ui-1.10.3.custom.min.js")"></script>
+            <script src="@Url.Content("~/dtables/media/js/jquery.dataTables.js")"></script>
+
+            <script src="@Url.Content("~/jqui/assets/js/docs.js")"></script>
+            
+            
+        </head>
+
+        <body data-spy="scroll" data-target=".bs-docs-sidebar" data-twttr-rendered="true">
+
+        <!-- Navbar
+        ================================================== -->
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container-fluid">
+          <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="brand" href="#">CDOX</a>
+          <div class="nav-collapse collapse">
+            <p class="navbar-text pull-right">
+              Logged in as <a href="#" class="navbar-link">Username</a>
+            </p>
+            <ul class="nav">
+               <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                  Test
+                  <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a href="@Url.Action("TodoList", "Home")">Todo 1</a></li>
+                <li><a href="@Url.Action("TodoList", "Test")">Todo 2</a></li>
+                    <li><a href="@Url.Action("Console", "Test")">Console</a></li>
+                </ul>
+              </li>
+              <li><a href="#about">About</a></li>
+              <li><a href="#contact">Contact</a></li>
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>
+
+   <div class="container-fluid" style="margin-top:60px">
+      <div class="row-fluid">
+        <div class="span2">
+          <div class="well sidebar-nav">
+            <ul class="nav nav-list">
+              <li class="nav-header">Sidebar</li>
+              <li class="active"><a href="#">Link</a></li>
+              <li><a href="#">Link</a></li>
+              <li><a href="#">Link</a></li>
+              <li><a href="#">Link</a></li>
+              <li class="nav-header">Sidebar</li>
+              <li><a href="#">Link</a></li>
+              <li><a href="#">Link</a></li>
+              <li><a href="#">Link</a></li>
+              <li><a href="#">Link</a></li>
+              <li><a href="#">Link</a></li>
+              <li><a href="#">Link</a></li>
+              <li class="nav-header">Sidebar</li>
+              <li><a href="#">Link</a></li>
+              <li><a href="#">Link</a></li>
+              <li><a href="#">Link</a></li>
+            </ul>
+          </div><!--/.well -->
+        </div><!--/span-->
+        <div class="span10">
+          @RenderBody()
+        </div><!--/span-->
+      </div><!--/row-->
+
+      <hr>
+
+      <footer>
+        <p>&copy; Company 2013</p>
+      </footer>
+
+    </div><!--/.fluid-container-->
+        
+</body>
+</html>

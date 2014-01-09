@@ -1,0 +1,7 @@
+﻿@using CogDox.Core
+@using CogDox.Core.Lists
+@using CogDox.Models
+
+@model ListModel
+
+@Html.Partial("UI/JQGridListPartial", new JQGridListModel { List = Model, ListDivId = "theList01" })

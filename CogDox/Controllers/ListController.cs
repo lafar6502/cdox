@@ -46,5 +46,57 @@ namespace CogDox.Controllers
             }, JsonRequestBehavior.AllowGet);
         }
 
+        [Authorize]
+        public ActionResult JQAjaxList(string id)
+        {
+            ListModel lm = ListManager.GetModel(id);
+            return View(lm);
+        }
+
+        public ActionResult DTablesListData(string id, int? iDisplayStart, int? iDisplayLength, string sort, string dir, string format = "json")
+        {
+            sort = Request["iSortCol_0"];
+            dir = Request["sSortDir_0"];
+            ListQuery lq = new ListQuery
+            {
+                Limit = iDisplayLength.HasValue ? iDisplayLength.Value : 20,
+                Start = iDisplayStart.HasValue ? iDisplayStart.Value : 0,
+                Sort = sort,
+                SortAsc = "asc".Equals(dir, StringComparison.InvariantCultureIgnoreCase)
+            };
+            ListQueryResults res = ListManager.Query(lq, id);
+            Models.DataTablesQueryResults qr = new DataTablesQueryResults();
+            qr.aaData = new List<IEnumerable<object>>();
+            foreach (ListRow r in res.Rows)
+            {
+                qr.aaData.Add(r.Data);
+            }
+            int tot = res.Start + res.Rows.Count;
+            if (res.HasMore) tot = res.Start + res.Limit + 1;
+            qr.iTotalDisplayRecords = res.HasMore ? res.Start + res.Limit + 1 : res.Start + res.Rows.Count;
+            qr.sEcho = Request["sEcho"] != null ? Int32.Parse(Request["sEcho"]) : 0;
+            return Json(qr, JsonRequestBehavior.AllowGet);
+        }
+
+        [Authorize]
+        public ActionResult HTList(string id, int? skip, int? take, string sort, string dir)
+        {
+            if (!take.HasValue || take.Value == 0) take = 20;
+            var lq = new ListQuery {
+                Start = skip.HasValue ? skip.Value : 0,
+                Limit = take.Value,
+                Sort = sort,
+                SortAsc = "asc".Equals(dir, StringComparison.Ordinal)
+            };
+            var qr = ListManager.Query(lq, id);
+            ListSearchModel lsm = new ListSearchModel
+            {
+                List = qr.List,
+                Query = lq,
+                Results = qr
+            };
+            return View(lsm);
+        }
+
     }
 }
