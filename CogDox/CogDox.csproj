@@ -296,6 +296,10 @@
     <Content Include="Views\DScript\Part\ExtListStore.cshtml" />
     <Content Include="Views\DScript\Part\ExtListGrid.cshtml" />
     <Content Include="Views\DScript\GlobalAppData.cshtml" />
+    <Content Include="Views\Task\Details.cshtml" />
+    <Content Include="Views\Task\DetailsPartial.cshtml" />
+    <Content Include="Views\Task\ActionMenuPartial.cshtml" />
+    <Content Include="Views\Task\DetailsEmbed.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

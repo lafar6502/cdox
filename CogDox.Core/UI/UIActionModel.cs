@@ -10,7 +10,12 @@ namespace CogDox.Core.UI
     /// </summary>
     public class UIActionModel
     {
-        public string Name { get; set; }
+        public string Action { get; set; }
+        public string Label { get; set; }
+        public string Tooltip { get; set; }
+        public string ClickScript { get; set; }
+        public string UITemplate { get; set; }
+
         public string ParentDocRef { get; set; }
         public Dictionary<string, object> Data { get; set; }
     }

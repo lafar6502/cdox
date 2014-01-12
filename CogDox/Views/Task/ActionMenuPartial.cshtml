@@ -1,0 +1,42 @@
+﻿@using CogDox.Core.BusinessObjects
+@model BaseTask
+
+<style>
+    div.details-action-menu
+    {
+        position:absolute;
+        top: 20px;
+        left: 50px;
+        background-color: red;
+        border: solid 2px gray;
+        width: 40px;
+        height: 40px;
+        
+    }
+</style>
+<div id="dActionMenu" class="details-action-menu">
+
+</div>
+
+<div class="navbar">
+		<!-- BEGIN TOP NAVIGATION BAR -->
+		<div class="navbar-inner">
+			<div class="container-fluid">
+            </div>
+        </div>
+</div>
+
+<div class="container-fluid">
+    <div class="row-fluid">
+        <div class="span3">
+            Id: @Model.Id
+        </div>
+        <div class="span3">
+            Summary: @Model.Summary
+        </div>
+    </div>
+    <div style="height:350px;background-color: yellow">
+    </div>
+    <div class="row-fluid">FOOT</div>
+
+</div>
