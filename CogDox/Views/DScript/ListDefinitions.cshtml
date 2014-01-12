@@ -1,0 +1,52 @@
+﻿@{
+    Layout = null;
+}
+@using System.Collections.Generic
+@using Newtonsoft.Json
+@model CogDox.Models.CogDoxPageModel
+<script>
+    @{
+        var dic = new Dictionary<string, object>();
+        foreach(var lid in Model.ListManager.Lists)
+        {
+            var m = Model.ListManager.GetModel(lid);
+            dic.Add(m.ListId, new {
+                fields = m.Columns.Select(x => new {
+                    name = x.DataField,
+                    type = x.DataType
+                   }),
+                autoLoad = true, remoteFilter = true, remoteSort = true,
+                proxy = new {
+                    type = "ajax",
+                    url = Url.Action("ListData", "List", new {id = m.ListId }),
+                    reader = new {type = "json", root="Data", idProperty = "Id", totalProperty = "totalItems"}
+                }
+            });
+        }
+    }
+
+    ///Contains data store definitions for all lists
+    Ext.define('CogDox.ui.ListDataStores', {
+        statics: {
+            storeConfigs: @Html.Raw(JsonConvert.SerializeObject(dic)),
+            createStore: function (listId, cfg) {
+                if (cfg == null) cfg = {};
+                var scfg = this.getStoreConfig(listId);
+                if (Ext.isEmpty(scfg)) return null;
+                var st = Ext.create('Ext.data.JsonStore', Ext.apply(scfg, cfg));
+                return st;
+            },
+            getStoreConfig: function (listId) {
+                return this.storeConfigs[listId];
+            }
+        }
+    });
+
+    @foreach(var lid in Model.ListManager.Lists)
+    {
+        var m = new CogDox.Models.JQGridListModel { List = Model.ListManager.GetModel(lid) };
+        this.WriteLiteral(MvcExtensions.StripScriptTags(Html.Partial("Part/ExtListGrid", m)));
+    }
+    
+    //po skrypcie
+</script>

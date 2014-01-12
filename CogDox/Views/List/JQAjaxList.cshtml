@@ -4,4 +4,10 @@
 
 @model ListModel
 
+@section ScriptAndCss {
+    <script type="text/javascript">
+        require(['dataTables'], function (dt) {
+        });
+    </script>
+}
 @Html.Partial("UI/JQGridListPartial", new JQGridListModel { List = Model, ListDivId = "theList01" })

@@ -11,14 +11,27 @@ using NHibernate.Criterion;
 
 namespace CogDox.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : CogDoxControllerBase
     {
+        
+
         [Authorize]
         public ActionResult Index()
         {
             ViewBag.Message = "Welcome to ASP.NET MVC!";
-
+            
             return View();
+        }
+
+        [Authorize]
+        public ActionResult Index2()
+        {
+            ViewBag.Message = "Welcome to ASP.NET MVC!";
+            var mdl = new Models.CogDoxPageModel
+            {
+                ListManager = this.ListManager 
+            };
+            return View(mdl);
         }
 
         [Authorize]

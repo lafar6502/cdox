@@ -122,5 +122,10 @@ namespace CogDox.Core.Lists
             if (!_lists.TryGetValue(listId, out ld)) throw new Exception("List not found: " + listId);
             return Query(lq, ld);
         }
+
+        public IEnumerable<string> Lists
+        {
+            get { return _lists.Keys; }
+        }
     }
 }

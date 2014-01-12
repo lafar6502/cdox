@@ -1,0 +1,34 @@
+﻿@{
+    Layout = null;
+    var storeClass = "CogDox.ui." + Model.List.ListId + "ListDataStore";
+}
+@model CogDox.Models.JQGridListModel
+@using Newtonsoft.Json
+<script>
+    
+    Ext.define('@storeClass', {
+        extend: "Ext.data.Store",
+        constructor: function(config)
+        {
+            Ext.apply(config, {
+                fields: @Html.Raw(JsonConvert.SerializeObject(Model.List.Columns.Select(x => new {
+                    name = x.DataField,
+                    type = x.DataType
+                   }))),
+                autoLoad: true, remoteFilter: true, remoteSort: true,
+                proxy: {
+                    type: 'ajax', 
+                    url: '@Url.Action("ListData", "List", new {id = Model.List.ListId })',
+                    reader: {
+                        type: 'json',
+                        root: 'Data',
+                        idProperty: 'Id' 
+                    }
+                }
+            });
+            console.log(config);
+            this.callParent(config);
+        }
+    });
+
+</script>

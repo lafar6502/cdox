@@ -70,6 +70,7 @@ namespace CogDox.Core.Lists
 
     public interface IListManager
     {
+        IEnumerable<string> Lists { get; }
         ListModel GetModel(string listId);
         ListQueryResults Query(ListQuery lq, ListDef list);
         ListQueryResults Query(ListQuery lq, string listId);

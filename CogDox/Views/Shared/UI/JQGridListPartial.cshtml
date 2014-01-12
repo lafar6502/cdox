@@ -31,20 +31,22 @@
 		
 
 <script>
-    $(document).ready(function () {
-        var oTable = $('#@Model.ListDivId').dataTable({
-            bProcessing: true, bServerSide: true,
-            bLengthChange: false,
-            bFilter: false,
-            bJQueryUI: false,
+    
+        $(document).ready(function () {
+            var oTable = $('#@Model.ListDivId').dataTable({
+                bProcessing: true, bServerSide: true,
+                bLengthChange: false,
+                bFilter: false,
+                bJQueryUI: false,
             
-            "oLanguage": {
-                "sInfoPostFix": "",
-                 sInfoFiltered: ""
-            },
+                "oLanguage": {
+                    "sInfoPostFix": "",
+                    sInfoFiltered: ""
+                },
             
-            aoColumns: @Html.Raw(JsonConvert.SerializeObject(aocolumns)),
-            sAjaxSource: '@Url.Action("DTablesListData", "List", new { id = Model.List.ListId })'
+                aoColumns: @Html.Raw(JsonConvert.SerializeObject(aocolumns)),
+                sAjaxSource: '@Url.Action("DTablesListData", "List", new { id = Model.List.ListId })'
+            });
         });
-    });
+    
 </script>

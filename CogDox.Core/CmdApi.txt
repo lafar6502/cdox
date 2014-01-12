@@ -1,1 +1,7 @@
-﻿
+﻿musimy mieć api w formie commandline
+może być to commandline dla boo, nie ma sprawy
+
+np: 
+show tasks as json
+show users as json
+

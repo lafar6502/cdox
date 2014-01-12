@@ -12,5 +12,6 @@ namespace CogDox.Models
         public string ListDivId { get; set; }
         public string FilterTemplate { get; set; }
         public string ResultTemplate { get; set; }
+        public object Options { get; set; }
     }
 }

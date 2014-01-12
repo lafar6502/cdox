@@ -10,21 +10,30 @@ using CogDox.Core;
 using CogDox.Core.Services;
 using CogDox.Core.Lists;
 using NHibernate;
-
+using Newtonsoft.Json;
 namespace CogDox.Controllers
 {
-    public class ListController : Controller
+    public class ListController : CogDoxControllerBase
     {
-        public IListManager ListManager { get; set; }
+        
 
         public ActionResult ListData(string id, int? start, int? limit, string sort, string dir, string format = "json")
         {
+            SortSpec[] sorts;
+            bool asc = true;
+            if (!string.IsNullOrEmpty(sort) && sort.StartsWith("["))
+            {
+                sorts = JsonConvert.DeserializeObject<SortSpec[]>(sort);
+                sort = sorts.Length > 0 ? sorts[0].property : null;
+                asc = sorts.Length > 0 ? "asc".Equals(sorts[0].direction, StringComparison.InvariantCultureIgnoreCase) : false;
+            }
+            
             ListQuery lq = new ListQuery
             {
                 Limit = limit.HasValue ? limit.Value : 20,
                 Start = start.HasValue ? start.Value : 0,
                 Sort = sort,
-                SortAsc = "asc".Equals(dir, StringComparison.InvariantCultureIgnoreCase)
+                SortAsc = asc
             };
             ListQueryResults res = ListManager.Query(lq, id);
 

@@ -1,0 +1,54 @@
+﻿@{
+    Layout = null;
+    var gridClass = "CogDox.ui." + Model.List.ListId + "ListGrid";
+    var gridClas2 = "CogDox.ui." + Model.List.ListId + "SearchGrid";
+    var storeClass = "CogDox.ui." + Model.List.ListId + "ListDataStore";
+    
+}
+@model CogDox.Models.JQGridListModel
+@using Newtonsoft.Json
+<script>          
+    Ext.define('@gridClass', {
+        extend: "Ext.grid.Panel",
+        requires: [
+            'CogDox.ui.ListDataStores'
+        ],
+        columns: @Html.Raw(JsonConvert.SerializeObject(Model.List.Columns.Select(x => new { 
+                  header = x.HeaderText, 
+                  dataIndex = x.DataField,
+                  cls = x.Css,
+                  sortable = x.Sortable,
+                  resizable = x.Resizable,
+                  width = x.Width
+        }))),
+        pageSize: 5,
+        initComponent: function() {
+            if (Ext.isEmpty(this.store)) {
+                this.store = CogDox.ui.ListDataStores.createStore('@Model.List.ListId', {pageSize: this.pageSize});
+            }
+            if (Ext.isEmpty(this.dockedItems)) {
+                this.dockedItems = [
+                    {
+                        xtype: 'pagingtoolbar',
+                        store: this.store,   
+                        dock: 'bottom',
+                        displayInfo: true,
+                        items: [
+                        ]
+                    }
+                ]
+            }
+            this.callParent(arguments);
+        }
+    });
+
+    Ext.define('@gridClas2', {
+        extend: 'Ext.panel.Panel',
+        requires: [
+            'CogDox.ui.ListDataStores',
+            '@gridClass'
+        ],
+        constructor: function(config) {
+        }
+    });
+</script>

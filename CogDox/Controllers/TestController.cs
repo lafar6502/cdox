@@ -18,11 +18,9 @@ using CogDox.Core.BusinessObjects;
 
 namespace CogDox.Controllers
 {
-    public class TestController : Controller
+    public class TestController : CogDoxControllerBase
     {
-        public IServiceResolver ServiceResolver { get; set; }
-        public CogDox.Core.Lists.IListManager ListManager { get; set; }
-
+        
         [Authorize]
         public ActionResult Console(string eval)
         {

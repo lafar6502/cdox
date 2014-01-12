@@ -11,9 +11,9 @@ using CogDox.Core.Services;
 
 namespace CogDox.Controllers
 {
-    public class AccountController : Controller
+    public class AccountController : CogDoxControllerBase
     {
-        public IAuthenticateUsers UserAuth { get; set; }
+        
         //
         // GET: /Account/LogOn
 

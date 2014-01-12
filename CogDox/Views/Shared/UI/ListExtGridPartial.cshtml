@@ -1,0 +1,56 @@
+﻿@using CogDox.Core
+@using CogDox.Core.Lists
+@using CogDox.Models
+@using Newtonsoft.Json;
+
+@model JQGridListModel
+
+
+<div id="@Model.ListDivId" style="width:100%;"></div>
+<script type="text/javascript">
+    Ext.onReady(function () {
+        var opts = @Html.Raw(Model.Options == null ? "{}" : JsonConvert.SerializeObject(Model.Options));
+        var flds = @Html.Raw(JsonConvert.SerializeObject(Model.List.Columns.Select(x => new { 
+                  name = x.DataField,
+                  type = x.DataType 
+              })));
+        var cols = @Html.Raw(JsonConvert.SerializeObject(Model.List.Columns.Select(x => new { 
+                  header = x.HeaderText, 
+                  dataIndex = x.DataField,
+                  cls = x.Css,
+                  sortable = x.Sortable,
+                  resizable = x.Resizable,
+                  width = x.Width
+            })));
+        var st = Ext.create('Ext.data.JsonStore', {
+            fields: flds,
+            autoLoad: true, remoteFilter: true, remoteSort: true,
+            proxy: {
+                type: 'ajax', 
+                url: '@Url.Action("ListData", "List", new {id = Model.List.ListId })',
+                reader: {
+                    type: 'json',
+                    root: 'Data',
+                    idProperty: 'Id'
+                }
+            }
+        });
+        st = Ext.create('CogDox.ui.TODOListDataStore', {});
+        var gr = Ext.get('@Model.ListDivId');
+        var popts = Ext.apply({
+            title: null,
+            store: st,
+            columns: cols,
+            renderTo: gr,
+            dockedItems: [{
+                xtype: 'pagingtoolbar',
+                store: st,   // same store GridPanel is using
+                dock: 'bottom',
+                displayInfo: true
+            }]
+        }, opts);
+
+        Ext.create('Ext.grid.Panel', popts);
+
+    });
+</script>

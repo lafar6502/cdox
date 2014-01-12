@@ -1,0 +1,15 @@
+﻿@{
+    Layout = null;
+}
+@using System.Collections.Generic
+@using CogDox.Core
+@using Newtonsoft.Json
+@model CogDox.Models.CogDoxPageModel
+<script>
+    Ext.define('CogDox.App', {
+        statics: {
+            CurrentUser: @Html.Raw(JsonConvert.SerializeObject(UserContext.CurrentUser))
+        }
+    });
+
+</script>
