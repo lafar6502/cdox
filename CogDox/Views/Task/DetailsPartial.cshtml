@@ -2,22 +2,42 @@
 @model BaseTask
 
 <style>
-    div.details-action-menu
-    {
-        position:absolute;
-        top: 20px;
-        left: 50px;
-        background-color: red;
-        border: solid 2px gray;
-        width: 40px;
-        height: 40px;
-        
-    }
+#action_menu { 
+    position:fixed;
+    width:40px;
+    height:40px;
+    background-color:red;
+    border: solid 2px gray;
+    margin-left:200px;
+    margin-top:200px;
+}
 </style>
 
+<div id="action_menu">
+    <ul class="nav">
+            <li  class="">
+				<a data-toggle="dropdown" class="dropdown-toggle" href="javascript:;">
+				<span class="selected"></span>
+				Widok
+				<span class="arrow"></span>     
+				</a>
+				<ul class="dropdown-menu">
+					<li >
+						<a href="@Url.Action("Details", "Task", new {id=Model.Id})" target="_blank">Otwórz w nowym oknie</a>
+					</li>
+                    <li>
+                        <a class="" data-toggle="modal" href="#modal_addComment">Dodaj komentarz</a>
+					</li>
+                </ul>
+            </li>
+        </ul>
+</div>
 
 <div class="navbar">
 	<div class="navbar-inner">
+        <div class="container">
+            <a class='brand'>Zadanie nr 938923</a>
+        
         <ul class="nav">
             <li  class="">
 				<a data-toggle="dropdown" class="dropdown-toggle" href="javascript:;">
@@ -40,8 +60,11 @@
 				<span class="arrow"></span>     
 				</a>
 				<ul class="dropdown-menu">
+                    <li>
+                        <a class="" data-toggle="modal" href="#modal_takeFromQueue">Pobierz z kolejki</a>
+					</li>
 					<li >
-                        <a class="btn blue" data-toggle="modal" href="#responsive">Akcja 1</a>
+                        <a class="" data-toggle="modal" href="#responsive">Akcja 1</a>
 					</li>
                     <li>
                         <a class="" data-toggle="modal" href="#modal_action2">Akcja 2</a>
@@ -49,8 +72,10 @@
                 </ul>
                 </li>
 		</ul>
+        </div>
 	</div>
-</div>
+</div>
+
 
     <h3 class="page-title">
 			Lista spraw <small>jakiś tam dashboard</small>
@@ -107,7 +132,10 @@
 		<button type="button" data-dismiss="modal" class="btn">Close</button>
 		<button type="button" class="btn blue">Save changes</button>
 	</div>
-</div><div id="modal_action2" class="modal hide fade" tabindex="-1" data-width="760">
+</div>
+
+
+<div id="modal_action2" class="modal hide fade" tabindex="-1" data-width="760">
 	<div class="modal-header">
 		<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
 		<h3>Akcja 2</h3>
@@ -152,4 +180,64 @@
 		<button type="button" data-dismiss="modal" class="btn">Close</button>
 		<button type="button" class="btn blue">Save changes</button>
 	</div>
-</div><!-- END MODALS -->
+</div>
+
+
+
+<div id="modal_takeFromQueue" class="modal hide fade" tabindex="-1" data-width="760">
+	<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+		<h3>Pobierz z kolejki</h3>
+	</div>
+	<div class="modal-body">
+		<div class="row-fluid">
+			<div class="12">
+				<p>Czy pobrać zgłoszenie z kolejki?</p>
+			</div>
+		</div>
+        <div class="row-fluid">
+			<div class="span4">
+				<p><input type="checkbox" class=""></input></p>
+			</div>
+		</div>
+	</div>
+	<div class="modal-footer">
+		<button type="button" data-dismiss="modal" class="btn">Anuluj</button>
+		<button type="button" class="btn blue">OK</button>
+	</div>
+</div>
+
+<div id="modal_addComment" class="modal hide" tabindex="-1" data-width="760">
+    <div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+		<h3>Dodaj komentarz</h3>
+	</div>
+	<div class="modal-body">
+		<div class="row-fluid" >
+			<div class="12" id="modal_addComment_form">
+			</div>
+		</div>
+	</div>
+	<div class="modal-footer">
+		<button type="button" data-dismiss="modal" class="btn">Anuluj</button>
+		<button type="button" class="btn blue">OK</button>
+	</div>
+    <script type="text/javascript">
+        Ext.onReady(function () {
+            var p = Ext.create('Ext.form.Panel', {
+                renderTo: 'modal_addComment_form', height: 300, border: false, defaults: {padding: 5, anchor: '100%'}, style: "width: 100%",
+                items: [
+                    { xtype: 'textfield', fieldLabel: 'kto ty jestes?', name: 'who' },
+                    { xtype: 'textfield', fieldLabel: 'A kto tam?', name: 'another' },
+                    { xtype: 'textarea', fieldLabel: 'Komentarz', name: 'comment' }
+                ]
+            });
+            $('#modal_addComment').on('shown', function () {
+                console.log('modal show!');
+                p.doLayout();
+            });
+        });
+    </script>
+</div>
+
+<!-- END MODALS -->
