@@ -32,6 +32,7 @@ namespace CogDox.Core.BusinessObjects.Mappings
             Version(x => x.Version).Generated.Always();
             References<UserAccount>(x => x.Assignee).Nullable();
             References<GroupInfo>(x => x.AssigneeGroup).Not.Nullable();
+            References<TaskProfile>(x => x.Profile).Not.Nullable();
         }
     }
 }

@@ -25,9 +25,11 @@ namespace CogDox.Controllers
 
         protected override void Execute(System.Web.Routing.RequestContext ctx)
         {
+            bool succ = false;
             try
             {
                 OpenTransaction(ctx.HttpContext);
+                SessionContext.RollbackCurrentSession = true;
                 if (ctx.HttpContext.User.Identity.IsAuthenticated)
                 {
                     AppUser appu = ctx.HttpContext.Session["_appuser"] as AppUser;
@@ -39,6 +41,7 @@ namespace CogDox.Controllers
                     UserContext.CurrentUser = appu;
                 }
                 base.Execute(ctx);
+                SessionContext.RollbackCurrentSession = false;
             }
             finally
             {

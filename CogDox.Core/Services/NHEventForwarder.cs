@@ -36,7 +36,7 @@ namespace CogDox.Core.Services
         public bool OnPreUpdate(PreUpdateEvent ev)
         {
             log.Debug("PreUpdate {0}[{1}]", ev.Session.GetEntityName(ev.Entity), ev.Id);
-            return true;
+            return false;
         }
 
         public void OnPostLoad(PostLoadEvent ev)

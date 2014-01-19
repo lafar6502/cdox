@@ -37,5 +37,22 @@ namespace CogDox.Core.BusinessObjects
                 return ses.Get<UserAccount>(UserContext.CurrentUser.Id);
             }
         }
+
+        public static UserAccount FindUserByQuery(string qry, GroupInfo group)
+        {
+            if (qry.StartsWith(":"))
+            {
+                switch (qry.ToLower())
+                {
+                    case ":group_supervisor": return group.Supervisor;
+                    default: throw new Exception("unknown: " + qry);
+                }
+            }
+            var qr = SessionContext.CurrentSession.QueryOver<UserAccount>()
+                    .Where(x => x.Active && (x.Login == qry || x.Email == qry || x.ExternalId == qry));
+            if (group != null) qr = qr.Where(x => x.MemberOf.Contains(group));
+            var pl = qr.OrderBy(x => x.Id).Asc.Take(1).List();
+            return pl.Count > 0 ? pl[0] : null;
+        }
     }
 }

@@ -36,31 +36,41 @@
     </div>
     
         <script type="text/javascript">
+            var taskDetailHostApi = function () {
+                this.reload = function () {
+                    console.log('reload task!');
+                    Ext.getCmp('vDocView').reloadTask();
+                };
+                return this;
+            };
+
             Ext.onReady(function () {
                 var tView = Ext.create('Ext.panel.Panel', {
-                    itemId: 'vDocView', region: 'south', autoScroll: true, collapsed: false, split: true, border: false
+                    id: 'vDocView', region: 'south', autoScroll: true, collapsed: false, split: true, border: false,
+                    reloadTask: function (id) {
+                        if (Ext.isEmpty(id)) id = this.currentTaskId;
+                        this.currentTaskId = id;
+                        Ext.Ajax.request({
+                            url: '@Url.Action("DetailsEmbed", "Task")/' + id + '?callbackjs=taskDetailHostApi',
+                            success: function (response) {
+                                var text = response.responseText;
+                                if (tView.getCollapsed()) tView.toggleCollapse();
+                                tView.update(text, true, function () {
+                                    console.log('view updated');
+                                });
+                            }
+                        });
+                    }
                 });
-                var showTask = function (id) {
-                    Ext.Ajax.request({
-                        url: '@Url.Action("DetailsEmbed", "Task")/' + id,
-                        success: function (response) {
-                            var text = response.responseText;
-                            if (tView.getCollapsed()) tView.toggleCollapse();
-                            tView.update(text, true, function () {
-                                console.log('view updated');
-                            });
-                        }
-                    });
-                };
                 var pnl = Ext.create('Ext.panel.Panel', {
-                    layout: 'border', renderTo: 'theGrid2', 
+                    layout: 'border', renderTo: 'theGrid2', style: "width: 100%",
                     items: [
                         Ext.create('CogDox.ui.TODOListGrid', {
                             itemId: 'vGrid', height: 300, border: false,
                             region: 'center',
                             listeners: {
                                 itemclick: function (p, i) {
-                                    showTask(i.data.Id);
+                                    tView.reloadTask(i.data.Id);
                                 }
                             }
                         }),
@@ -81,36 +91,8 @@
 
 <script>
     Ext.onReady(function () {
-        return;
-            var v = Ext.create('Ext.container.Viewport', {
-                layout: 'border', renderTo: Ext.getBody(), 
-                items: [
-                    {
-                        xtype: 'panel', region: 'north', border: false, 
-                        
-                        tpl: '<div class="navbar-inner">' +
-                            '<div class="container-fluid">' +
-                            '<a class="brand" href="index.html">' + 
-				            '<img src="assets/img/logo.png" alt="logo" />' + 
-				            '</a>' +
-                            '</div></div>',
-                        data: {}
-                    },
-                    {
-                        xtype: 'panel', region: 'west', border: false,
-                        data: {},
-                        tpl: '<div class="page-sidebar nav-collapse collapse">' +
-			                '<ul class="page-sidebar-menu">' + 
-				            '<li class="start ">' +
-					        '<a href="index.html">' +
-					        '<i class="icon-home"></i>' +
-					        '<span class="title">Dashboard</span>' +
-					        '</a>' +
-				            '</li>'  +
-                            '</ul></div>'
-                    },
-                    {xtype: 'panel', html: '<b> to ja panel </b>', region: 'center', border: false}
-                ]
-            });
+        $(".page-sidebar").on("show", function () {
+            console.log('sidebar show');
         });
+    });
  </script>

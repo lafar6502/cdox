@@ -1,0 +1,49 @@
+﻿@using CogDox.Core.BusinessObjects
+@using CogDox.Models
+@model TaskDetailsModel
+
+
+<div id="modal_TakeTaskFromGroupQueue" class="modal hide fade" tabindex="-1" data-width="760">
+	<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+		<h3>Pobierz zadanie z kolejki</h3>
+	</div>
+	<div class="modal-body">
+        <form action="@Url.Action("TakeTaskFromGroupQueue", "Task")">
+            <div class="row-fluid">
+                <div class="span1"></div>
+			    <div class="span4">
+                    <div class="control-group">
+                        <div class="controls">
+					        <label class="checkbox">
+					        <input type="checkbox" value="true" checked name="startExecution" /> Rozpocznij realizację
+					        </label>                        <//div>                    </div>
+			    </div>
+		    </div>
+            <input type="hidden" name="id" value="@Model.Task.Id" />
+        </form>
+	</div>
+	<div class="modal-footer">
+		<button type="button" data-dismiss="modal" class="btn">Anuluj</button>
+		<button type="button" class="btn blue okbtn">OK</button>
+	</div>
+    <script type="text/javascript">
+        $('#modal_TakeTaskFromGroupQueue button.okbtn').click(function () {
+            var exApi = eval('@Model.ViewHostCallbackJS')();
+            var dt = $('#modal_TakeTaskFromGroupQueue form').serialize();
+            $.ajax({
+                data: dt, method: 'POST',
+                url: '@Url.Action("TakeTaskFromGroupQueue", "Task")',
+                success: function (d) {
+                    $('#modal_TakeTaskFromGroupQueue').modal('hide');
+                    exApi.reload();
+                },
+                error: function () {
+                    alert('błąd');
+                }
+            });
+        });
+    </script>
+</div>
+
+<!-- END MODALS -->

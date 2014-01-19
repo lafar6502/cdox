@@ -1,0 +1,65 @@
+﻿@using CogDox.Core.BusinessObjects
+@using CogDox.Models
+
+@model CreateTaskViewModel
+
+<div class="row-fluid">
+	<div class="span12">
+		<!-- BEGIN SAMPLE FORM PORTLET-->   
+		<div class="portlet box blue">
+			<div class="portlet-title">
+				<div class="caption"><i class="icon-reorder"></i>Sample Form</div>
+			</div>
+			<div class="portlet-body form">
+				<!-- BEGIN FORM-->
+				<form method="post" class="form-horizontal">
+                    <div class="control-group">
+						<label class="control-label">Task profile</label>
+						<div class="controls">
+							<select class="span6 m-wrap" data-placeholder="Choose a profile" tabindex="1" name="Profile">
+								<option value="">Select...</option>
+                                @foreach(var v in Model.Profiles) {
+                                    <option value="@v">@v</option>
+								}
+							</select>
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label">Assignee group</label>
+						<div class="controls">
+							<input type="text" class="span6 m-wrap" name="AssigneeGroup" />
+							<span class="help-inline">Assignee group</span>
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label">Assignee</label>
+						<div class="controls">
+							<input type="text" class="span6 m-wrap" name="Assignee" />
+							<span class="help-inline">Assignee</span>
+						</div>
+					</div>
+                    <div class="control-group">
+						<label class="control-label">Summary</label>
+						<div class="controls">
+							<input type="text" class="span12 m-wrap" name="Summary" />
+							<span class="help-inline"></span>
+						</div>
+					</div>
+
+
+                    <div class="control-group">
+						<label class="control-label">Task description</label>
+						<div class="controls">
+							<textarea class="span12 wysihtml5 m-wrap" rows="6" name="Text"></textarea>
+						</div>
+					</div>
+                    <div class="form-actions">
+						<button type="submit" class="btn blue">Submit</button>
+						<button type="button" class="btn">Cancel</button>
+					</div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+					

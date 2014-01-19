@@ -16,6 +16,9 @@ using NHibernate.Cfg;
 using NHibernate.Event;
 using System.IO;
 using CogDox.Core.Lists;
+using CogDox.Core.BusinessAPI;
+using CogDox.Core;
+using CogDox.Core.Services;
 
 namespace CogDox.Core
 {
@@ -157,6 +160,7 @@ namespace CogDox.Core
             _wc.Register(Component.For<ISessionFactory>().Instance(BuildSessionFactory()));
             _wc.Register(Component.For<IListManager>().ImplementedBy<ListManager>()
                 .LifeStyle.Singleton);
+            _wc.Register(Component.For<ITaskOperations>().ImplementedBy<TaskOperations>().LifeStyle.Singleton);
             log.Info("Finished configuration");
             return this;
         }

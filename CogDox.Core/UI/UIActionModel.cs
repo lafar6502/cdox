@@ -19,6 +19,9 @@ namespace CogDox.Core.UI
         public string Label { get; set; }
         public string Tooltip { get; set; }
         public string ClickScript { get; set; }
+        /// <summary>
+        /// template used for rendering action's markup
+        /// </summary>
         public string UITemplate { get; set; }
         public string ParentDocRef { get; set; }
         public Dictionary<string, object> Data { get; set; }

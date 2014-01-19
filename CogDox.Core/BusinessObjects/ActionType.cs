@@ -9,5 +9,13 @@ namespace CogDox.Core.BusinessObjects
     {
         public virtual int Id { get; set; }
         public virtual string Name { get; set; }
+
+
+        public virtual ActionType CreateObject
+        {
+            get { return SessionContext.CurrentSession.Get<ActionType>(1); }
+        }
+
+
     }
 }

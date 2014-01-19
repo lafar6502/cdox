@@ -159,12 +159,16 @@
     </Compile>
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\CogDoxPageModel.cs" />
+    <Compile Include="Models\CreateTaskViewModel.cs" />
     <Compile Include="Models\DataTablesQueryResults.cs" />
     <Compile Include="Models\JQGridListModel.cs" />
     <Compile Include="Models\ListSearchModel.cs" />
     <Compile Include="Models\SortSpec.cs" />
+    <Compile Include="Models\TaskDetailsModel.cs" />
     <Compile Include="MvcExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Web\AspnetRequestWrapper.cs" />
+    <Compile Include="Web\ServiceCallHandler.cs" />
     <Compile Include="Web\WindsorControllerFactory.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -300,6 +304,9 @@
     <Content Include="Views\Task\DetailsPartial.cshtml" />
     <Content Include="Views\Task\ActionMenuPartial.cshtml" />
     <Content Include="Views\Task\DetailsEmbed.cshtml" />
+    <Content Include="Views\Task\NewTask.cshtml" />
+    <Content Include="Views\Task\Action_TakeTaskFromGroupQueueMarkup.cshtml" />
+    <Content Include="Views\Task\Action_AddCommentMarkup.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

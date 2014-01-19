@@ -15,6 +15,9 @@ namespace CogDox.Core.BusinessObjects
         Suspended
     }
 
+    
+    
+
     public class BaseTask
     {
         public virtual int Id { get; set; }
@@ -35,6 +38,10 @@ namespace CogDox.Core.BusinessObjects
         public virtual DateTime CreatedDate { get; set; }
         public virtual DateTime CurrentGroupAssignedDate { get; set; }
         public virtual DateTime CurrentPersonAssignedDate { get; set; }
+        /// <summary>
+        /// Task deadline
+        /// </summary>
+        public virtual DateTime? Deadline { get; set; }
         /// <summary>
         /// Completion or cancellation date
         /// </summary>
@@ -84,11 +91,11 @@ namespace CogDox.Core.BusinessObjects
         {
             get
             {
-                throw new NotImplementedException();
+                return null;
             }
             set
             {
-                throw new NotImplementedException();
+                
             }
         }
     }

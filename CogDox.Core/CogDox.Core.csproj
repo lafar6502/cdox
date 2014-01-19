@@ -101,6 +101,8 @@
     <Compile Include="BusinessAPI\Events\TaskEvent.cs" />
     <Compile Include="BusinessAPI\Events\UserAccountEvent.cs" />
     <Compile Include="BusinessAPI\ICogDoxLogic.cs" />
+    <Compile Include="BusinessAPI\ITaskOperations.cs" />
+    <Compile Include="BusinessAPI\LogicException.cs" />
     <Compile Include="BusinessAPI\Messages\ChangeTaskAssigneeGroup.cs" />
     <Compile Include="BusinessAPI\Messages\ChangeTaskAssigneeInGroup.cs" />
     <Compile Include="BusinessAPI\Messages\CommandBase.cs" />
@@ -118,6 +120,7 @@
     <Compile Include="BusinessObjects\Mappings\BaseTaskMap.cs" />
     <Compile Include="BusinessObjects\Mappings\ActionTypeMap.cs" />
     <Compile Include="BusinessObjects\Mappings\ActionRecordMap.cs" />
+    <Compile Include="BusinessObjects\Mappings\TaskProfileMap.cs" />
     <Compile Include="BusinessObjects\Mappings\ObjectClassMap.cs" />
     <Compile Include="BusinessObjects\Mappings\PermissionMap.cs" />
     <Compile Include="BusinessObjects\Mappings\GroupInfoMap.cs" />
@@ -147,11 +150,13 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ServiceConfigurator.cs" />
     <Compile Include="Services\IAuthenticateUsers.cs" />
+    <Compile Include="UI\IDocumentOperations.cs" />
     <Compile Include="Services\IUserPresence.cs" />
     <Compile Include="Services\IWorkTimeCalendar.cs" />
     <Compile Include="Services\NHEventForwarder.cs" />
     <Compile Include="SessionContext.cs" />
     <Compile Include="UI\DocDetailsModel.cs" />
+    <Compile Include="UI\ITaskOperations.cs" />
     <Compile Include="UI\UIActionModel.cs" />
     <Compile Include="User\PasswordUserAuth.cs" />
   </ItemGroup>
@@ -160,6 +165,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="BusinessObjects\ListModels\NewFolder1\" />
+    <Folder Include="NH\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="CmdApi.txt" />

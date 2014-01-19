@@ -1,5 +1,10 @@
 ﻿@using CogDox.Core.BusinessObjects
-@model BaseTask
+@using CogDox.Models;
+
+@model TaskDetailsModel
+@{
+    var GID = Model.Task.Id;
+}
 
 <style>
 #action_menu { 
@@ -12,7 +17,7 @@
     margin-top:200px;
 }
 </style>
-
+<!--
 <div id="action_menu">
     <ul class="nav">
             <li  class="">
@@ -23,7 +28,7 @@
 				</a>
 				<ul class="dropdown-menu">
 					<li >
-						<a href="@Url.Action("Details", "Task", new {id=Model.Id})" target="_blank">Otwórz w nowym oknie</a>
+						<a href="@Url.Action("Details", "Task", new {id=Model.Task.Id})" target="_blank">Otwórz w nowym oknie</a>
 					</li>
                     <li>
                         <a class="" data-toggle="modal" href="#modal_addComment">Dodaj komentarz</a>
@@ -31,14 +36,14 @@
                 </ul>
             </li>
         </ul>
-</div>
+</div>-->
 
-<div class="navbar">
+<div class="navbar" id="taskdet_navbar_@(GID)">
 	<div class="navbar-inner">
         <div class="container">
-            <a class='brand'>Zadanie nr 938923</a>
+            <a class='brand'>Zadanie nr @Model.Task.Id</a>
         
-        <ul class="nav">
+        <ul class="nav" id>
             <li  class="">
 				<a data-toggle="dropdown" class="dropdown-toggle" href="javascript:;">
 				<span class="selected"></span>
@@ -47,8 +52,11 @@
 				</a>
 				<ul class="dropdown-menu">
 					<li >
-						<a href="@Url.Action("Details", "Task", new {id=Model.Id})" target="_blank">Otwórz w nowym oknie</a>
+						<a href="@Url.Action("Details", "Task", new {id=Model.Task.Id})" target="_blank">Otwórz w nowym oknie</a>
 					</li>
+                    <li>
+                        <a href="#" id="reload_link_@(GID)" class="reload_link">Załaduj ponownie</a>
+                    </li>
                 </ul>
             </li>
         </ul>
@@ -61,7 +69,7 @@
 				</a>
 				<ul class="dropdown-menu">
                     <li>
-                        <a class="" data-toggle="modal" href="#modal_takeFromQueue">Pobierz z kolejki</a>
+                        <a class="" data-toggle="modal" href="#modal_TakeTaskFromGroupQueue">Pobierz z kolejki</a>
 					</li>
 					<li >
                         <a class="" data-toggle="modal" href="#responsive">Akcja 1</a>
@@ -76,136 +84,59 @@
 	</div>
 </div>
 
-
-    <h3 class="page-title">
-			Lista spraw <small>jakiś tam dashboard</small>
-		</h3>
-		
-
-
-<div class="container-fluid">
+<div id="taskdet_body_@(GID)" class="container-fluid">
     <div class="row-fluid">
         <div class="span3">
-            Id: @Model.Id
+            Id: @Model.Task.Id
         </div>
         <div class="span3">
-            Summary: @Model.Summary
+            Summary: @Model.Task.Summary
         </div>
     </div>
-    <div style="height:350px;background-color: yellow">
+    <div class="row-fluid">
+        <div class="span12">
+            
+        </div>
     </div>
-    <div class="row-fluid">FOOT</div>
+    <div class="row-fluid">
+        <div class="span12 tabbable tabbable-custom">
+											<ul class="nav nav-tabs">
+												<li class="active"><a href="#tab_1_1" data-toggle="tab">Opis</a></li>
+												<li><a href="#tab_1_2" data-toggle="tab">Section 2</a></li>
+												<li><a href="#tab_1_3" data-toggle="tab">Section 3</a></li>
+											</ul>
+											<div class="tab-content">
+												<div class="tab-pane active" id="tab_1_1">
+													@Html.Raw(Model.Task.Description)
+												</div>
+												<div class="tab-pane" id="tab_1_2">
+													<p>Howdy, I'm in Section 2.</p>
+													<p>
+														Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat. Ut wisi enim ad minim veniam, quis nostrud exerci tation.
+													</p>
+													<p>
+														<a class="btn green" href="ui_tabs_accordions.html#tab_1_2" target="_blank">Activate this tab via URL</a>
+													</p>
+												</div>
+												<div class="tab-pane" id="tab_1_3">
+													<p>Howdy, I'm in Section 3.</p>
+													<p>
+														Duis autem vel eum iriure dolor in hendrerit in vulputate.
+														Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat
+													</p>
+													<p>
+														<a class="btn yellow" href="ui_tabs_accordions.html#tab_1_3" target="_blank">Activate this tab via URL</a>
+													</p>
+												</div>
+											</div>
+										</div>
+    </div>
 
 </div>
 
-<!-- MODALS -->
-<div id="responsive" class="modal hide fade" tabindex="-1" data-width="760">
-	<div class="modal-header">
-		<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-		<h3>Responsive</h3>
-	</div>
-	<div class="modal-body">
-		<div class="row-fluid">
-			<div class="span6">
-				<h4>Some Input</h4>
-				<p><input type="text" class="span12 m-wrap"></p>
-				<p><input type="text" class="span12 m-wrap"></p>
-				<p><input type="text" class="span12 m-wrap"></p>
-				<p><input type="text" class="span12 m-wrap"></p>
-				<p><input type="text" class="span12 m-wrap"></p>
-				<p><input type="text" class="span12 m-wrap"></p>
-				<p><input type="text" class="span12 m-wrap"></p>
-			</div>
-			<div class="span6">
-				<h4>Some More Input</h4>
-				<p><input type="text" class="span12 m-wrap"></p>
-				<p><input type="text" class="span12 m-wrap"></p>
-				<p><input type="text" class="span12 m-wrap"></p>
-				<p><input type="text" class="span12 m-wrap"></p>
-				<p><input type="text" class="span12 m-wrap"></p>
-				<p><input type="text" class="span12 m-wrap"></p>
-				<p><input type="text" class="span12 m-wrap"></p>
-			</div>
-		</div>
-	</div>
-	<div class="modal-footer">
-		<button type="button" data-dismiss="modal" class="btn">Close</button>
-		<button type="button" class="btn blue">Save changes</button>
-	</div>
-</div>
+<!-- ==== MODALS ============================================================================== -->
 
-
-<div id="modal_action2" class="modal hide fade" tabindex="-1" data-width="760">
-	<div class="modal-header">
-		<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-		<h3>Akcja 2</h3>
-	</div>
-	<div class="modal-body">
-		<div class="row-fluid">
-			<div class="span6">
-				<h4>Some Input</h4>
-				<p><input type="text" class="span12 m-wrap"></p>
-			</div>
-			<div class="span6">
-				<h4>Some More Input</h4>
-				<p>
-                    <select>
-                        <option>Opcja 1</option>
-                        <option>Opcja 2</option>
-                    </select>
-				</p>
-			</div>
-		</div>
-        <div class="row-fluid">
-			<div class="span4">
-				<h4>Some Input</h4>
-				<p><input type="text" class="span12 m-wrap"></p>
-			</div>
-            <div class="span3">
-				<h4>Some Input</h4>
-				<p><input type="text" class="span12 m-wrap"></p>
-			</div>
-			<div class="span3">
-				<h4>Input</h4>
-				<p>
-                    <select>
-                        <option>Opcja 1</option>
-                        <option>Opcja 2</option>
-                    </select>
-				</p>
-			</div>
-		</div>
-	</div>
-	<div class="modal-footer">
-		<button type="button" data-dismiss="modal" class="btn">Close</button>
-		<button type="button" class="btn blue">Save changes</button>
-	</div>
-</div>
-
-
-
-<div id="modal_takeFromQueue" class="modal hide fade" tabindex="-1" data-width="760">
-	<div class="modal-header">
-		<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-		<h3>Pobierz z kolejki</h3>
-	</div>
-	<div class="modal-body">
-		<div class="row-fluid">
-			<div class="12">
-				<p>Czy pobrać zgłoszenie z kolejki?</p>
-			</div>
-		</div>
-        <div class="row-fluid">
-			<div class="span4">
-				<p><input type="checkbox" class=""></input></p>
-			</div>
-		</div>
-	</div>
-	<div class="modal-footer">
-		<button type="button" data-dismiss="modal" class="btn">Anuluj</button>
-		<button type="button" class="btn blue">OK</button>
-	</div>
-</div>
+@Html.Partial("Action_TakeTaskFromGroupQueueMarkup", Model)
 
 <div id="modal_addComment" class="modal hide" tabindex="-1" data-width="760">
     <div class="modal-header">
@@ -241,3 +172,14 @@
 </div>
 
 <!-- END MODALS -->
+
+<script type="text/javascript">
+    //event wireup
+    $(document).ready(function () {
+        var exApi = eval('@Model.ViewHostCallbackJS');
+        if ($.isFunction(exApi)) exApi = exApi();
+        $('#reload_link_@(GID)').click(function () {
+            exApi.reload();
+        });
+    });
+</script>
