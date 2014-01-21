@@ -66,5 +66,19 @@ namespace CogDox.Controllers
             TaskOps.TakeTaskFromGroupQueue(id, startExecution.HasValue ? startExecution.Value : false);
             return Json(new object { }, JsonRequestBehavior.AllowGet);
         }
+
+        public ActionResult AddComment(int id, string comment)
+        {
+            TaskOps.AddComment(id, comment);
+            return Json(new object { }, JsonRequestBehavior.AllowGet);
+        }
+
+        [Authorize]
+        [ValidateInput(false)]
+        public ActionResult CompleteTask(int id, string completionCode, string comment)
+        {
+            TaskOps.CompleteTask(id, comment, null);
+            return Json(new object { }, JsonRequestBehavior.AllowGet);
+        }
     }
 }

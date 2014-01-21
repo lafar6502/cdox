@@ -2,12 +2,45 @@
 @using CogDox.Core.Lists
 @using CogDox.Models
 @using Newtonsoft.Json;
+@using CogDox.Core.BusinessObjects
 
-@model JQGridListModel
+@model IList<ActionRecord>
 @{
-    //History list view (table)
+    
 }
-
-<div>
-
-</div>
+<table class="table table-striped table-bordered table-hover" id="sample_1">
+	<thead>
+		<tr>
+			<th style="width:100px">Timestamp</th>
+            <th style="width:100px">User</th>
+            <th style="width:100px">Action</th>
+            <th>Summary</th>
+		</tr>
+	</thead>
+	<tbody>
+        @foreach(var ar in Model) {
+		<tr class="">
+            <td>@ar.TimeStamp</td>
+            <td>@ar.User.Name</td>
+            <td>@ar.Action.Name</td>
+            <td>@ar.Summary</td>
+		</tr>        }    </tbody></table><script type="text/javascript">
+    $(document).ready(function () {
+        $('#sample_1').dataTable({
+            "aaSorting": [[0, 'desc']],
+            "aLengthMenu": [5, 10, 20],
+            // set the initial value
+            "iDisplayLength": 5,
+            "sPaginationType": "bootstrap",
+            "oLanguage": {
+                "sLengthMenu": "_MENU_ wierszy na stronie",
+                "oPaginate": {
+                    "sPrevious": "Prev",
+                    "sNext": "Next"
+                }
+            }
+        
+            
+        })
+    });
+</script>

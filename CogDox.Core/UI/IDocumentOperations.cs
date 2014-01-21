@@ -8,7 +8,7 @@ namespace CogDox.Core.UI
 {
     public interface IDocumentOperations
     {
-        DocDetailsModel GetDetails(string docRef);
+        DocViewModelBase GetDetails(string docRef);
         void ExecuteAction(string docRef, string actionName, Dictionary<string, object> arguments);
 
     }

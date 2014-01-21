@@ -13,6 +13,10 @@ namespace CogDox.Core.BusinessObjects.Mappings
         {
             Id(x => x.Id).GeneratedBy.Assigned();
             Map(x => x.Name).Not.Nullable();
+            Map(x => x.Code).Nullable();
+            References(x => x.ParentClass).Column("parent_class").Nullable();
         }
+
+        
     }
 }

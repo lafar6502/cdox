@@ -225,6 +225,23 @@ namespace CogDox.Core.BusinessAPI
             });
         }
 
-        
+
+
+
+        public void AddComment(int id, string comment)
+        {
+            var ses = SessionContext.CurrentSessionRequired;
+            var tsk = ses.Get<BaseTask>(id);
+            var ar = new ActionRecord(tsk);
+            ar.Action = ActionType.FindByCode("BaseTask.AddComment");
+            ar.Summary = comment;
+            ses.Save(ar);
+        }
+
+
+        public UI.DocViewModelBase GetDetails(int id)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

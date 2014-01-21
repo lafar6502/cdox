@@ -307,6 +307,11 @@
     <Content Include="Views\Task\NewTask.cshtml" />
     <Content Include="Views\Task\Action_TakeTaskFromGroupQueueMarkup.cshtml" />
     <Content Include="Views\Task\Action_AddCommentMarkup.cshtml" />
+    <Content Include="Views\Shared\UI\HistoryPanel.cshtml">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="Views\Doc\BaseTask.cshtml" />
+    <Content Include="Views\Doc\BaseTaskPartial.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

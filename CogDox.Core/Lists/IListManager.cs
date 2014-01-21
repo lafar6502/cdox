@@ -32,6 +32,11 @@ namespace CogDox.Core.Lists
         /// grid-dependent data type
         /// </summary>
         public string DataType { get; set; }
+
+        public ListColumn()
+        {
+            Resizable = true;
+        }
     }
 
     public class ListModel

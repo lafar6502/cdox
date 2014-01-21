@@ -5,3 +5,16 @@ np:
 show tasks as json
 show users as json
 
+
+
+??? jak to ma działać???
+
+1. Mapowanie Typ -> krótka nazwa -> repozytorium które za dokument odpowiada
+repozytorium będzie nam tylko wyciągać dokumenty 'raw' albo pozwalać je modyfikować,
+ a potem to trafi do
+
+'DetailsProvidera' który
+a) wygeneruje obiekt z detailsami
+b) wygeneruje akcje
+c) wykona akcje
+d) da nam listy

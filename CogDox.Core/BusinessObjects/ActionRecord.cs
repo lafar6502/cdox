@@ -48,6 +48,14 @@ namespace CogDox.Core.BusinessObjects
         public virtual string RefStr { get; set; }
 
 
+        public static NHibernate.IQueryOver<ActionRecord, ActionRecord> GetHistory(object parent)
+        {
+            var ses = SessionContext.CurrentSessionRequired;
+            var pc = ObjectClass.GetObjectClass(parent);
+            var pid = Convert.ToInt32(ses.GetIdentifier(parent));
+            return ses.QueryOver<ActionRecord>().Where(x => x.ParentClass == pc && x.ParentId == pid).OrderBy(x => x.Id).Desc;
+        }
+
         
         
     }

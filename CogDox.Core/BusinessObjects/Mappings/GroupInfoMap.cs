@@ -18,6 +18,7 @@ namespace CogDox.Core.BusinessObjects.Mappings
             Map(x => x.DefaultDeadlineMinutes).Nullable();
             Map(x => x.ExtId).Nullable();
             References<UserAccount>(x => x.Supervisor).Nullable();
+            HasMany(x => x.Aliases).KeyColumn("Group_Id").Inverse();
             HasManyToMany<UserAccount>(x => x.Members).Cascade.SaveUpdate().Table("Users2Groups");
             HasManyToMany<UserAccount>(x => x.Leaders).Cascade.SaveUpdate().Table("Leaders2Groups");
             HasManyToMany<Permission>(x => x.Permissions).Cascade.SaveUpdate().Table("Groups2Permissions");

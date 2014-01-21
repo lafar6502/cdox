@@ -18,7 +18,9 @@
 	<link href="@Url.Content("~/metronic/css/style-responsive.css")" rel="stylesheet" type="text/css"/>
 	<link href="@Url.Content("~/metronic/css/themes/default.css")" rel="stylesheet" type="text/css" id="style_color"/>
 	<link href="@Url.Content("~/metronic/plugins/uniform/css/uniform.default.css")" rel="stylesheet" type="text/css"/>
-	<link href="@Url.Content("~/ext/resources/css/ext-all-gray.css")" rel="stylesheet" type="text/css"/>
+	
+    <link rel="stylesheet" href="@Url.Content("~/metronic/plugins/data-tables/DT_bootstrap.css")" />
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/metronic/plugins/bootstrap-wysihtml5/bootstrap-wysihtml5.css")" />    <link href="@Url.Content("~/ext/resources/css/ext-all-gray.css")" rel="stylesheet" type="text/css"/>
 
     <!-- END GLOBAL MANDATORY STYLES -->
 	<link rel="shortcut icon" href="favicon.ico" />
@@ -29,7 +31,11 @@
 	<script src="@Url.Content("~/metronic/plugins/jquery-ui/jquery-ui-1.10.1.custom.min.js")" type="text/javascript"></script>      
 	<script src="@Url.Content("~/metronic/plugins/bootstrap/js/bootstrap.min.js")" type="text/javascript"></script>
 	<script src="@Url.Content("~/ext/ext-all-debug.js")"></script> 
-    
+    <script type="text/javascript" src="@Url.Content("~/metronic/plugins/data-tables/jquery.dataTables.js")"></script>
+	<script type="text/javascript" src="@Url.Content("~/metronic/plugins/data-tables/DT_bootstrap.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/metronic/plugins/bootstrap-wysihtml5/wysihtml5-0.3.0.js")"></script> 
+    <script type="text/javascript" src="@Url.Content("~/metronic/plugins/bootstrap-wysihtml5/bootstrap-wysihtml5.js")"></script>
+
     <script src="@Url.Action("ListDefinitions", "DScript")" type="text/javascript"></script>
     @RenderSection("ScriptAndCss", false)
     
@@ -109,7 +115,14 @@
 	<script src="@Url.Content("~/metronic/scripts/app.js")"></script>      
 	<script>
 		jQuery(document).ready(function() {    
-		   App.init();
+		    App.init();
+		    if (jQuery().wysihtml5) {
+		        if ($('.wysihtml5').size() > 0) {
+		            $('.wysihtml5').wysihtml5({
+		                "stylesheets": ['@Url.Content("~/metronic/plugins/bootstrap-wysihtml5/wysiwyg-color.css")']
+		            });
+		        }
+		    }
 		});
 	</script>
 	<!-- END JAVASCRIPTS -->

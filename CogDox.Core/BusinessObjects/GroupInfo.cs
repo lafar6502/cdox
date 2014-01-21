@@ -21,6 +21,7 @@ namespace CogDox.Core.BusinessObjects
         public virtual IList<UserAccount> Members { get; set; }
         public virtual IList<UserAccount> Leaders { get; set; }
         public virtual IList<Permission> Permissions { get; set; }
+        public virtual IList<GroupAlias> Aliases { get; set; }
 
 
         public static GroupInfo FindGroup(string name)

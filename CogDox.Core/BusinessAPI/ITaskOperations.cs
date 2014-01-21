@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using CogDox.Core.UI;
+
 
 namespace CogDox.Core.BusinessAPI
 {
@@ -19,6 +21,7 @@ namespace CogDox.Core.BusinessAPI
         void SuspendTask(int id, DateTime unsuspendDate, string comment);
         void ResumeTask(int id, string comment);
         void PlaceTaskInCalendar(int id, string calendarId, DateTime date, int durationMinutes, string comment);
-
+        void AddComment(int id, string comment);
+        DocViewModelBase GetDetails(int id);
     }
 }

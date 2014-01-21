@@ -19,6 +19,7 @@ using CogDox.Core.Lists;
 using CogDox.Core.BusinessAPI;
 using CogDox.Core;
 using CogDox.Core.Services;
+using DM = CogDox.Core.DocManagement2;
 
 namespace CogDox.Core
 {
@@ -160,7 +161,16 @@ namespace CogDox.Core
             _wc.Register(Component.For<ISessionFactory>().Instance(BuildSessionFactory()));
             _wc.Register(Component.For<IListManager>().ImplementedBy<ListManager>()
                 .LifeStyle.Singleton);
+            _wc.Register(Component.For<DM.IDocumentRepository, DM.NHDocumentRepository>()
+                .ImplementedBy<DM.NHDocumentRepository>().LifeStyle.Singleton);
             _wc.Register(Component.For<ITaskOperations>().ImplementedBy<TaskOperations>().LifeStyle.Singleton);
+            var dr = _wc.Resolve<DM.NHDocumentRepository>();
+            dr.UpdateConfig(cfg =>
+            {
+                cfg.RegisterDocumentType(typeof(BusinessObjects.BaseTask), "Task");
+                cfg.RegisterDocumentType(typeof(BusinessObjects.UserAccount));
+                cfg.RegisterDocumentType(typeof(BusinessObjects.GroupInfo));
+            });
             log.Info("Finished configuration");
             return this;
         }

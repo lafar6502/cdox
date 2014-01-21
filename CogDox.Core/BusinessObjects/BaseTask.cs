@@ -22,6 +22,15 @@ namespace CogDox.Core.BusinessObjects
     {
         public virtual int Id { get; set; }
         public virtual int Subclass { get; set; }
+        /// <summary>
+        /// Task's parent class
+        /// </summary>
+        public virtual ObjectClass ParentClass { get; set; }
+        /// <summary>
+        /// Task's parent document ID
+        /// </summary>
+        public virtual int ParentId { get; set; }
+
         public virtual UserAccount Assignee { get; set; }
         public virtual GroupInfo AssigneeGroup { get; set; }
         public virtual TaskStatus Status { get; set; }

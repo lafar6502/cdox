@@ -24,21 +24,19 @@
 					<span class="title">Dashboard</span>
 					</a>
 				</li>
-				<li class="active ">
+				<li class="">
 					<a href="javascript:;">
 					<i class="icon-cogs"></i> 
-					<span class="title">Layouts</span>
+					<span class="title">Zadania</span>
 					<span class="selected"></span>
 					<span class="arrow open"></span>
 					</a>
 					<ul class="sub-menu">
-						<li >
-							<a href="@Url.Action("TodoList", "Home")">
-							TODO List</a>
-						</li>
                         <li >
-							<a href="@Url.Action("Index2", "Home")">
-							Index 2</a>
+							<a href="@Url.Action("Index2", "Home")">Lista spraw</a>
+						</li>
+                        <li>
+							<a href="@Url.Action("NewTask", "Task")">Utwórz zadanie</a>
 						</li>
 						<li >
 							<a href="@Url.Action("TodoList", "Test")">Test todo</a>
