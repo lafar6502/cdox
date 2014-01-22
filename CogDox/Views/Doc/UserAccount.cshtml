@@ -1,0 +1,19 @@
+﻿@using CogDox.Core.BusinessObjects
+@using CogDox.Models
+
+@model UserAccount
+@{
+    ViewBag.ViewHostCallbackJS = "fdetailApiUser" + Model.Id;
+}
+<script type="text/javascript">
+    var @(ViewBag.ViewHostCallbackJS) = function () {
+        console.log('aaa aa aa');
+        this.reload = function() {
+            console.log('reload!');
+            location.reload();
+        };
+        return this;
+    };
+</script>
+
+@Html.Partial("UserAccountPartial", Model)

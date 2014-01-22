@@ -312,6 +312,8 @@
     </Content>
     <Content Include="Views\Doc\BaseTask.cshtml" />
     <Content Include="Views\Doc\BaseTaskPartial.cshtml" />
+    <Content Include="Views\Doc\UserAccount.cshtml" />
+    <Content Include="Views\Doc\UserAccountPartial.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

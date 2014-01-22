@@ -24,7 +24,7 @@ namespace CogDox.Controllers
         {
             var vm = GetDocumentViewModel(id, vname);
             if (vm == null) return new HttpNotFoundResult();
-            return View(vm.ViewTemplate, vm);
+            return View(vm.ViewTemplate, vm.Document);
         }
 
         public ActionResult DetailsEmbed(string id, string vname)
@@ -33,9 +33,9 @@ namespace CogDox.Controllers
             if (vm == null) return new HttpNotFoundResult();
             if (ViewEngines.Engines.FindView(ControllerContext, vm.ViewTemplate + "_Embed", null) != null)
             {
-                return View(vm.ViewTemplate + "_Embed", vm);
+                return View(vm.ViewTemplate + "_Embed", vm.Document);
             }
-            return View(vm.ViewTemplate, vm);
+            return View(vm.ViewTemplate, vm.Document);
         }
 
         protected DocViewModelBase GetDocumentViewModel(string id, string vname)

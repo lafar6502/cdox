@@ -1,0 +1,196 @@
+﻿@using CogDox.Core.BusinessObjects
+@using CogDox.Models;
+@using CogDox.Core
+@using CogDox.Core.UI
+
+@model UserAccount
+@{
+    var GID = "User" + Model.Id;
+}
+
+<div class="navbar" id="details_navbar_@(GID)">
+	<div class="navbar-inner">
+        <div class="container">
+            <a class='brand'>Konto użytkownika nr @Model.Id</a>
+        
+        <ul class="nav" id>
+            <li  class="">
+				<a data-toggle="dropdown" class="dropdown-toggle" href="javascript:;">
+				<span class="selected"></span>
+				Widok
+				<span class="arrow"></span>     
+				</a>
+				<ul class="dropdown-menu">
+					<li >
+						<a href="@Url.Action("Details", "Doc", new {id=DocRef.GetEntityRef("UserAccount", Model.Id)})" target="_blank">Otwórz w nowym oknie</a>
+					</li>
+                    <li>
+                        <a href="#" id="reload_link_@(GID)" class="reload_link">Załaduj ponownie</a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+		<ul class="nav pull-right">
+			<li>
+				<a data-toggle="dropdown" class="dropdown-toggle" href="javascript:;">
+				<span class="selected"></span>
+				Akcje
+				<span class="arrow"></span>     
+				</a>
+				<ul class="dropdown-menu">
+                    <li>
+                        <a class="" data-toggle="modal" href="#modal_TakeTaskFromGroupQueue">Pobierz z kolejki</a>
+					</li>
+					<li >
+                        <a class="" data-toggle="modal" href="#modal_AddComment">Dodaj komentarz</a>
+					</li>
+                    <li>
+                        <a class="" data-toggle="modal" href="#modal_action2">Akcja 2</a>
+					</li>
+                </ul>
+                </li>
+		</ul>
+        </div>
+	</div>
+</div>
+
+
+
+<div id="details_body_@(GID)" class="container-fluid">
+    <form action="#" class="horizontal-form">
+				<h3 class="form-section">Dane użytkownika</h3>
+				<div class="row-fluid">
+					<div class="span4 ">
+						<div class="control-group">
+							<label class="control-label" for="Name">Imię i nazwisko</label>
+							<div class="controls">
+								<input type="text" id="Name" name="Name" class="m-wrap span12" required placeholder="" value="@Model.Name">
+								<span class="help-block"></span>
+							</div>
+						</div>
+					</div>
+					<!--/span-->
+					<div class="span4 ">
+						<div class="control-group">
+							<label class="control-label" for="Email">Email</label>
+
+							<div class="controls">
+								<input type="text" id="Email" name="Email" class="m-wrap span12" required placeholder="" value="@Model.Email">
+								
+							</div>
+						</div>
+					</div>
+                    <div class="span4">
+                        <div class="control-group">
+							<label class="control-label" >Konto aktywne</label>
+							<div class="controls">                                                
+								<label class="radio"><input type="checkbox" name="optionsRadios2" value="option1" />
+								Tak
+								</label>                            </div>
+                        </div>
+                    </div>
+					<!--/span-->
+				</div>
+				<!--/row-->
+				<div class="row-fluid">
+					<div class="span4 ">
+						<div class="control-group">
+							<label class="control-label" >Login</label>
+							<div class="controls">
+								<input type="text" name="Login" class="m-wrap span12" required value="@Model.Login" />
+								<span class="help-block"></span>
+							</div>
+						</div>
+					</div>
+					<div class="span4 ">
+						<div class="control-group">
+							<label class="control-label" >Telefon komórkowy</label>
+							<div class="controls">
+								<input type="text" name="MobilePhone" class="m-wrap span12" value="@Model.MobilePhone" />
+								<span class="help-block"></span>
+							</div>
+						</div>
+					</div>
+					<div class="span4 ">
+						<div class="control-group">
+							<label class="control-label" >Telefon VoIP</label>
+							<div class="controls">
+								<input type="text" name="VoipPhone" class="m-wrap span12" value="@Model.VoipPhone" />
+								<span class="help-block"></span>
+							</div>
+						</div>
+					</div>
+				</div>    </form>
+    
+    <div class="row-fluid">
+        <div class="span12 tabbable tabbable-custom">
+											<ul class="nav nav-tabs">
+												<li class="active"><a href="#tab_1_1" data-toggle="tab">Grupy</a></li>
+												<li><a href="#tab_1_3" data-toggle="tab">Historia</a></li>
+											</ul>
+											<div class="tab-content">
+												<div class="tab-pane active" id="tab_1_1">
+													<table class="table table-striped table-bordered table-hover" id="groups_table_@(GID)">
+									                    <thead>
+										                    <tr>
+											                    <th style="width:8px;"><input type="checkbox" class="group-checkable" data-set="#groups_table_@(GID) .checkboxes" /></th>
+											                    <th>Name</th>
+											                    <th class="hidden-480">Extid</th>
+											                    <th class="hidden-480">Status</th>
+										                    </tr>
+									                    </thead>
+									                    <tbody>
+                                                            @foreach (var gi in SessionContext.CurrentSession.QueryOver<GroupInfo>().Where(x => x.IsActive).OrderBy(x => x.Name).Asc.List())
+                                                            {
+                                                                var chkd = Model.MemberOf.Contains(gi) ? "checked" : "";
+                                                                <tr class="odd gradeX">
+											                        <td><input type="checkbox" class="checkboxes" name="MemberOf" value="@gi.Id" @chkd /></td>
+                                                                    <td>@gi.Name</td>
+                                                                    <td>@gi.ExtId</td>
+                                                                    <td></td>
+										                        </tr>
+                                                            }
+									                    </tbody>
+								                    </table>
+                                                    <script type="text/javascript">
+                                                        $('#groups_table_@(GID)').dataTable({
+                                                            "aaSorting": [[0, 'desc']],
+                                                            "aLengthMenu": [5, 10, 20],
+                                                            // set the initial value
+                                                            "iDisplayLength": 5,
+                                                            "sPaginationType": "bootstrap",
+                                                            "oLanguage": {
+                                                                "sLengthMenu": "_MENU_ wierszy na stronie",
+                                                                "oPaginate": {
+                                                                    "sPrevious": "Prev",
+                                                                    "sNext": "Next"
+                                                                }
+                                                            }
+                                                        });
+                                                    </script>
+												</div>
+												<div class="tab-pane" id="tab_1_3">
+													@Html.Partial("UI/HistoryPanel", ActionRecord.GetHistory(Model).List())
+												</div>
+											</div>
+										</div>
+
+    </div>
+
+</div>
+
+<!-- ==== MODALS ============================================================================== -->
+
+
+<!-- END MODALS -->
+
+<script type="text/javascript">
+    //event wireup
+    $(document).ready(function () {
+        var exApi = eval('@ViewBag.ViewHostCallbackJS');
+        if ($.isFunction(exApi)) exApi = exApi();
+        $('#reload_link_@(GID)').click(function () {
+            exApi.reload();
+        });
+    });
+</script>
