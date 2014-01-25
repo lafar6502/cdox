@@ -12,7 +12,7 @@ namespace CogDox.Core.DocManagement2
         protected override object ExecuteAction(BaseTask doc, IDictionary<string, object> parameters)
         {
             ActionRecord ar = new ActionRecord(doc);
-            ar.Action = ActionType.FindByCode("AddComment");
+            ar.Action = ActionType.FindByCode("BaseTask.AddComment");
             ar.Summary = parameters["Comment"].ToString();
             SessionContext.CurrentSession.Save(ar);
             return null;

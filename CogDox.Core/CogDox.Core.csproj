@@ -103,8 +103,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AppLogic\MessageHandlers\TaskMessageHandler.cs" />
+    <Compile Include="AppLogic\Messages\ResumeTask.cs" />
+    <Compile Include="AppLogic\Task\Resume.cs" />
+    <Compile Include="AppLogic\Task\Suspend.cs" />
     <Compile Include="AppUser.cs" />
-    <Compile Include="DocManagement2\AddComment.cs" />
+    <Compile Include="AppLogic\AddComment.cs" />
     <Compile Include="DocManagement2\DefaultActionRegistry.cs" />
     <Compile Include="DocManagement2\DefaultViewModelProvider.cs" />
     <Compile Include="DocManagement2\DocumentActionAttribute.cs" />
@@ -157,7 +161,6 @@
     <Compile Include="BusinessObjects\WorkTimeEntry.cs" />
     <Compile Include="BusinessObjects\WorkTimeScheme.cs" />
     <Compile Include="Class1.cs" />
-    <Compile Include="Configuration\DocumentMapConfigurator.cs" />
     <Compile Include="DocManagement_OldUnused\DocTypeMapping.cs" />
     <Compile Include="DocManagement_OldUnused\DocumentOperationsProvider.cs" />
     <Compile Include="DocManagement_OldUnused\IDocRepository.cs" />
@@ -201,6 +204,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="BusinessObjects\ListModels\NewFolder1\" />
+    <Folder Include="Configuration\" />
+    <Folder Include="NewFolder1\" />
     <Folder Include="NH\" />
   </ItemGroup>
   <ItemGroup>

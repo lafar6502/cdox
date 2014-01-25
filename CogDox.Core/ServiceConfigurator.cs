@@ -179,6 +179,8 @@ namespace CogDox.Core
             return NGinnBPM.MessageBus.Windsor.MessageBusConfigurator.IsServiceRegistered(wc, t);
         }
 
+        
+
         public ServiceConfigurator RegisterDocumentActionsFromAssembly(Assembly asm)
         {
             foreach (var t in asm.GetTypes())
