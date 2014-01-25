@@ -71,6 +71,7 @@ namespace CogDox.Core.DocManagement2
             {
                 mdl = GetDefaultViewModel(doc);
             }
+            if (string.IsNullOrEmpty(mdl.DocRef)) mdl.DocRef = docRef;
             foreach (var ap in _config.ActionProviders)
             {
                 var lst = ap.GetPossibleActions(doc, viewModelName);

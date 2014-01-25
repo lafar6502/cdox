@@ -11,6 +11,10 @@ namespace CogDox.Core.UI
         public object Value { get; set; }
         public Type ParamType { get; set; }
         public Dictionary<string, object> Attributes { get; set; }
+        /// <summary>
+        /// UI field type. This field selects the UI template to be used.
+        /// </summary>
+        public string FieldType { get; set; }
     }
     /// <summary>
     /// a model for GUI Action menu entry

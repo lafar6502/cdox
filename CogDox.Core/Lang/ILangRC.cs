@@ -7,6 +7,6 @@ namespace CogDox.Core.Lang
 {
     public interface ILangRC
     {
-        string GetText(string id, string lang);
+        string GetText(string id, string lang, string defaultText = null);
     }
 }

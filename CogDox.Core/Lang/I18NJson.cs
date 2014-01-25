@@ -19,7 +19,7 @@ namespace CogDox.Core.Lang
 
         
 
-        public string GetText(string id, string lang)
+        public string GetText(string id, string lang, string defaultText)
         {
             //log.Debug("GetText {0} {1}", id, lang);
             JObject j = null;
@@ -57,7 +57,7 @@ namespace CogDox.Core.Lang
                 if (v == null)
                 {
                     //log.Debug("Missing translation: {0}", id);
-                    return id;
+                    return defaultText == null ? id : defaultText;
                 }
                 if (i == parts.Length - 1)
                 {
@@ -79,7 +79,7 @@ namespace CogDox.Core.Lang
 
         public string GetText(string id)
         {
-            return GetText(id, Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName);
+            return GetText(id, Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName, null);
         }
     }
 }

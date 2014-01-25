@@ -2,9 +2,9 @@
 @using CogDox.Models;
 @using CogDox.Core
 
-@model TaskDetailsModel
+@model BaseTask
 @{
-    var GID = Model.Task.Id;
+    var GID = Model.Id;
 }
 
 <style>
@@ -29,7 +29,7 @@
 				</a>
 				<ul class="dropdown-menu">
 					<li >
-						<a href="@Url.Action("Details", "Task", new {id=Model.Task.Id})" target="_blank">Otwórz w nowym oknie</a>
+						<a href="@Url.Action("Details", "Task", new {id=Model.Id})" target="_blank">Otwórz w nowym oknie</a>
 					</li>
                     <li>
                         <a class="" data-toggle="modal" href="#modal_addComment">Dodaj komentarz</a>
@@ -42,7 +42,7 @@
 <div class="navbar" id="taskdet_navbar_@(GID)">
 	<div class="navbar-inner">
         <div class="container">
-            <a class='brand'>Zadanie nr @Model.Task.Id</a>
+            <a class='brand'>Zadanie nr @Model.Id</a>
         
         <ul class="nav" id>
             <li  class="">
@@ -53,7 +53,7 @@
 				</a>
 				<ul class="dropdown-menu">
 					<li >
-						<a href="@Url.Action("Details", "Task", new {id=Model.Task.Id})" target="_blank">Otwórz w nowym oknie</a>
+						<a href="@Url.Action("Details", "Task", new {id=Model.Id})" target="_blank">Otwórz w nowym oknie</a>
 					</li>
                     <li>
                         <a href="#" id="reload_link_@(GID)" class="reload_link">Załaduj ponownie</a>
@@ -88,42 +88,42 @@
 <div id="taskdet_body_@(GID)" class="container-fluid">
     <div class="row-fluid">
         <div class="span12 alert">
-            <strong>@Model.Task.Summary</strong> 
+            <strong>@Model.Summary</strong> 
         </div>
     </div>
     <div class="row-fluid">
         <div class="span12 container well">
             <div class="row-fluid">
                 <div class="span3">
-                    <b>Data utworzenia:</b><br />@Model.Task.CreatedDate 
+                    <b>Data utworzenia:</b><br />@Model.CreatedDate 
                 </div>
                 <div class="span3">
-                    <b>Status:</b><br />@I18N.GetText(Model.Task.Status)
+                    <b>Status:</b><br />@I18N.GetText(Model.Status)
                 </div>
                 <div class="span3">
-                    <b>Grupa odpowiedzialna:</b><br />@Model.Task.AssigneeGroup.Name
-                    @if (Model.Task.AssigneeGroup != null)
+                    <b>Grupa odpowiedzialna:</b><br />@Model.AssigneeGroup.Name
+                    @if (Model.AssigneeGroup != null)
                     {
-                        <small> (od @Model.Task.CurrentGroupAssignedDate.ToShortDateString())</small>
+                        <small> (od @Model.CurrentGroupAssignedDate.ToShortDateString())</small>
                     }
                 </div>
                 <div class="span3">
-                    <b>Aktualnie odpowiedzialny:</b><br />@(Model.Task.Assignee == null ? "" : Model.Task.Assignee.Name)
-                    @if (Model.Task.AssigneeGroup != null)
+                    <b>Aktualnie odpowiedzialny:</b><br />@(Model.Assignee == null ? "" : Model.Assignee.Name)
+                    @if (Model.AssigneeGroup != null)
                     {
-                        <small> (od @Model.Task.CurrentPersonAssignedDate.ToShortDateString())</small>
+                        <small> (od @Model.CurrentPersonAssignedDate.ToShortDateString())</small>
                     }
                 </div>
             </div>
             <div class="row-fluid">
                 <div class="span3">
                     <b>Deadline:</b><br />
-                    @Model.Task.Deadline
+                    @Model.Deadline
                 </div>
                 <div class="span3">
-                    @if (Model.Task.Status == TaskStatus.Suspended) {
+                    @if (Model.Status == TaskStatus.Suspended) {
                         <b>Data wznowienia:</b><br />
-                        @Model.Task.ResumeDate
+                        @Model.ResumeDate
                     }
                 </div>
             </div>
@@ -140,12 +140,12 @@
 											</ul>
 											<div class="tab-content">
 												<div class="tab-pane active" id="tab_1_1">
-													@Html.Raw(Model.Task.Description)
+													@Html.Raw(Model.Description)
 												</div>
 												<div class="tab-pane" id="tab_1_2">
 													<div class="row-fluid">
                                                         <div class="span6">
-                                                            @if (Model.Task.TaskData != null)
+                                                            @if (Model.TaskData != null)
                                                             {
                                                                 
                                                             }
@@ -154,10 +154,11 @@
                                                     
 												</div>
 												<div class="tab-pane" id="tab_1_3">
-													@Html.Partial("UI/HistoryPanel", ActionRecord.GetHistory(Model.Task).List())
+													@Html.Partial("UI/HistoryPanel", ActionRecord.GetHistory(Model).List())
 												</div>
 											</div>
-										</div>
+										</div>
+
     </div>
 
 </div>
@@ -205,7 +206,7 @@
 <script type="text/javascript">
     //event wireup
     $(document).ready(function () {
-        var exApi = eval('@Model.ViewHostCallbackJS');
+        var exApi = eval('@ViewBag.ViewHostCallbackJS');
         if ($.isFunction(exApi)) exApi = exApi();
         $('#reload_link_@(GID)').click(function () {
             exApi.reload();

@@ -314,6 +314,8 @@
     <Content Include="Views\Doc\BaseTaskPartial.cshtml" />
     <Content Include="Views\Doc\UserAccount.cshtml" />
     <Content Include="Views\Doc\UserAccountPartial.cshtml" />
+    <Content Include="Views\Doc\Action_AddCommentMarkup.cshtml" />
+    <Content Include="Views\Doc\Action_TakeTaskFromGroupQueueMarkup.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

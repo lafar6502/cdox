@@ -104,10 +104,18 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppUser.cs" />
+    <Compile Include="DocManagement2\AddComment.cs" />
+    <Compile Include="DocManagement2\DefaultActionRegistry.cs" />
+    <Compile Include="DocManagement2\DefaultViewModelProvider.cs" />
+    <Compile Include="DocManagement2\DocumentMethodAction.cs" />
+    <Compile Include="DocManagement2\IDocumentStore.cs" />
+    <Compile Include="DocTypeRegistry.cs" />
+    <Compile Include="DocManagement2\DocumentActionBase.cs" />
+    <Compile Include="DocManagement2\IDocumentAction.cs" />
     <Compile Include="DocManagement2\IDocumentRepository.cs" />
     <Compile Include="DocManagement2\IDocumentViewModelProvider.cs" />
     <Compile Include="DocManagement2\NHDocumentRepository.cs" />
-    <Compile Include="DocManagement\ActionDef.cs" />
+    <Compile Include="DocManagement_OldUnused\ActionDef.cs" />
     <Compile Include="BusinessAPI\Events\EventBase.cs" />
     <Compile Include="BusinessAPI\Events\SessionEvent.cs" />
     <Compile Include="BusinessAPI\Events\TaskEvent.cs" />
@@ -149,16 +157,16 @@
     <Compile Include="BusinessObjects\WorkTimeScheme.cs" />
     <Compile Include="Class1.cs" />
     <Compile Include="Configuration\DocumentMapConfigurator.cs" />
-    <Compile Include="DocManagement\DocTypeMapping.cs" />
-    <Compile Include="DocManagement\DocumentOperationsProvider.cs" />
-    <Compile Include="DocManagement\IDocRepository.cs" />
-    <Compile Include="DocManagement\IDocTypeMapping.cs" />
-    <Compile Include="DocManagement\IDocumentActionDispatcher.cs" />
-    <Compile Include="DocManagement\IDocumentManager.cs" />
-    <Compile Include="DocManagement\IDocViewModelRegistry.cs" />
-    <Compile Include="DocManagement\IDocViewProvider.cs" />
-    <Compile Include="DocManagement\NHDocRepository.cs" />
-    <Compile Include="DocManagement\NHDocumentManager.cs" />
+    <Compile Include="DocManagement_OldUnused\DocTypeMapping.cs" />
+    <Compile Include="DocManagement_OldUnused\DocumentOperationsProvider.cs" />
+    <Compile Include="DocManagement_OldUnused\IDocRepository.cs" />
+    <Compile Include="DocManagement_OldUnused\IDocTypeMapping.cs" />
+    <Compile Include="DocManagement_OldUnused\IDocumentActionDispatcher.cs" />
+    <Compile Include="DocManagement_OldUnused\IDocumentManager.cs" />
+    <Compile Include="DocManagement_OldUnused\IDocViewModelRegistry.cs" />
+    <Compile Include="DocManagement_OldUnused\IDocViewProvider.cs" />
+    <Compile Include="DocManagement_OldUnused\NHDocRepository.cs" />
+    <Compile Include="DocManagement_OldUnused\NHDocumentManager.cs" />
     <Compile Include="DocRef.cs" />
     <Compile Include="ICogDoxPlugin.cs" />
     <Compile Include="IHandleEvents.cs" />

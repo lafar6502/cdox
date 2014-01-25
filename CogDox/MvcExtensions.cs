@@ -23,7 +23,13 @@ namespace System.Web.Mvc
     {
         /// 
 
-
+        public static string GenID(this HtmlHelper helper, string prefix= null)
+        {
+            var ctx = helper.ViewContext.HttpContext;
+            int cid = ctx.Items.Contains("_cd_uid") ? (int) ctx.Items["_cd_uid"] : 1;
+            ctx.Items["_cd_uid"] = ++cid;
+            return prefix == null ? "_u_" + cid : prefix + cid;
+        }
 
 
 

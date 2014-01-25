@@ -6,6 +6,7 @@ using CogDox.Core.Lists;
 using CogDox.Core;
 using CogDox.Core.BusinessObjects;
 using NHibernate.Criterion;
+using Castle.Windsor;
 
 namespace Testing
 {
@@ -13,15 +14,16 @@ namespace Testing
     {
         static void Main(string[] args)
         {
-            //var qn = NHDynQuery.BuildQuery(x => x.Login.Like("jozek") && x.Active == true);
+            var wc = Configure();
+        }
 
-            var ses = SessionContext.CurrentSession;
-            //Console.WriteLine(qn.ToString());
-            var crit = Restrictions.Where<BaseTask>(x => x.AssigneeGroup.Id.IsIn(new object[] {1, 2, 3, 4}) && x.Status.IsIn(new object[] { TaskStatus.Assigned, TaskStatus.Executing, TaskStatus.InGroupQueue }));
-            
-
-                //Restrictions.Where<BaseTask>(x => x.Assignee.Id == 15 && x.AssigneeGroup.Id == 10 && x.Status == TaskStatus.Assigned);
-            Console.WriteLine(crit.ToString());
+        static IWindsorContainer Configure()
+        {
+            return ServiceConfigurator.Begin()
+                .AddMappingFromAssembly(typeof(CogDox.Core.BusinessObjects.UserAccount).Assembly)
+                .UseAppSettings()
+                .FinishConfiguration()
+                .GetContainer();
         }
     }
 }

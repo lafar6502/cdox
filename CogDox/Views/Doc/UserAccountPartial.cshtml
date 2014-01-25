@@ -5,7 +5,7 @@
 
 @model UserAccount
 @{
-    var GID = "User" + Model.Id;
+    var GID = Html.GenID("userd");
 }
 
 <div class="navbar" id="details_navbar_@(GID)">
@@ -13,7 +13,7 @@
         <div class="container">
             <a class='brand'>Konto użytkownika nr @Model.Id</a>
         
-        <ul class="nav" id>
+        <ul class="nav">
             <li  class="">
 				<a data-toggle="dropdown" class="dropdown-toggle" href="javascript:;">
 				<span class="selected"></span>
@@ -82,11 +82,12 @@
 					</div>
                     <div class="span4">
                         <div class="control-group">
-							<label class="control-label" >Konto aktywne</label>
+							<label class="control-label">Konto aktywne</label>
 							<div class="controls">                                                
-								<label class="radio"><input type="checkbox" name="optionsRadios2" value="option1" />
+								<label class="radio"><input type="checkbox" name="Active" value="true" @(Model.Active ? "checked" : "")/>
 								Tak
-								</label>                            </div>
+								</label>
+                            </div>
                         </div>
                     </div>
 					<!--/span-->
@@ -120,7 +121,8 @@
 							</div>
 						</div>
 					</div>
-				</div>    </form>
+				</div>
+    </form>
     
     <div class="row-fluid">
         <div class="span12 tabbable tabbable-custom">

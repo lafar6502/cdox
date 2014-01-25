@@ -34,7 +34,7 @@ namespace CogDox.Core
             throw new NotImplementedException();
         }
 
-        public static string GetText(string id)
+        public static string GetText(string id, string defaultText = null)
         {
             InitIfNecessary();
             string lang = "PL";// Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName;

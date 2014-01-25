@@ -6,9 +6,9 @@
 
 @model IList<ActionRecord>
 @{
-    
+    var gid = Html.GenID("_hist");
 }
-<table class="table table-striped table-bordered table-hover" id="sample_1">
+<table class="table table-striped table-bordered table-hover" id="@gid">
 	<thead>
 		<tr>
 			<th style="width:100px">Timestamp</th>
@@ -24,9 +24,13 @@
             <td>@ar.User.Name</td>
             <td>@ar.Action.Name</td>
             <td>@ar.Summary</td>
-		</tr>        }    </tbody></table><script type="text/javascript">
+		</tr>
+        }
+    </tbody>
+</table>
+<script type="text/javascript">
     $(document).ready(function () {
-        $('#sample_1').dataTable({
+        $('#@gid').dataTable({
             "aaSorting": [[0, 'desc']],
             "aLengthMenu": [5, 10, 20],
             // set the initial value

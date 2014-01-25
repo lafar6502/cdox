@@ -42,5 +42,14 @@ namespace CogDox.Controllers
         {
             return DocRepo.GetDocumentViewModel(id, vname);
         }
+
+        [HttpPost]
+        [Authorize]
+        public ActionResult ExecuteAction(string docRef, string action)
+        {
+            
+            throw new NotImplementedException();
+        }
+
     }
 }
