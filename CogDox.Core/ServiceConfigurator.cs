@@ -55,6 +55,11 @@ namespace CogDox.Core
             return this;
         }
 
+        public ServiceConfigurator Modify(Action<IWindsorContainer> act)
+        {
+            act(_wc);
+            return this;
+        }
 
 
         public ServiceConfigurator LoadPluginsFrom(Assembly asm)
@@ -142,6 +147,68 @@ namespace CogDox.Core
             return _ormConfig.BuildSessionFactory();
         }
 
+        static bool IsSubclassOfRawGeneric(Type generic, Type toCheck)
+        {
+            while (toCheck != null && toCheck != typeof(object))
+            {
+                var cur = toCheck.IsGenericType ? toCheck.GetGenericTypeDefinition() : toCheck;
+                if (generic == cur)
+                {
+                    return true;
+                }
+                toCheck = toCheck.BaseType;
+            }
+            return false;
+        }
+
+        public static Type ImplementsRawGeneric(Type genericInterface, Type toCheck)
+        {
+            foreach (var it in toCheck.GetInterfaces())
+            {
+                var chk = it.IsGenericType ? it.GetGenericTypeDefinition() : it;
+                if (chk == genericInterface)
+                {
+                    return it;
+                }
+            }
+            return null;
+        }
+
+        public static bool IsServiceRegistered(Type t, IWindsorContainer wc)
+        {
+            return NGinnBPM.MessageBus.Windsor.MessageBusConfigurator.IsServiceRegistered(wc, t);
+        }
+
+        public ServiceConfigurator RegisterDocumentActionsFromAssembly(Assembly asm)
+        {
+            foreach (var t in asm.GetTypes())
+            {
+                if (t.IsInterface || t.IsAbstract || t.IsGenericTypeDefinition) continue;
+                if (typeof(DM.IDocumentAction).IsAssignableFrom(t))
+                {
+                    var attr = (DM.DocumentActionAttribute)Attribute.GetCustomAttribute(t, typeof(DM.DocumentActionAttribute));
+                    if (attr != null && !IsServiceRegistered(t, _wc))
+                    {
+                        var gt = ImplementsRawGeneric(typeof(DM.IDocumentAction<>), t);
+                        if (gt != null)
+                        {
+                            var at = gt.GetGenericArguments()[0];
+                            var name = string.IsNullOrEmpty(attr.Name) ? at.Name + "." + t.Name : attr.Name;
+                            log.Info("Registering action type {0} with name {1}", t.FullName, name);
+                            _wc.Register(Component.For(typeof(DM.IDocumentAction), gt, t).ImplementedBy(t).LifeStyle.Transient.Named(name));
+                        }
+                        else
+                        {
+                            var name = string.IsNullOrEmpty(attr.Name) ? t.FullName : attr.Name;
+                            log.Info("Registering action type {0} with name {1}", t.FullName, name);
+                            _wc.Register(Component.For(typeof(DM.IDocumentAction), t).ImplementedBy(t).LifeStyle.Transient.Named(attr.Name));
+                        }
+                    }
+                }
+            }
+            return this;
+        }
+
         public ServiceConfigurator FinishConfiguration()
         {
             string baseDir = AppDomain.CurrentDomain.BaseDirectory;
@@ -162,15 +229,11 @@ namespace CogDox.Core
             _wc.Register(Component.For<IListManager>().ImplementedBy<ListManager>()
                 .LifeStyle.Singleton);
             _wc.Register(Component.For<DM.IDocumentRepository, DM.NHDocumentRepository>()
-                .ImplementedBy<DM.NHDocumentRepository>().LifeStyle.Singleton);
+                .ImplementedBy<DM.NHDocumentRepository>().Named("repo2").LifeStyle.Singleton);
+            _wc.Register(Component.For<DM.IDocumentActionRegistry>().ImplementedBy<DM.DefaultActionRegistry>().LifeStyle.Singleton);
+
             _wc.Register(Component.For<ITaskOperations>().ImplementedBy<TaskOperations>().LifeStyle.Singleton);
-            var dr = _wc.Resolve<DM.NHDocumentRepository>();
-            dr.UpdateConfig(cfg =>
-            {
-                cfg.RegisterDocumentType(typeof(BusinessObjects.BaseTask), "Task");
-                cfg.RegisterDocumentType(typeof(BusinessObjects.UserAccount));
-                cfg.RegisterDocumentType(typeof(BusinessObjects.GroupInfo));
-            });
+            RegisterDocumentActionsFromAssembly(typeof(BusinessObjects.UserAccount).Assembly);
             log.Info("Finished configuration");
             return this;
         }

@@ -28,7 +28,7 @@ namespace CogDox.Core.Lang
                 string fn = Path.Combine(BaseDir, string.Format("Translation_{0}.json", lang));
                 if (!File.Exists(fn))
                 {
-                    throw new Exception("Translation not found: " + fn);
+                    return defaultText == null ? id : defaultText;
                 }
                 DateTime dt = j.Value<DateTime>("_readDate");
                 if (dt < File.GetLastWriteTime(fn)) j = null;
@@ -39,7 +39,7 @@ namespace CogDox.Core.Lang
                 string fn = Path.Combine(BaseDir, string.Format("Translation_{0}.json", lang));
                 if (!File.Exists(fn))
                 {
-                    throw new Exception("Translation not found: " + fn);
+                    return defaultText == null ? id : defaultText;
                 }
                 else
                 {

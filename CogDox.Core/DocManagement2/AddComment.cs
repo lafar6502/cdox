@@ -6,6 +6,7 @@ using CogDox.Core.BusinessObjects;
 
 namespace CogDox.Core.DocManagement2
 {
+    [DocumentAction()]
     class AddComment : DocumentActionBase<BaseTask>
     {
         protected override object ExecuteAction(BaseTask doc, IDictionary<string, object> parameters)
@@ -20,6 +21,18 @@ namespace CogDox.Core.DocManagement2
         protected override bool CheckEnabled(BaseTask doc)
         {
             return true;
+        }
+
+        public override UI.UIActionModel GetModel(object doc)
+        {
+            var mdl = base.GetModel(doc);
+            mdl.Parameters.Add(new UI.ParameterModel
+            {
+                Name = "Comment",
+                ParamType = typeof(string),
+                Value = ""
+            });
+            return mdl;
         }
     }
 }

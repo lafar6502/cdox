@@ -161,6 +161,7 @@
     <Compile Include="Models\CogDoxPageModel.cs" />
     <Compile Include="Models\CreateTaskViewModel.cs" />
     <Compile Include="Models\DataTablesQueryResults.cs" />
+    <Compile Include="Models\FieldModel.cs" />
     <Compile Include="Models\JQGridListModel.cs" />
     <Compile Include="Models\ListSearchModel.cs" />
     <Compile Include="Models\SortSpec.cs" />
@@ -316,6 +317,9 @@
     <Content Include="Views\Doc\UserAccountPartial.cshtml" />
     <Content Include="Views\Doc\Action_AddCommentMarkup.cshtml" />
     <Content Include="Views\Doc\Action_TakeTaskFromGroupQueueMarkup.cshtml" />
+    <Content Include="Views\Shared\Fields\HtmlField.cshtml" />
+    <Content Include="Views\Shared\Fields\RemoteComboField.cshtml" />
+    <Content Include="Views\Shared\Fields\ComboField.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

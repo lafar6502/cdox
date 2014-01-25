@@ -107,6 +107,7 @@
     <Compile Include="DocManagement2\AddComment.cs" />
     <Compile Include="DocManagement2\DefaultActionRegistry.cs" />
     <Compile Include="DocManagement2\DefaultViewModelProvider.cs" />
+    <Compile Include="DocManagement2\DocumentActionAttribute.cs" />
     <Compile Include="DocManagement2\DocumentMethodAction.cs" />
     <Compile Include="DocManagement2\IDocumentStore.cs" />
     <Compile Include="DocTypeRegistry.cs" />

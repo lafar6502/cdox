@@ -25,5 +25,9 @@ namespace CogDox.Core.UI
         /// View template name (form name etc)
         /// </summary>
         public string ViewTemplate { get; set; }
+        /// <summary>
+        /// Document version, if versioning is supported
+        /// </summary>
+        public string DocVersion { get; set; }
     }
 }

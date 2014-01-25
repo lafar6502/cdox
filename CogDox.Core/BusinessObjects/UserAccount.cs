@@ -54,5 +54,27 @@ namespace CogDox.Core.BusinessObjects
             var pl = qr.OrderBy(x => x.Id).Asc.Take(1).List();
             return pl.Count > 0 ? pl[0] : null;
         }
+
+        public static AppUser ToAppUser(UserAccount ua)
+        {
+            var au = new AppUser
+            {
+                Id = ua.Id,
+                Name = ua.Login,
+                MyGroupIds = ua.MemberOf.Select(x => x.Id).ToArray(),
+                MemberOf = new List<string>(ua.MemberOf.Select(x => x.Name)),
+                Permissions = new List<string>()
+            };
+            HashSet<string> hs = new HashSet<string>();
+            foreach (var g in ua.MemberOf)
+            {
+                foreach (var p in g.Permissions)
+                {
+                    if (!hs.Contains(p.Name)) hs.Add(p.Name);
+                }
+            }
+            au.Permissions = hs.ToList();
+            return au;
+        }
     }
 }

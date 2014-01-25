@@ -2,14 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using BL = Boo.Lang;
-using Rhino.DSL;
+using NGinnBPM.MessageBus;
 
 namespace CogDox.Core.DocManagement2
 {
     public class NHDocumentRepository : IDocumentRepository
     {
-        protected class Config : IDocumentRepositoryConfig
+        public IServiceResolver Resolver { get; set; }
+
+        protected class Config 
         {
             public Config()
             {
@@ -22,34 +23,33 @@ namespace CogDox.Core.DocManagement2
             public List<IDocumentActionProvider> ActionProviders { get; set; }
             public Dictionary<string, Type> EntityNames { get; set; }
 
-            public void RegisterActionProvider(IDocumentActionProvider actionProvider)
-            {
-                ActionProviders.Add(actionProvider);
-            }
-
+            
             public void RegisterViewModelProvider(IDocumentViewModelProvider provider)
             {
                 ViewModelProviders.Add(provider);
             }
 
-            public void RegisterDocumentType(Type tDoc, string shortEntityName = null)
-            {
-                if (string.IsNullOrEmpty(shortEntityName))
-                {
-                    shortEntityName = tDoc.Name;
-                    if (EntityNames.ContainsKey(shortEntityName)) shortEntityName = tDoc.FullName;
-                }
-                if (EntityNames.ContainsKey(shortEntityName)) throw new Exception("Entity already registered: " + shortEntityName);
-                EntityNames[shortEntityName] = tDoc;
-            }
+            
         }
 
         protected Config _config = new Config();
 
-        public void UpdateConfig(Action<IDocumentRepositoryConfig> cfg)
+
+        protected string GetDocumentVersion(object doc)
         {
-            cfg(_config);
+            var v = SessionContext.CurrentSession.SessionFactory.GetClassMetadata(doc.GetType()).GetVersion(doc, NHibernate.EntityMode.Poco);
+            if (v == null) return null;
+            if (v.GetType() == typeof(byte[]))
+            {
+                return Convert.ToBase64String((byte[])v);
+            }
+            else if (v is DateTime || v is string || v is int)
+            {
+                return v.ToString();
+            }
+            return null;
         }
+
 
         public UI.DocViewModelBase GetDocumentViewModel(string docRef, string viewModelName = null)
         {
@@ -72,6 +72,23 @@ namespace CogDox.Core.DocManagement2
                 mdl = GetDefaultViewModel(doc);
             }
             if (string.IsNullOrEmpty(mdl.DocRef)) mdl.DocRef = docRef;
+            if (string.IsNullOrEmpty(mdl.DocVersion))
+            {
+                mdl.DocVersion = GetDocumentVersion(doc);
+            }
+            foreach (var ar in Resolver.GetAllInstances<IDocumentActionRegistry>())
+            {
+                foreach (var aa in ar.GetActionsForType(doc.GetType()))
+                {
+                    if (aa.IsEnabled(doc))
+                    {
+                        Console.WriteLine("Action enabled: {0}", aa.ActionName);
+                        var am = aa.GetModel(doc);
+                        am.ParentDocRef = docRef;
+                        mdl.Actions.Add(am);
+                    }
+                }
+            }
             foreach (var ap in _config.ActionProviders)
             {
                 var lst = ap.GetPossibleActions(doc, viewModelName);
@@ -96,18 +113,17 @@ namespace CogDox.Core.DocManagement2
 
         public string GetDocRef(object document)
         {
-            if (!_config.EntityNames.Any(x => x.Value == document.GetType())) throw new Exception("Document type not registered");
-            var kv = _config.EntityNames.First(x => x.Value == document.GetType());
-            return DocRef.GetEntityRef(kv.Key, SessionContext.CurrentSessionRequired.GetIdentifier(document));
+            var dn = DocTypeRegistry.GetShortName(document.GetType());
+            if (dn == null) throw new Exception("Document type not registered");
+            return DocRef.GetEntityRef(dn, SessionContext.CurrentSessionRequired.GetIdentifier(document));
         }
 
         public object LoadDocument(string docRef)
         {
             var ses = SessionContext.CurrentSessionRequired;
             var en = DocRef.GetEntityName(docRef);
-            if (string.IsNullOrEmpty(en)) throw new Exception("Invalid document ref: " + docRef);
-            Type dt;
-            if (!_config.EntityNames.TryGetValue(en, out dt)) throw new Exception("Invalid entity: " + docRef);
+            var dt = DocTypeRegistry.GetDocumentType(en);
+            if (dt == null) throw new Exception("Document type uknown: " + docRef);
             string sid = DocRef.GetEntityKey(docRef);
             if (string.IsNullOrEmpty(sid)) throw new Exception("Invalid document ref: " + docRef);
 
@@ -116,13 +132,26 @@ namespace CogDox.Core.DocManagement2
             var doc = ses.Get(dt, id);
             return doc;
         }
-    }
 
-    public interface IDocumentRepositoryConfig
-    {
-        void RegisterActionProvider(IDocumentActionProvider actionProvider);
-        void RegisterViewModelProvider(IDocumentViewModelProvider provider);
-        void RegisterDocumentType(Type tDoc, string shortEntityName = null);
+        protected IDocumentAction GetAction(object doc, string actionName)
+        {
+            foreach (var ar in Resolver.GetAllInstances<IDocumentActionRegistry>())
+            {
+                var act = ar.GetAction(doc.GetType(), actionName);
+                if (act != null) return act;
+            }
+            return null;
+        }
+
+        public object ExecuteAction(string docRef, string actionName, IDictionary<string, object> parameters, ActionOptions options)
+        {
+            var ses = SessionContext.CurrentSession;
+            var doc = LoadDocument(docRef);
+            var ver = ses.SessionFactory.GetClassMetadata(doc.GetType()).GetVersion(doc, NHibernate.EntityMode.Poco);
+            var act = GetAction(doc, actionName);
+            if (act == null) throw new Exception("Action not found: " + actionName);
+            return act.Execute(doc, parameters);
+        }
     }
 
     
