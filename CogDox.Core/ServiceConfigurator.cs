@@ -20,6 +20,7 @@ using CogDox.Core.BusinessAPI;
 using CogDox.Core;
 using CogDox.Core.Services;
 using DM = CogDox.Core.DocManagement2;
+using CogDox.Core.BusinessObjects;
 
 namespace CogDox.Core
 {
@@ -235,8 +236,17 @@ namespace CogDox.Core
             _wc.Register(Component.For<DM.IDocumentActionRegistry>().ImplementedBy<DM.DefaultActionRegistry>().LifeStyle.Singleton);
 
             _wc.Register(Component.For<ITaskOperations>().ImplementedBy<TaskOperations>().LifeStyle.Singleton);
-            RegisterDocumentActionsFromAssembly(typeof(BusinessObjects.UserAccount).Assembly);
+            ConfigureApplicationDocumentRepository();
             log.Info("Finished configuration");
+            return this;
+        }
+
+        protected ServiceConfigurator ConfigureApplicationDocumentRepository()
+        {
+            DocTypeRegistry.RegisterDocumentType<UserAccount>();
+            DocTypeRegistry.RegisterDocumentType<GroupInfo>();
+            DocTypeRegistry.RegisterDocumentType<BaseTask>();
+            RegisterDocumentActionsFromAssembly(typeof(BusinessObjects.UserAccount).Assembly);
             return this;
         }
 

@@ -107,20 +107,41 @@
     <Compile Include="AppLogic\Messages\ResumeTask.cs" />
     <Compile Include="AppLogic\Task\Resume.cs" />
     <Compile Include="AppLogic\Task\Suspend.cs" />
+    <Compile Include="AppLogic\Users\ResetPassword.cs" />
+    <Compile Include="AppLogic\Users\AssignToGroups.cs" />
     <Compile Include="AppUser.cs" />
     <Compile Include="AppLogic\AddComment.cs" />
-    <Compile Include="DocManagement2\DefaultActionRegistry.cs" />
-    <Compile Include="DocManagement2\DefaultViewModelProvider.cs" />
-    <Compile Include="DocManagement2\DocumentActionAttribute.cs" />
-    <Compile Include="DocManagement2\DocumentMethodAction.cs" />
-    <Compile Include="DocManagement2\IDocumentStore.cs" />
+    <Compile Include="DocManagement2\DefaultActionRegistry.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DocManagement2\DefaultViewModelProvider.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DocManagement2\DocumentActionAttribute.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DocManagement2\DocumentActionBase.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DocManagement2\DocumentMethodAction.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DocManagement2\IDocumentAction.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DocManagement2\IDocumentRepository.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DocManagement2\IDocumentStore.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DocManagement2\IDocumentViewModelProvider.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DocManagement2\NHDocumentRepository.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="DocTypeRegistry.cs" />
-    <Compile Include="DocManagement2\DocumentActionBase.cs" />
-    <Compile Include="DocManagement2\IDocumentAction.cs" />
-    <Compile Include="DocManagement2\IDocumentRepository.cs" />
-    <Compile Include="DocManagement2\IDocumentViewModelProvider.cs" />
-    <Compile Include="DocManagement2\NHDocumentRepository.cs" />
-    <Compile Include="DocManagement_OldUnused\ActionDef.cs" />
     <Compile Include="BusinessAPI\Events\EventBase.cs" />
     <Compile Include="BusinessAPI\Events\SessionEvent.cs" />
     <Compile Include="BusinessAPI\Events\TaskEvent.cs" />
@@ -161,16 +182,6 @@
     <Compile Include="BusinessObjects\WorkTimeEntry.cs" />
     <Compile Include="BusinessObjects\WorkTimeScheme.cs" />
     <Compile Include="Class1.cs" />
-    <Compile Include="DocManagement_OldUnused\DocTypeMapping.cs" />
-    <Compile Include="DocManagement_OldUnused\DocumentOperationsProvider.cs" />
-    <Compile Include="DocManagement_OldUnused\IDocRepository.cs" />
-    <Compile Include="DocManagement_OldUnused\IDocTypeMapping.cs" />
-    <Compile Include="DocManagement_OldUnused\IDocumentActionDispatcher.cs" />
-    <Compile Include="DocManagement_OldUnused\IDocumentManager.cs" />
-    <Compile Include="DocManagement_OldUnused\IDocViewModelRegistry.cs" />
-    <Compile Include="DocManagement_OldUnused\IDocViewProvider.cs" />
-    <Compile Include="DocManagement_OldUnused\NHDocRepository.cs" />
-    <Compile Include="DocManagement_OldUnused\NHDocumentManager.cs" />
     <Compile Include="DocRef.cs" />
     <Compile Include="ICogDoxPlugin.cs" />
     <Compile Include="IHandleEvents.cs" />
@@ -189,6 +200,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ServiceConfigurator.cs" />
     <Compile Include="Services\IAuthenticateUsers.cs" />
+    <Compile Include="UI\FieldModel.cs" />
     <Compile Include="UI\IDocumentOperations.cs" />
     <Compile Include="Services\IUserPresence.cs" />
     <Compile Include="Services\IWorkTimeCalendar.cs" />

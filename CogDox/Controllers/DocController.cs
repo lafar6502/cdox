@@ -24,7 +24,7 @@ namespace CogDox.Controllers
         {
             var vm = GetDocumentViewModel(id, vname);
             if (vm == null) return new HttpNotFoundResult();
-            return View(vm.ViewTemplate, vm.Document);
+            return View(vm.ViewTemplate, vm);
         }
 
         public ActionResult DetailsEmbed(string id, string vname)
@@ -33,22 +33,35 @@ namespace CogDox.Controllers
             if (vm == null) return new HttpNotFoundResult();
             if (ViewEngines.Engines.FindView(ControllerContext, vm.ViewTemplate + "_Embed", null) != null)
             {
-                return View(vm.ViewTemplate + "_Embed", vm.Document);
+                return View(vm.ViewTemplate + "_Embed", vm);
             }
-            return View(vm.ViewTemplate, vm.Document);
+            return View(vm.ViewTemplate, vm);
         }
 
         protected DocViewModelBase GetDocumentViewModel(string id, string vname)
         {
-            return DocRepo.GetDocumentViewModel(id, vname);
+            var vm = DocRepo.GetDocumentViewModel(id, vname);
+            foreach (var act in vm.Actions)
+            {
+                if (string.IsNullOrEmpty(act.UI_Id))
+                {
+                    act.UI_Id = MvcExtensions.GenID(this.HttpContext, "_docaction_");
+                }
+            }
+            return vm;
         }
 
         [HttpPost]
         [Authorize]
-        public ActionResult ExecuteAction(string docRef, string action)
+        public ActionResult ExecuteAction(string id, string actionName, string docVersion)
         {
-            
-            throw new NotImplementedException();
+            var prm = new Dictionary<string, object>();
+            foreach (string p in Request.Form.Keys)
+            {
+                prm[p] = Request.Form[p];
+            }
+            var ret = DocRepo.ExecuteAction(id, actionName, prm, new DM.ActionOptions { DocVersion = docVersion });
+            return Json(ret, JsonRequestBehavior.AllowGet);
         }
 
     }

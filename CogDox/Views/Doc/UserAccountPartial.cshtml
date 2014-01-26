@@ -3,15 +3,16 @@
 @using CogDox.Core
 @using CogDox.Core.UI
 
-@model UserAccount
+@model DocViewModelBase
 @{
     var GID = Html.GenID("userd");
+    var Account = (UserAccount)Model.Document;
 }
 
 <div class="navbar" id="details_navbar_@(GID)">
 	<div class="navbar-inner">
         <div class="container">
-            <a class='brand'>Konto użytkownika nr @Model.Id</a>
+            <a class='brand'>Konto użytkownika nr @Account.Id</a>
         
         <ul class="nav">
             <li  class="">
@@ -22,7 +23,7 @@
 				</a>
 				<ul class="dropdown-menu">
 					<li >
-						<a href="@Url.Action("Details", "Doc", new {id=DocRef.GetEntityRef("UserAccount", Model.Id)})" target="_blank">Otwórz w nowym oknie</a>
+						<a href="@Url.Action("Details", "Doc", new {id=DocRef.GetEntityRef("UserAccount", Account.Id)})" target="_blank">Otwórz w nowym oknie</a>
 					</li>
                     <li>
                         <a href="#" id="reload_link_@(GID)" class="reload_link">Załaduj ponownie</a>
@@ -38,15 +39,10 @@
 				<span class="arrow"></span>     
 				</a>
 				<ul class="dropdown-menu">
-                    <li>
-                        <a class="" data-toggle="modal" href="#modal_TakeTaskFromGroupQueue">Pobierz z kolejki</a>
-					</li>
-					<li >
-                        <a class="" data-toggle="modal" href="#modal_AddComment">Dodaj komentarz</a>
-					</li>
-                    <li>
-                        <a class="" data-toggle="modal" href="#modal_action2">Akcja 2</a>
-					</li>
+                    @foreach (var act in Model.Actions.Where(x => x.ShowInMenu).OrderBy(x => x.Action))
+                    {
+                        Html.RenderPartial("DetailsActionMenuEntry", act);
+                    }
                 </ul>
                 </li>
 		</ul>
@@ -64,7 +60,7 @@
 						<div class="control-group">
 							<label class="control-label" for="Name">Imię i nazwisko</label>
 							<div class="controls">
-								<input type="text" id="Name" name="Name" class="m-wrap span12" required placeholder="" value="@Model.Name">
+								<input type="text" id="Name" name="Name" class="m-wrap span12" required placeholder="" value="@Account.Name">
 								<span class="help-block"></span>
 							</div>
 						</div>
@@ -75,7 +71,7 @@
 							<label class="control-label" for="Email">Email</label>
 
 							<div class="controls">
-								<input type="text" id="Email" name="Email" class="m-wrap span12" required placeholder="" value="@Model.Email">
+								<input type="text" id="Email" name="Email" class="m-wrap span12" required placeholder="" value="@Account.Email">
 								
 							</div>
 						</div>
@@ -84,7 +80,7 @@
                         <div class="control-group">
 							<label class="control-label">Konto aktywne</label>
 							<div class="controls">                                                
-								<label class="radio"><input type="checkbox" name="Active" value="true" @(Model.Active ? "checked" : "")/>
+								<label class="radio"><input type="checkbox" name="Active" value="true" @(Account.Active ? "checked" : "")/>
 								Tak
 								</label>
                             </div>
@@ -98,7 +94,7 @@
 						<div class="control-group">
 							<label class="control-label" >Login</label>
 							<div class="controls">
-								<input type="text" name="Login" class="m-wrap span12" required value="@Model.Login" />
+								<input type="text" name="Login" class="m-wrap span12" required value="@Account.Login" />
 								<span class="help-block"></span>
 							</div>
 						</div>
@@ -107,7 +103,7 @@
 						<div class="control-group">
 							<label class="control-label" >Telefon komórkowy</label>
 							<div class="controls">
-								<input type="text" name="MobilePhone" class="m-wrap span12" value="@Model.MobilePhone" />
+								<input type="text" name="MobilePhone" class="m-wrap span12" value="@Account.MobilePhone" />
 								<span class="help-block"></span>
 							</div>
 						</div>
@@ -116,7 +112,7 @@
 						<div class="control-group">
 							<label class="control-label" >Telefon VoIP</label>
 							<div class="controls">
-								<input type="text" name="VoipPhone" class="m-wrap span12" value="@Model.VoipPhone" />
+								<input type="text" name="VoipPhone" class="m-wrap span12" value="@Account.VoipPhone" />
 								<span class="help-block"></span>
 							</div>
 						</div>
@@ -144,7 +140,7 @@
 									                    <tbody>
                                                             @foreach (var gi in SessionContext.CurrentSession.QueryOver<GroupInfo>().Where(x => x.IsActive).OrderBy(x => x.Name).Asc.List())
                                                             {
-                                                                var chkd = Model.MemberOf.Contains(gi) ? "checked" : "";
+                                                                var chkd = Account.MemberOf.Contains(gi) ? "checked" : "";
                                                                 <tr class="odd gradeX">
 											                        <td><input type="checkbox" class="checkboxes" name="MemberOf" value="@gi.Id" @chkd /></td>
                                                                     <td>@gi.Name</td>
@@ -172,7 +168,7 @@
                                                     </script>
 												</div>
 												<div class="tab-pane" id="tab_1_3">
-													@Html.Partial("UI/HistoryPanel", ActionRecord.GetHistory(Model).List())
+													@Html.Partial("UI/HistoryPanel", ActionRecord.GetHistory(Account).List())
 												</div>
 											</div>
 										</div>
@@ -182,7 +178,11 @@
 </div>
 
 <!-- ==== MODALS ============================================================================== -->
-
+@foreach (var act in Model.Actions)
+{
+    if (string.IsNullOrEmpty(act.UITemplate)) { continue; }
+    Html.RenderPartial(act.UITemplate, act);
+}
 
 <!-- END MODALS -->
 

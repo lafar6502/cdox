@@ -1,9 +1,10 @@
 ﻿@using CogDox.Core.BusinessObjects
 @using CogDox.Models
+@using CogDox.Core.UI
 
-@model UserAccount
+@model DocViewModelBase
 @{
-    ViewBag.ViewHostCallbackJS = "fdetailApiUser" + Model.Id;
+    ViewBag.ViewHostCallbackJS = "fdetailApiUser" + Html.GenID();
 }
 <script type="text/javascript">
     var @(ViewBag.ViewHostCallbackJS) = function () {

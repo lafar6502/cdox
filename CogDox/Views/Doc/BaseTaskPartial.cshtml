@@ -1,49 +1,25 @@
 ﻿@using CogDox.Core.BusinessObjects
 @using CogDox.Models;
 @using CogDox.Core
+@using CogDox.Core.UI
 
-@model BaseTask
+@model CogDox.Core.UI.DocViewModelBase
+
 @{
-    var GID = Model.Id;
+    var Task = (BaseTask) Model.Document;
+    var GID = Task.Id;
 }
 
-<style>
-#action_menu { 
-    position:fixed;
-    width:40px;
-    height:40px;
-    background-color:red;
-    border: solid 2px gray;
-    margin-left:200px;
-    margin-top:200px;
-}
-</style>
-<!--
-<div id="action_menu">
-    <ul class="nav">
-            <li  class="">
-				<a data-toggle="dropdown" class="dropdown-toggle" href="javascript:;">
-				<span class="selected"></span>
-				Widok
-				<span class="arrow"></span>     
-				</a>
-				<ul class="dropdown-menu">
-					<li >
-						<a href="@Url.Action("Details", "Task", new {id=Model.Id})" target="_blank">Otwórz w nowym oknie</a>
-					</li>
-                    <li>
-                        <a class="" data-toggle="modal" href="#modal_addComment">Dodaj komentarz</a>
-					</li>
-                </ul>
-            </li>
-        </ul>
-</div>-->
+
 
 <div class="navbar" id="taskdet_navbar_@(GID)">
 	<div class="navbar-inner">
         <div class="container">
-            <a class='brand'>Zadanie nr @Model.Id</a>
-        
+            <a class='brand'>Zadanie nr @Task.Id</a>
+        <input type="hidden" name="docVersion" value="@Model.DocVersion" />
+        <input type="hidden" name="docRef" value="@Model.DocRef" />
+
+
         <ul class="nav" id>
             <li  class="">
 				<a data-toggle="dropdown" class="dropdown-toggle" href="javascript:;">
@@ -53,7 +29,7 @@
 				</a>
 				<ul class="dropdown-menu">
 					<li >
-						<a href="@Url.Action("Details", "Task", new {id=Model.Id})" target="_blank">Otwórz w nowym oknie</a>
+						<a href="@Url.Action("Details", "Doc", new {id=Model.DocRef})" target="_blank">Otwórz w nowym oknie</a>
 					</li>
                     <li>
                         <a href="#" id="reload_link_@(GID)" class="reload_link">Załaduj ponownie</a>
@@ -69,15 +45,10 @@
 				<span class="arrow"></span>     
 				</a>
 				<ul class="dropdown-menu">
-                    <li>
-                        <a class="" data-toggle="modal" href="#modal_TakeTaskFromGroupQueue">Pobierz z kolejki</a>
-					</li>
-					<li >
-                        <a class="" data-toggle="modal" href="#modal_AddComment">Dodaj komentarz</a>
-					</li>
-                    <li>
-                        <a class="" data-toggle="modal" href="#modal_action2">Akcja 2</a>
-					</li>
+                    @foreach (var act in Model.Actions.Where(x => x.ShowInMenu).OrderBy(x => x.Action))
+                    {
+                        Html.RenderPartial("DetailsActionMenuEntry", act);
+                    }
                 </ul>
                 </li>
 		</ul>
@@ -88,42 +59,42 @@
 <div id="taskdet_body_@(GID)" class="container-fluid">
     <div class="row-fluid">
         <div class="span12 alert">
-            <strong>@Model.Summary</strong> 
+            <strong>@Task.Summary</strong> 
         </div>
     </div>
     <div class="row-fluid">
         <div class="span12 container well">
             <div class="row-fluid">
                 <div class="span3">
-                    <b>Data utworzenia:</b><br />@Model.CreatedDate 
+                    <b>Data utworzenia:</b><br />@Task.CreatedDate 
                 </div>
                 <div class="span3">
-                    <b>Status:</b><br />@I18N.GetText(Model.Status)
+                    <b>Status:</b><br />@I18N.GetText(Task.Status)
                 </div>
                 <div class="span3">
-                    <b>Grupa odpowiedzialna:</b><br />@Model.AssigneeGroup.Name
-                    @if (Model.AssigneeGroup != null)
+                    <b>Grupa odpowiedzialna:</b><br />@Task.AssigneeGroup.Name
+                    @if (Task.AssigneeGroup != null)
                     {
-                        <small> (od @Model.CurrentGroupAssignedDate.ToShortDateString())</small>
+                        <small> (od @Task.CurrentGroupAssignedDate.ToShortDateString())</small>
                     }
                 </div>
                 <div class="span3">
-                    <b>Aktualnie odpowiedzialny:</b><br />@(Model.Assignee == null ? "" : Model.Assignee.Name)
-                    @if (Model.AssigneeGroup != null)
+                    <b>Aktualnie odpowiedzialny:</b><br />@(Task.Assignee == null ? "" : Task.Assignee.Name)
+                    @if (Task.AssigneeGroup != null)
                     {
-                        <small> (od @Model.CurrentPersonAssignedDate.ToShortDateString())</small>
+                        <small> (od @Task.CurrentPersonAssignedDate.ToShortDateString())</small>
                     }
                 </div>
             </div>
             <div class="row-fluid">
                 <div class="span3">
                     <b>Deadline:</b><br />
-                    @Model.Deadline
+                    @Task.Deadline
                 </div>
                 <div class="span3">
-                    @if (Model.Status == TaskStatus.Suspended) {
+                    @if (Task.Status == TaskStatus.Suspended) {
                         <b>Data wznowienia:</b><br />
-                        @Model.ResumeDate
+                        @Task.ResumeDate
                     }
                 </div>
             </div>
@@ -140,12 +111,12 @@
 											</ul>
 											<div class="tab-content">
 												<div class="tab-pane active" id="tab_1_1">
-													@Html.Raw(Model.Description)
+													@Html.Raw(Task.Description)
 												</div>
 												<div class="tab-pane" id="tab_1_2">
 													<div class="row-fluid">
                                                         <div class="span6">
-                                                            @if (Model.TaskData != null)
+                                                            @if (Task.TaskData != null)
                                                             {
                                                                 
                                                             }
@@ -154,7 +125,7 @@
                                                     
 												</div>
 												<div class="tab-pane" id="tab_1_3">
-													@Html.Partial("UI/HistoryPanel", ActionRecord.GetHistory(Model).List())
+													@Html.Partial("UI/HistoryPanel", ActionRecord.GetHistory(Task).List())
 												</div>
 											</div>
 										</div>
@@ -163,45 +134,13 @@
 
 </div>
 
-<!-- ==== MODALS ============================================================================== -->
-@Html.Partial("Action_AddCommentMarkup", Model)
-@Html.Partial("Action_TakeTaskFromGroupQueueMarkup", Model)
-
-
-<div id="modal_xaddCommentx" class="modal hide" tabindex="-1" data-width="760">
-    <div class="modal-header">
-		<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-		<h3>Dodaj komentarz</h3>
-	</div>
-	<div class="modal-body">
-		<div class="row-fluid" >
-			<div class="12" id="modal_addCommentx_form">
-			</div>
-		</div>
-	</div>
-	<div class="modal-footer">
-		<button type="button" data-dismiss="modal" class="btn">Anuluj</button>
-		<button type="button" class="btn blue">OK</button>
-	</div>
-    <script type="text/javascript">
-        Ext.onReady(function () {
-            var p = Ext.create('Ext.form.Panel', {
-                renderTo: 'modal_addCommentx_form', height: 300, border: false, defaults: {padding: 5, anchor: '100%'}, style: "width: 100%",
-                items: [
-                    { xtype: 'textfield', fieldLabel: 'kto ty jestes?', name: 'who' },
-                    { xtype: 'textfield', fieldLabel: 'A kto tam?', name: 'another' },
-                    { xtype: 'textarea', fieldLabel: 'Komentarz', name: 'comment' }
-                ]
-            });
-            $('#modal_addCommentx').on('shown', function () {
-                console.log('modal show!');
-                p.doLayout();
-            });
-        });
-    </script>
-</div>
-
-<!-- END MODALS -->
+<!-- ==== ACTIONS ============================================================================== -->
+@foreach (var act in Model.Actions)
+{
+    if (string.IsNullOrEmpty(act.UITemplate)) { continue; }
+    Html.RenderPartial(act.UITemplate, act);
+}
+<!-- ==== END ACTIONS ========================================================================== -->
 
 <script type="text/javascript">
     //event wireup

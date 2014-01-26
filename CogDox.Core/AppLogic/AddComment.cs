@@ -26,7 +26,7 @@ namespace CogDox.Core.DocManagement2
         public override UI.UIActionModel GetModel(object doc)
         {
             var mdl = base.GetModel(doc);
-            mdl.Parameters.Add(new UI.ParameterModel
+            mdl.Parameters.Add(new UI.FieldModel
             {
                 Name = "Comment",
                 ParamType = typeof(string),

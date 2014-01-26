@@ -2,9 +2,9 @@
 @using CogDox.Models
 @using CogDox.Core.UI
 
-@model BaseTask
+@model DocViewModelBase
 @{
-    ViewBag.ViewHostCallbackJS = "fdetailApiTask" + Model.Id;
+    ViewBag.ViewHostCallbackJS = "fdetailApiTask" + Html.GenID();
 }
 <script type="text/javascript">
     var @(ViewBag.ViewHostCallbackJS) = function () {

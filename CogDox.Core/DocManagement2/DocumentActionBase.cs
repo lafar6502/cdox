@@ -11,7 +11,7 @@ namespace CogDox.Core.DocManagement2
         {
             this.ActionName = typeof(T).Name + "." + this.GetType().Name;
             this.Label = I18N.GetText(this.ActionName);
-            this.ShowInMenu = false;
+            this.ShowInMenu = true;
             this.UITemplate = this.ActionName;
         }
 
@@ -24,7 +24,7 @@ namespace CogDox.Core.DocManagement2
                 UITemplate = this.UITemplate,
                 ShowInMenu = this.ShowInMenu,
                 Label = this.Label,
-                Parameters = new List<UI.ParameterModel>()
+                Parameters = new List<UI.FieldModel>()
             };
             return mdl;
         }
@@ -65,4 +65,6 @@ namespace CogDox.Core.DocManagement2
             get { return typeof(T); }
         }
     }
+
+
 }

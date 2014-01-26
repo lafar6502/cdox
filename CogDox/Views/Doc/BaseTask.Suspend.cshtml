@@ -1,0 +1,55 @@
+﻿@using CogDox.Core.BusinessObjects
+@using CogDox.Models
+@using CogDox.Core.UI
+@model UIActionModel
+
+
+<div id="@Model.UI_Id" class="modal hide fade" tabindex="-1" data-width="760" style="">
+	<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+		<h3>Dodaj komentarz</h3>
+	</div>
+	<div class="modal-body">
+        <form action="@Url.Action("ExecuteAction", "Doc")">
+            <div class="control-group">
+				<label class="control-label">Default Datetimepicker</label>
+				<div class="controls">
+					<div class="input-append date form_datetime">
+						<input size="16" type="text" value="" readonly class="m-wrap">
+						<span class="add-on"><i class="icon-calendar"></i></span>
+					</div>
+				</div>
+			</div>
+            <div class="row-fluid">
+                <div class="span12 controls">
+					<textarea class="span6 m-wrap" rows="4" name="comment"></textarea>
+                </div>
+		    </div>
+            <input type="hidden" name="id" value="@Model.ParentDocRef" />
+            <input type="hidden" name="actionName" value="@Model.Action" />
+        </form>
+	</div>
+	<div class="modal-footer">
+		<button type="button" data-dismiss="modal" class="btn">Anuluj</button>
+		<button type="button" class="btn blue okbtn">OK</button>
+	</div>
+    <script type="text/javascript">
+        $('#modal_AddComment button.okbtn').click(function () {
+            var exApi = {};//eval('Model.ViewHostCallbackJS')();
+            var dt = $('#modal_AddComment form').serialize();
+            $.ajax({
+                data: dt, method: 'POST',
+                url: '@Url.Action("ExecuteAction", "Doc")',
+                success: function (d) {
+                    $('#@Model.UI_Id').modal('hide');
+                    exApi.reload();
+                },
+                error: function () {
+                    alert('błąd');
+                }
+            });
+        });
+    </script>
+</div>
+
+<!-- END MODALS -->

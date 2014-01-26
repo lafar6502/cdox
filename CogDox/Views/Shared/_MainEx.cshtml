@@ -20,7 +20,10 @@
 	<link href="@Url.Content("~/metronic/plugins/uniform/css/uniform.default.css")" rel="stylesheet" type="text/css"/>
 	
     <link rel="stylesheet" href="@Url.Content("~/metronic/plugins/data-tables/DT_bootstrap.css")" />
-    <link rel="stylesheet" type="text/css" href="@Url.Content("~/metronic/plugins/bootstrap-wysihtml5/bootstrap-wysihtml5.css")" />    <link href="@Url.Content("~/ext/resources/css/ext-all-gray.css")" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/metronic/plugins/bootstrap-wysihtml5/bootstrap-wysihtml5.css")" />
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/metronic/plugins/bootstrap-daterangepicker/daterangepicker.css")" />
+	<link rel="stylesheet" type="text/css" href="@Url.Content("~/metronic/plugins/bootstrap-datetimepicker/css/datetimepicker.css")" />
+    <link href="@Url.Content("~/ext/resources/css/ext-all-gray.css")" rel="stylesheet" type="text/css"/>
 
     <!-- END GLOBAL MANDATORY STYLES -->
 	<link rel="shortcut icon" href="favicon.ico" />
@@ -34,7 +37,8 @@
     <script type="text/javascript" src="@Url.Content("~/metronic/plugins/data-tables/jquery.dataTables.js")"></script>
 	<script type="text/javascript" src="@Url.Content("~/metronic/plugins/data-tables/DT_bootstrap.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/metronic/plugins/bootstrap-wysihtml5/wysihtml5-0.3.0.js")"></script> 
-    <script type="text/javascript" src="@Url.Content("~/metronic/plugins/bootstrap-wysihtml5/bootstrap-wysihtml5.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/metronic/plugins/bootstrap-wysihtml5/bootstrap-wysihtml5.js")"></script>
+
 
     <script src="@Url.Action("ListDefinitions", "DScript")" type="text/javascript"></script>
     @RenderSection("ScriptAndCss", false)
@@ -111,6 +115,8 @@
 	<script src="@Url.Content("~/metronic/plugins/jquery.blockui.min.js")" type="text/javascript"></script>  
 	<script src="@Url.Content("~/metronic/plugins/jquery.cookie.min.js")" type="text/javascript"></script>
 	<script src="@Url.Content("~/metronic/plugins/uniform/jquery.uniform.min.js")" type="text/javascript" ></script>
+    <script type="text/javascript" src="@Url.Content("~/metronic/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js")"></script>
+	<script type="text/javascript" src="@Url.Content("~/metronic/plugins/bootstrap-datetimepicker/js/bootstrap-datetimepicker.js")"></script>
 	<!-- END CORE PLUGINS -->
 	<script src="@Url.Content("~/metronic/scripts/app.js")"></script>      
 	<script>
@@ -123,6 +129,12 @@
 		            });
 		        }
 		    }
+
+		    $(".form_datetime").datetimepicker({
+		        format: "dd MM yyyy - hh:ii",
+		        pickerPosition: (App.isRTL() ? "bottom-right" : "bottom-left")
+		    });
+
 		});
 	</script>
 	<!-- END JAVASCRIPTS -->

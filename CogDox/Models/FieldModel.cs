@@ -9,6 +9,6 @@ namespace CogDox.Models
     public class FieldModel
     {
         public string Id { get; set; }
-        ParameterModel Parameter { get; set; }
+        FieldModel Parameter { get; set; }
     }
 }

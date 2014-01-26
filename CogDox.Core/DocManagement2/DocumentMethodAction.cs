@@ -20,7 +20,7 @@ namespace CogDox.Core.DocManagement2
             var mdl = base.GetModel(doc);
             foreach (var pi in _mi.GetParameters())
             {
-                mdl.Parameters.Add(new UI.ParameterModel
+                mdl.Parameters.Add(new UI.FieldModel
                 {
                     Name = pi.Name,
                     ParamType = pi.ParameterType

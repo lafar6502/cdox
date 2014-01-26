@@ -47,10 +47,10 @@ namespace CogDox.Core.AppLogic.Task
         public override UI.UIActionModel GetModel(object doc)
         {
             var mdl = base.GetModel(doc);
-            mdl.Parameters.Add(new UI.ParameterModel { Name = "resumeDate", ParamType = typeof(DateTime), FieldType = "datetime" });
-            mdl.Parameters.Add(new UI.ParameterModel { Name = "resumeToGroup", ParamType = typeof(bool), FieldType = "boolean" });
-            mdl.Parameters.Add(new UI.ParameterModel { Name = "putInCalendar", ParamType = typeof(bool), FieldType = "boolean" });
-            mdl.Parameters.Add(new UI.ParameterModel { Name = "comment", ParamType = typeof(string), FieldType = "textarea" });
+            mdl.Parameters.Add(new UI.FieldModel { Name = "resumeDate", ParamType = typeof(DateTime), FieldType = "datetime" });
+            mdl.Parameters.Add(new UI.FieldModel { Name = "resumeToGroup", ParamType = typeof(bool), FieldType = "boolean" });
+            mdl.Parameters.Add(new UI.FieldModel { Name = "putInCalendar", ParamType = typeof(bool), FieldType = "boolean" });
+            mdl.Parameters.Add(new UI.FieldModel { Name = "comment", ParamType = typeof(string), FieldType = "textarea" });
 
             return mdl;
         }

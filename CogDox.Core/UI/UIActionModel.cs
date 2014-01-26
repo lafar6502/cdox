@@ -5,24 +5,7 @@ using System.Text;
 
 namespace CogDox.Core.UI
 {
-    public class ParameterModel
-    {
-        public string Name { get; set; }
-        
-        public object Value { get; set; }
-        
-        public Type ParamType { get; set; }
-
-        public Dictionary<string, object> Attributes { get; set; }
-        /// <summary>
-        /// UI field type. This field selects the UI template to be used.
-        /// </summary>
-        public string FieldType { get; set; }
-        /// <summary>
-        /// Field required
-        /// </summary>
-        public bool Required { get; set; }
-    }
+    
     /// <summary>
     /// a model for GUI Action menu entry
     /// 
@@ -62,10 +45,14 @@ namespace CogDox.Core.UI
         /// <summary>
         /// action parameters
         /// </summary>
-        public List<ParameterModel> Parameters { get; set; }
+        public List<FieldModel> Parameters { get; set; }
         /// <summary>
         /// Some additional data
         /// </summary>
         public Dictionary<string, object> Data { get; set; }
+        /// <summary>
+        /// temporary UI identifier
+        /// </summary>
+        public string UI_Id { get; set; }
     }
 }
