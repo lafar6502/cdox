@@ -48,7 +48,21 @@ namespace CogDox.Core.Lists
 
     public class ListRow
     {
+        /// <summary>
+        /// Record ID
+        /// </summary>
+        public object Id { get; set; }
+        /// <summary>
+        /// Link to document that will be shown on click 
+        /// </summary>
+        public string DocRef { get; set; }
+        /// <summary>
+        /// Row data, as columns specify
+        /// </summary>
         public List<object> Data { get; set; }
+        /// <summary>
+        /// Row attributes
+        /// </summary>
         public Dictionary<string, string> Attributes { get; set; }
     }
 

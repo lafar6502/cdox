@@ -5,6 +5,13 @@
 @using Newtonsoft.Json
 @model CogDox.Models.CogDoxPageModel
 <script>
+
+    Ext.define('CogDox.ui.Config', {
+        statics: {
+            BASE_URL: '/cogdox'
+        }
+    });
+
     @{
         var dic = new Dictionary<string, object>();
         foreach(var lid in Model.ListManager.Lists)
@@ -39,6 +46,180 @@
             getStoreConfig: function (listId) {
                 return this.storeConfigs[listId];
             }
+        }
+    });
+
+    Ext.define('CogDox.ui.BaseListGrid', {
+        extend: "Ext.grid.Panel",
+        listId: null,
+        storeConfig: null,
+        requires: [
+            'CogDox.ui.ListDataStores'
+        ],
+        pageSize: 10,
+        tbarItems: [],
+        initComponent: function() {
+            var me = this;
+            if (Ext.isEmpty(this.store)) {
+                if (!Ext.isEmpty(this.listId)) 
+                {
+                    this.store = CogDox.ui.ListDataStores.createStore(this.listId, {pageSize: this.pageSize});
+                }
+            }
+            if (Ext.isEmpty(this.store)) throw "Store missing";
+            if (Ext.isEmpty(this.dockedItems)) {
+                this.dockedItems = [
+                    {
+                        xtype: 'pagingtoolbar',
+                        store: this.store,   
+                        dock: 'top',
+                        displayInfo: false,
+                        items: [
+                            {xtype: 'tbtext', itemId: 'displayItem'}
+                        ].concat(Ext.isEmpty(this.tbarItems) ? [] : this.tbarItems)
+                    }
+                ]
+                if (!Ext.isEmpty(this.tbarItems)) {
+                    this.dockedItems[0].items.push(this.tbarItems);
+                }
+            }
+            this.callParent(arguments);
+        }
+    });
+
+    Ext.define('CogDox.ui.SearchGrid', {
+        extend: 'Ext.panel.Panel',
+        requires: ['CogDox.ui.ListDataStores'],
+        layout: 'border',
+        listId: '',
+        searchPanelClass: null,
+        searchPanelConfig: {},
+        listGridClass: null,
+        listGridConfig: {},
+        showSearchPanel: function() {
+            var p = this.getComponent('searchPnl');
+            if (p.getCollapsed())
+                p.expand();
+            else
+                p.collapse();
+        },
+        buildFilterMenu: function() {
+            Ext.Ajax.request({
+                url: CogDox.ui.Config.BASE_URL + "/List/GetListFilters",
+                params: {listId: this.listId},
+                success: function(resp, opts) {
+                    var lst = Ext.JSON.decode(resp.responseText);
+                }
+            });
+        },
+        initComponent: function() {
+            var me = this;
+            var filterMnu = Ext.create('Ext.menu.Menu', {
+                items: [{text: 'a ja to co?'}]
+            });
+            var fillMnu = function() {
+                console.log('adding menu item');
+                filterMnu.add(Ext.create('Ext.menu.Item', {text: 'Dodali mnie!'}));
+                filterMnu.un('activate', fillMnu);
+            };
+            filterMnu.on('activate', fillMnu);
+            
+            var gridCfg = {
+                region: 'center', itemId: 'theGrid', 
+                tbarItems: [
+                    {xtype: 'tbfill'},
+                    {
+                        text: 'Filtry', menu: filterMnu
+                    },
+                    {
+                        xtype: 'button', text: '<<', border: true,
+                        handler: function() {
+                            me.showSearchPanel();
+                        }
+                    }
+                ],
+                listeners: {
+                    itemclick: function(p, i) {
+                        me.fireEvent('itemclick', me, i);
+                    }
+                }
+            };
+            Ext.apply(gridCfg, this.listGridConfig);
+
+            Ext.apply(this, {
+                items: [
+                    Ext.create(this.listGridClass, gridCfg),
+                    Ext.create('Ext.panel.Panel', {
+                         region: 'east', itemId: 'searchPnl', border: false,
+                        collapsible: true, collapsed: true, collapseMode: 'mini', header: false,
+                        
+                        items: Ext.create('Ext.form.Panel', {
+                            xtype: 'form', border: false,
+                            bodyStyle: 'padding:5px',
+                            fieldDefaults: {
+                                labelAlign: 'top',
+                                msgTarget: 'side'
+
+                            },
+                            defaults: {
+                                border: false,
+                                padding: 3,
+                                xtype: 'panel',
+                                flex: 1,
+                                layout: 'anchor'
+                            },
+
+                            layout: 'hbox',
+                            items: [
+                                {
+                                items: [{
+                                    xtype:'textfield',
+                                    fieldLabel: 'First Name',
+                                    anchor: '-5',
+                                    name: 'first'
+                                }, {
+                                    xtype:'textfield',
+                                    fieldLabel: 'Company',
+                                    anchor: '-5',
+                                    name: 'company'
+                                }]
+                            }, {
+                                items: [{
+                                    xtype:'textfield',
+                                    fieldLabel: 'Last Name',
+                                    anchor: '100%',
+                                    name: 'last'
+                                },{
+                                    xtype:'textfield',
+                                    fieldLabel: 'Email',
+                                    anchor: '100%',
+                                    name: 'email',
+                                    vtype:'email'
+                                }]
+                            }],
+                            buttons: [
+                                {text: 'Ok'},
+                                {text: 'Filters'}
+                            ]
+                        })
+                    })
+                ]
+            });
+            this.addEvents('itemclick', 'itemrightclick');
+            this.callParent(arguments);
+        }
+    });
+
+    Ext.define('CogDox.ui.ListFilterPanel', {
+        extends: 'Ext.form.Panel',
+        requires: [],
+        header: false,
+        getSearchFilter: function() {
+        },
+        loadFilter: function(flt) {
+        },
+        initComponent: function() {
+            this.callParent(arguments);
         }
     });
 

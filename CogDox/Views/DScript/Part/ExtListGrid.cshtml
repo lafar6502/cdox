@@ -8,11 +8,12 @@
 @model CogDox.Models.JQGridListModel
 @using Newtonsoft.Json
 <script>          
+
+    
+
     Ext.define('@gridClass', {
-        extend: "Ext.grid.Panel",
-        requires: [
-            'CogDox.ui.ListDataStores'
-        ],
+        extend: "CogDox.ui.BaseListGrid",
+        listId: '@Model.List.ListId',
         columns: @Html.Raw(JsonConvert.SerializeObject(Model.List.Columns.Select(x => new { 
                   header = x.HeaderText, 
                   dataIndex = x.DataField,
@@ -20,35 +21,14 @@
                   sortable = x.Sortable,
                   resizable = x.Resizable,
                   width = x.Width
-        }))),
-        pageSize: 5,
-        initComponent: function() {
-            if (Ext.isEmpty(this.store)) {
-                this.store = CogDox.ui.ListDataStores.createStore('@Model.List.ListId', {pageSize: this.pageSize});
-            }
-            if (Ext.isEmpty(this.dockedItems)) {
-                this.dockedItems = [
-                    {
-                        xtype: 'pagingtoolbar',
-                        store: this.store,   
-                        dock: 'bottom',
-                        displayInfo: true,
-                        items: [
-                        ]
-                    }
-                ]
-            }
-            this.callParent(arguments);
-        }
+        })))
     });
 
+    
+
     Ext.define('@gridClas2', {
-        extend: 'Ext.panel.Panel',
-        requires: [
-            'CogDox.ui.ListDataStores',
-            '@gridClass'
-        ],
-        constructor: function(config) {
-        }
+        extend: 'CogDox.ui.SearchGrid',
+        requires: ['@gridClass'],
+        listGridClass: '@gridClass'
     });
 </script>

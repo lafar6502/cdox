@@ -107,5 +107,23 @@ namespace CogDox.Controllers
             return View(lsm);
         }
 
+        [Authorize]
+        public ActionResult GetListFilters(string listId)
+        {
+            throw new NotImplementedException();
+        }
+
+        [Authorize]
+        public ActionResult DeleteListFilter(string listId, string filterId)
+        {
+            throw new NotImplementedException();
+        }
+
+        [Authorize]
+        [HttpPost]
+        public ActionResult SaveListFilter(string listId, string filterId, string filterName)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
