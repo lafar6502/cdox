@@ -24,6 +24,7 @@ namespace CogDox.Core.Lists
         public List<ColumnDef> Columns { get; set; }
         public Func<object, object> GetId { get; set; }
         public Func<object, Dictionary<string, string>> GetRowAttributes { get; set; }
+        public Func<object, string> GetDocRef { get; set; }
         public Func<IDictionary<string, object>, ICriterion> BuildSearchFilter { get; set; }
         public Order DefaultSort { get; set; }
 
@@ -44,5 +45,13 @@ namespace CogDox.Core.Lists
             Console.WriteLine(gv.Body.ToString());
         }
 
+        public ListDef DefineRowDocument<T>(Func<T, object> getId, Func<T, string> getDocRef, Func<T, Dictionary<string, string>> getRowAttributes)
+        {
+            DaoRecordType = typeof(T);
+            GetId = x => getId((T)x);
+            if (getRowAttributes != null) GetRowAttributes = x => getRowAttributes((T)x);
+            if (getDocRef != null) GetDocRef = x => getDocRef((T)x);
+            return this;
+        }
     }
 }

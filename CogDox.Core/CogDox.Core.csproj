@@ -71,6 +71,9 @@
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\packages\Newtonsoft.Json.5.0.8\lib\net40\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="NGinnBPM.Lib">
+      <HintPath>..\extlib\NGinnBPM.Lib.dll</HintPath>
+    </Reference>
     <Reference Include="NGinnBPM.MessageBus, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\nginn-messagebus.1.1.0.1\lib\net40\NGinnBPM.MessageBus.dll</HintPath>
@@ -78,6 +81,12 @@
     <Reference Include="NGinnBPM.MessageBus.Windsor, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\nginn-messagebus.1.1.0.1\lib\net40\NGinnBPM.MessageBus.Windsor.dll</HintPath>
+    </Reference>
+    <Reference Include="NGinnBPM.ProcessModel">
+      <HintPath>..\extlib\NGinnBPM.ProcessModel.dll</HintPath>
+    </Reference>
+    <Reference Include="NGinnBPM.Runtime">
+      <HintPath>..\extlib\NGinnBPM.Runtime.dll</HintPath>
     </Reference>
     <Reference Include="NGinnBPM.ServiceHost, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -190,6 +199,7 @@
     <Compile Include="Lang\ILangRC.cs" />
     <Compile Include="Lists\IListManager.cs" />
     <Compile Include="Lists\ListDef.cs" />
+    <Compile Include="Lists\ListDefBuilder.cs" />
     <Compile Include="Lists\ListManager.cs" />
     <Compile Include="Messages\DocumentEvent.cs" />
     <Compile Include="Messages\EventBase.cs" />

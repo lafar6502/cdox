@@ -1,0 +1,56 @@
+﻿@{
+    ViewBag.Title = "Packages";
+}
+@using NGinnBPM.Runtime
+@using NGinnBPM.ProcessModel
+@using NGinnBPM.ProcessModel.Data
+@model ProcessDef
+<h2>Proces @Model.DefinitionId v @Model.Version</h2>
+
+
+@{
+    var inputds = Model.Body.GetInputDataSchema();   
+}
+<h3>Zmienne wejściowe</h3>
+<table class="table">
+    <thead>
+        <tr>
+        <td>Nazwa</td>
+        <td>Typ</td>
+        <td>Wymagane?</td>
+        <td>Lista wartości</td>
+        </tr>
+    </thead>
+    <tbody>
+    @foreach (MemberDef vd in inputds.Members)
+    {
+        <tr>
+            <td>@vd.Name</td>
+            <td>@vd.TypeName</td>
+            <td>@vd.IsRequired</td>
+            <td>@vd.IsArray</td>
+        </tr>
+    }
+    </tbody>
+</table>
+
+<h3>Definicje typów</h3>
+<table class="table">
+    <thead>
+        <tr>
+        <td>Nazwa</td>
+        <td>Typ prosty?</td>
+        </tr>
+    </thead>
+    <tbody>
+    @foreach (TypeDef td in Model.DataTypes.TypeNames.Select(x => Model.DataTypes.GetTypeDef(x)))
+    {
+        <tr>
+            <td>@td.Name</td>
+            <td>@td.IsSimpleType</td>
+        </tr>
+    }
+    </tbody>
+</table>
+
+

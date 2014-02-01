@@ -76,6 +76,10 @@
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\packages\Newtonsoft.Json.5.0.8\lib\net40\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="NGinnBPM.Lib, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\extlib\NGinnBPM.Lib.dll</HintPath>
+    </Reference>
     <Reference Include="NGinnBPM.MessageBus, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\nginn-messagebus.1.1.0.1\lib\net40\NGinnBPM.MessageBus.dll</HintPath>
@@ -84,6 +88,14 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\nginn-messagebus.1.1.0.1\lib\net40\NGinnBPM.MessageBus.Windsor.dll</HintPath>
     </Reference>
+    <Reference Include="NGinnBPM.ProcessModel, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\extlib\NGinnBPM.ProcessModel.dll</HintPath>
+    </Reference>
+    <Reference Include="NGinnBPM.Runtime, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\extlib\NGinnBPM.Runtime.dll</HintPath>
+    </Reference>
     <Reference Include="NGinnBPM.ServiceHost, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\nginn-messagebus.1.1.0.1\lib\net40\NGinnBPM.ServiceHost.exe</HintPath>
@@ -91,8 +103,9 @@
     <Reference Include="NHibernate">
       <HintPath>..\packages\NHibernate.3.3.3.4001\lib\Net35\NHibernate.dll</HintPath>
     </Reference>
-    <Reference Include="NLog">
-      <HintPath>..\packages\NLog.2.0.1.2\lib\net40\NLog.dll</HintPath>
+    <Reference Include="NLog, Version=2.1.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\NLog.2.1.0\lib\net45\NLog.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -146,6 +159,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\CogDoxControllerBase.cs" />
+    <Compile Include="Controllers\NGinnBPMController.cs" />
     <Compile Include="Controllers\DScriptController.cs" />
     <Compile Include="Controllers\ListController.cs" />
     <Compile Include="ListDefs.cs" />
@@ -231,6 +245,7 @@
     <Content Include="Global.asax" />
     <Content Include="App_Data\Translation_pl.json" />
     <None Include="Scripts\jquery-1.7.1.intellisense.js" />
+    <Content Include="Scripts\CogDox\CogdoxUI.js" />
     <Content Include="Scripts\jquery-1.7.1.js" />
     <Content Include="Scripts\jquery-1.7.1.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
@@ -326,6 +341,7 @@
     <Content Include="Views\Doc\BaseTask.AddComment.cshtml" />
     <Content Include="Views\Doc\Actions\UserAccount.ResetPassword.cshtml" />
     <Content Include="Views\Doc\Actions\UserAccount.AssignToGroups.cshtml" />
+    <Content Include="Views\NGinnBPM\Packages.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

@@ -14,14 +14,20 @@
     Ext.define('@gridClass', {
         extend: "CogDox.ui.BaseListGrid",
         listId: '@Model.List.ListId',
-        columns: @Html.Raw(JsonConvert.SerializeObject(Model.List.Columns.Select(x => new { 
-                  header = x.HeaderText, 
-                  dataIndex = x.DataField,
-                  cls = x.Css,
-                  sortable = x.Sortable,
-                  resizable = x.Resizable,
-                  width = x.Width
-        })))
+        columns: @Html.Raw(JsonConvert.SerializeObject(Model.List.Columns.Select(x => new
+            {
+                header = x.HeaderText,
+                dataIndex = x.DataField,
+                cls = x.Css,
+                sortable = x.Sortable,
+                resizable = x.Resizable,
+                width = x.Width,
+                flex = x.Flex
+            }), new JsonSerializerSettings
+            {
+                NullValueHandling = NullValueHandling.Ignore,
+                DefaultValueHandling = DefaultValueHandling.Ignore
+            }))
     });
 
     

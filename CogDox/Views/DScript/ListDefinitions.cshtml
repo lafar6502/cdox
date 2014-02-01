@@ -67,6 +67,7 @@
                 }
             }
             if (Ext.isEmpty(this.store)) throw "Store missing";
+            this.store.getProxy().extraParams = {"ala" : "ma kota", "aquery" : "jest takie"};
             if (Ext.isEmpty(this.dockedItems)) {
                 this.dockedItems = [
                     {
@@ -84,6 +85,59 @@
                 }
             }
             this.callParent(arguments);
+        }
+    });
+
+    Ext.define('CogDox.ui.ListFilterPanel', {
+        extend: 'Ext.panel.Panel',
+        requires: [],
+        header: false,
+        getCurrentFilter: function() {
+        },
+        loadFilter: function(flt) {
+        },
+        initComponent: function() {
+            this.callParent(arguments);
+        }
+    });
+
+    Ext.define('CogDox.ui.TODOListFilterPanel', {
+        extend: 'CogDox.ui.ListFilterPanel',
+        requires: [],
+        initComponent: function() {
+            var me = this;
+            Ext.apply(this, {
+                items: Ext.create('Ext.form.Panel', {
+                    xtype: 'form', border: false,
+                    bodyStyle: 'padding:5px',
+                    fieldDefaults: {
+                        labelAlign: 'top',msgTarget: 'side'
+                    },
+                    defaults: {
+                        border: false,padding: 3,xtype: 'panel',flex: 1,layout: 'anchor'
+                    },
+                    layout: 'hbox',
+                    items: [
+                        {
+                            items: [{
+                                xtype:'textfield',fieldLabel: 'First Name',anchor: '-5',name: 'first'
+                            }, {
+                                xtype:'textfield',fieldLabel: 'Company',anchor: '-5',name: 'company'
+                            }]
+                        }, {
+                            items: [{
+                                xtype:'textfield',fieldLabel: 'Last Name',anchor: '100%',name: 'last'
+                            },{
+                                xtype:'textfield',fieldLabel: 'Email',anchor: '100%',name: 'email',vtype:'email'
+                            }]
+                        }],
+                    buttons: [
+                        {text: 'Ok'},
+                        {text: 'Filters'}
+                    ]
+                })
+            });
+            me.callParent(arguments);
         }
     });
 
@@ -149,59 +203,9 @@
             Ext.apply(this, {
                 items: [
                     Ext.create(this.listGridClass, gridCfg),
-                    Ext.create('Ext.panel.Panel', {
-                         region: 'east', itemId: 'searchPnl', border: false,
-                        collapsible: true, collapsed: true, collapseMode: 'mini', header: false,
-                        
-                        items: Ext.create('Ext.form.Panel', {
-                            xtype: 'form', border: false,
-                            bodyStyle: 'padding:5px',
-                            fieldDefaults: {
-                                labelAlign: 'top',
-                                msgTarget: 'side'
-
-                            },
-                            defaults: {
-                                border: false,
-                                padding: 3,
-                                xtype: 'panel',
-                                flex: 1,
-                                layout: 'anchor'
-                            },
-
-                            layout: 'hbox',
-                            items: [
-                                {
-                                items: [{
-                                    xtype:'textfield',
-                                    fieldLabel: 'First Name',
-                                    anchor: '-5',
-                                    name: 'first'
-                                }, {
-                                    xtype:'textfield',
-                                    fieldLabel: 'Company',
-                                    anchor: '-5',
-                                    name: 'company'
-                                }]
-                            }, {
-                                items: [{
-                                    xtype:'textfield',
-                                    fieldLabel: 'Last Name',
-                                    anchor: '100%',
-                                    name: 'last'
-                                },{
-                                    xtype:'textfield',
-                                    fieldLabel: 'Email',
-                                    anchor: '100%',
-                                    name: 'email',
-                                    vtype:'email'
-                                }]
-                            }],
-                            buttons: [
-                                {text: 'Ok'},
-                                {text: 'Filters'}
-                            ]
-                        })
+                    Ext.create('CogDox.ui.TODOListFilterPanel', {
+                        region: 'east', itemId: 'searchPnl', border: false, collapsible: true, 
+                        collapsed: true
                     })
                 ]
             });
@@ -210,18 +214,7 @@
         }
     });
 
-    Ext.define('CogDox.ui.ListFilterPanel', {
-        extends: 'Ext.form.Panel',
-        requires: [],
-        header: false,
-        getSearchFilter: function() {
-        },
-        loadFilter: function(flt) {
-        },
-        initComponent: function() {
-            this.callParent(arguments);
-        }
-    });
+    
 
     @foreach(var lid in Model.ListManager.Lists)
     {

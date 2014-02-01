@@ -1,0 +1,12 @@
+﻿@{
+    ViewBag.Title = "Packages";
+}
+@model IEnumerable<string>
+<h2>Packages</h2>
+<ul>
+    @foreach(var pn in Model)
+    {
+        <li><a href="@Url.Action("Package", new {id=pn})">@pn</a></li>
+    }
+</ul>
+

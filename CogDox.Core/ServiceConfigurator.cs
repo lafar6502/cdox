@@ -212,6 +212,18 @@ namespace CogDox.Core
             return this;
         }
 
+        public ServiceConfigurator ConfigureNGinnBPM()
+        {
+            string baseDir = AppDomain.CurrentDomain.BaseDirectory;
+            string pth = Path.Combine(baseDir, "..\\ProcessRepository");
+
+            NGinnBPM.Runtime.Configuration.WindsorConfigurator.Begin(_wc)
+                .UseBooProcessRepository(pth)
+                .UseSqlStorage(this._connString)
+                .FinishConfiguration();
+            return this;
+        }
+
         public ServiceConfigurator FinishConfiguration()
         {
             string baseDir = AppDomain.CurrentDomain.BaseDirectory;

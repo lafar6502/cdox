@@ -63,7 +63,7 @@ namespace CogDox
                 DataField = "Summary",
                 DataType = "text",
                 HeaderText = I18N.GetText("BaseTask.Summary"),
-                Sortable = false
+                Sortable = false, Flex = 1.0
             }, x => x.Summary);
             ld.AddColumn<BaseTask>(new ListDef.ColumnDef
             {

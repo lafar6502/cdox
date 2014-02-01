@@ -1,0 +1,13 @@
+﻿@{
+    ViewBag.Title = "Packages";
+}
+@using NGinnBPM.Runtime
+@model IProcessPackage
+<h2>Package @Model.Name</h2>
+
+<ul>
+    @foreach (var pn in Model.ProcessNames)
+    {
+        <li><a href="@Url.Action("ProcessDef", new {id = Model.Name + "." + pn})">@pn</a></li>
+    }
+</ul>

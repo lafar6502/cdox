@@ -99,6 +99,7 @@ namespace CogDox
                         }
                     });
                 })
+                .ConfigureNGinnBPM()
                 .FinishConfiguration();
             var wc = cfg.GetContainer();
             ControllerBuilder.Current.SetControllerFactory(new Web.WindsorControllerFactory(wc));
