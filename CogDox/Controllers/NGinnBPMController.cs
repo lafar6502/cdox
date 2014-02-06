@@ -11,6 +11,7 @@ using NHibernate.Criterion;
 using DM = CogDox.Core.DocManagement2;
 using CogDox.Core.UI;
 using NGinnBPM.Runtime;
+using Newtonsoft.Json;
 
 namespace CogDox.Controllers
 {
@@ -39,6 +40,16 @@ namespace CogDox.Controllers
         public ActionResult ProcessDef(string id)
         {
             var pd = PackageRepo.GetProcessDef(id);
+            string fmt = Request["format"];
+            if ("json".Equals(fmt))
+            {
+                var js = JsonConvert.SerializeObject(pd, Formatting.Indented, new JsonSerializerSettings
+                {
+                    NullValueHandling = NullValueHandling.Ignore,
+                    DefaultValueHandling = DefaultValueHandling.Ignore
+                });
+                return Content(js, "text/json");
+            }
             return View(pd);
         }
 

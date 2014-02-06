@@ -38,6 +38,11 @@ namespace CogDox.Core.UI
         /// Data source name for auto-complete fields
         /// </summary>
         public string DataSource { get; set; }
+
+        /// <summary>
+        /// UI ID
+        /// </summary>
+        public string Id { get; set; }
     }
 
     public class IdLabel

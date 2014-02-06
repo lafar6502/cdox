@@ -76,9 +76,16 @@ namespace CogDox.Core.Lists
             {
                 lq.Sort = list.Columns[cid].DataField;
             }
-            var qf = list.BuildSearchFilter(lq.QueryParameters);
             var crit = ses.CreateCriteria(list.DaoRecordType);
-            var rets = crit.Add(qf).SetFirstResult(lq.Start)
+            if (list.BuildSearchFilter != null)
+            {
+                var qf = list.BuildSearchFilter(lq.QueryParameters);
+                if (qf != null)
+                {
+                    crit = crit.Add(qf);
+                }
+            }
+            var rets = crit.SetFirstResult(lq.Start)
                 .SetMaxResults(lq.Limit + 1).AddOrder(new Order(lq.Sort, lq.SortAsc))
                 .List();
             ListQueryResults lqr = new ListQueryResults
@@ -97,7 +104,8 @@ namespace CogDox.Core.Lists
             foreach (var obj in lqr.RawData)
             {
                 ListRow lr = new ListRow { Data = new List<object>(list.Columns.Count) };
-                
+                lr.Id = list.GetId(obj);
+                lr.DocRef = list.GetDocRef != null ? list.GetDocRef(obj) : null;
                 foreach (var col in list.Columns)
                 {
                     if (col.GetVal != null)
@@ -110,7 +118,7 @@ namespace CogDox.Core.Lists
                     }
                     else throw new Exception();
                 }
-                lr.Attributes = empty;
+                lr.Attributes = list.GetRowAttributes == null ? empty : list.GetRowAttributes(obj);
                 lqr.Rows.Add(lr);
             }
             return lqr;

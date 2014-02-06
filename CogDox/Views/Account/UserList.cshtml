@@ -1,0 +1,96 @@
+﻿@using CogDox.Core
+@using CogDox.Core.Lists
+@using CogDox.Models
+@{
+    Layout = "~/Views/Shared/_MainEx.cshtml";
+}
+
+@section ScriptAndCss {
+
+    
+}
+@section PageHeader {
+
+		<ul class="breadcrumb">
+			<li>
+				<i class="icon-home"></i>
+				<a href="index.html">Home</a> 
+				<i class="icon-angle-right"></i>
+			</li>
+			<li>
+				<a href="#">Lista użytkowników</a>
+				<i class="icon-angle-right"></i>
+			</li>
+		</ul>
+}
+
+<div class="row-fluid">
+    <div class="span12">
+        <div class="portlet grey">
+            <div class="portlet-title"><div class="caption">Lista użytkowników</div></div>
+            <div class="portlet-body" id="theGrid2"></div>
+        </div>
+    </div>
+    
+        <script type="text/javascript">
+            var taskDetailHostApi = function () {
+                this.reload = function () {
+                    console.log('reload task!');
+                    Ext.getCmp('vDocView').reloadTask();
+                };
+                return this;
+            };
+
+            Ext.onReady(function () {
+                var tView = Ext.create('Ext.panel.Panel', {
+                    id: 'vDocView', region: 'south', autoScroll: true, collapsed: false, split: true, border: false,
+                    reloadTask: function (id) {
+                        console.log('reload ' + id);
+                        if (Ext.isEmpty(id)) id = this.currentTaskId;
+                        this.currentTaskId = id;
+                        Ext.Ajax.request({
+                            url: '@Url.Action("DetailsEmbed", "Doc")/UserAccount~' + id + '?callbackjs=taskDetailHostApi',
+                            success: function (response) {
+                                var text = response.responseText;
+                                if (tView.getCollapsed()) tView.toggleCollapse();
+                                tView.update(text, true, function () {
+                                    console.log('view updated');
+                                });
+                            }
+                        });
+                    }
+                });
+                var pnl = Ext.create('Ext.panel.Panel', {
+                    layout: 'border', renderTo: 'theGrid2', style: "width: 100%",
+                    items: [
+                        Ext.create('CogDox.ui.UserAccountSearchGrid', {
+                            itemId: 'vGrid', height: 300, border: false,
+                            region: 'center',
+                            listeners: {
+                                itemclick: function (p, i) {
+                                    tView.reloadTask(i.data.Id);
+                                }
+                            }
+                        }),
+                        tView
+                    ]
+                });
+                var updateSize = function () {
+                    var w = Ext.getBody().getViewSize().width;
+                    var h = Ext.getBody().getViewSize().height;
+                    pnl.setHeight(h - pnl.getY() - 8);
+                    pnl.doLayout();
+                }
+                Ext.EventManager.onWindowResize(updateSize);
+                updateSize();
+            });
+    </script>
+</div>
+
+<script>
+    Ext.onReady(function () {
+        $(".page-sidebar").on("show", function () {
+            console.log('sidebar show');
+        });
+    });
+ </script>

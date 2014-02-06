@@ -20,7 +20,7 @@ namespace CogDox
         {
             List<ListDef> defs = new List<ListDef>();
             defs.Add(TodoList());
-
+            defs.Add(UserList());
             return defs;
         }
 
@@ -73,6 +73,31 @@ namespace CogDox
             }, x => x.AssigneeGroup.Name);
 
             return ld;
+        }
+
+        private static ListDef UserList()
+        {
+            return new ListDefBuilder<UserAccount>()
+                .Column("Id", cb => {
+                    cb.Val(x => x.Id).Sortable(true);
+                })
+                .Column("Name", cb => {
+                    cb.Val(x => x.Name).Sortable(true);
+                })
+                .Column("Login", cb => {
+                    cb.Val(x => x.Login).Sortable(true);
+                })
+                .Column("Email", cb => {
+                    cb.Val(x => x.Email).Sortable(true);
+                })
+                .Column("MobilePhone", cb => {
+                    cb.Val(x => x.MobilePhone).Sortable(true);
+                })
+                .NHQuery(param => {
+                    return null;
+                })
+                .GetId(x => x.Id)
+                .Build();
         }
     }
 }

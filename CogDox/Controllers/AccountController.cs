@@ -144,10 +144,9 @@ namespace CogDox.Controllers
             return View(model);
         }
 
-        //
-        // GET: /Account/ChangePasswordSuccess
 
-        public ActionResult ChangePasswordSuccess()
+        [Authorize]
+        public ActionResult UserList()
         {
             return View();
         }

@@ -92,6 +92,8 @@
         extend: 'Ext.panel.Panel',
         requires: [],
         header: false,
+        collapseMode: 'mini',
+        title: null,
         getCurrentFilter: function() {
         },
         loadFilter: function(flt) {
@@ -104,9 +106,11 @@
     Ext.define('CogDox.ui.TODOListFilterPanel', {
         extend: 'CogDox.ui.ListFilterPanel',
         requires: [],
+
         initComponent: function() {
             var me = this;
             Ext.apply(this, {
+                header: false, collapseMode: 'mini',
                 items: Ext.create('Ext.form.Panel', {
                     xtype: 'form', border: false,
                     bodyStyle: 'padding:5px',
@@ -199,16 +203,16 @@
                 }
             };
             Ext.apply(gridCfg, this.listGridConfig);
-
-            Ext.apply(this, {
-                items: [
-                    Ext.create(this.listGridClass, gridCfg),
-                    Ext.create('CogDox.ui.TODOListFilterPanel', {
-                        region: 'east', itemId: 'searchPnl', border: false, collapsible: true, 
-                        collapsed: true
-                    })
-                ]
-            });
+            var its = [
+                Ext.create(this.listGridClass, gridCfg)
+            ];
+            if (!Ext.isEmpty(this.searchPanelClass)) {
+                its.push(Ext.create(this.searchPanelClass, Ext.apply(this.searchPanelConfig, {
+                    region: 'east', itemId: 'searchPnl', border: false, collapsible: true, 
+                    collapsed: true
+                })));
+            }
+            this.items = its;
             this.addEvents('itemclick', 'itemrightclick');
             this.callParent(arguments);
         }

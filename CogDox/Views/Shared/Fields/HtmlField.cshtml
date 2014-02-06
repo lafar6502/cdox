@@ -3,11 +3,25 @@
 @using CogDox.Models
 @using Newtonsoft.Json;
 @using CogDox.Core.UI;
-
+@model CogDox.Core.UI.FieldModel
 @{
-    var gid = Html.GenID("_field");
+    var gid = string.IsNullOrEmpty(Model.Id) ? Html.GenID("_field") : Model.Id;
 }
 
+<div class="control-group">
+	<label class="control-label" for="@Model.Name">@Model.Name</label>
+	<div class="controls">
+		<input type="text" id="@gid" name="@Model.Name" class="m-wrap span12" @(Model.Access == FieldAccess.ReadOnly ? "readonly" : "") @(Model.Access == FieldAccess.Required ? "required" : "") placeholder="" value="@Model.Value">
+		<span class="help-block"></span>
+	</div>
+</div>
+<!--
+<div class="control-group" id="c_@(gid)">
+</div>
 <script type="text/javascript">
-    
+    Ext.create('Ext.form.field.Text', { id: '@gid',
+        renderTo: 'c_@(gid)', fieldLabel: '@Model.Name', labelAlign: 'top', style: 'width: 94%', readOnly: @(Model.Access == FieldAccess.ReadOnly ? "true" : "false"),
+        name: '@Model.Name', value: '@Model.Value'
+    });
 </script>
+-->

@@ -54,16 +54,12 @@
 
 <div id="details_body_@(GID)" class="container-fluid">
     <form action="#" class="horizontal-form">
+        <input type="hidden" name="_version" value="@Model.DocVersion" />
+
 				<h3 class="form-section">Dane użytkownika</h3>
 				<div class="row-fluid">
 					<div class="span4 ">
-						<div class="control-group">
-							<label class="control-label" for="Name">Imię i nazwisko</label>
-							<div class="controls">
-								<input type="text" id="Name" name="Name" class="m-wrap span12" required placeholder="" value="@Account.Name">
-								<span class="help-block"></span>
-							</div>
-						</div>
+                        @Html.Partial("Fields/HtmlField", new CogDox.Core.UI.FieldModel { Name = "Name", Value=Account.Name, Access = FieldAccess.ReadOnly })
 					</div>
 					<!--/span-->
 					<div class="span4 ">
@@ -192,7 +188,7 @@
         var exApi = eval('@ViewBag.ViewHostCallbackJS');
         if ($.isFunction(exApi)) exApi = exApi();
         $('#reload_link_@(GID)').click(function () {
-            exApi.reload();
+            exApi.reload('@Model.DocRef');
         });
     });
 </script>

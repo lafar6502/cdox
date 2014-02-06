@@ -24,16 +24,20 @@ namespace CogDox.Controllers
         {
             var vm = GetDocumentViewModel(id, vname);
             if (vm == null) return new HttpNotFoundResult();
+            ViewBag.ViewHostCallbackJS = Request["callbackjs"];
             return View(vm.ViewTemplate, vm);
         }
 
         public ActionResult DetailsEmbed(string id, string vname)
         {
             var vm = GetDocumentViewModel(id, vname);
+            ViewBag.Embedded = true;
+            ViewBag.ViewHostCallbackJS = Request["callbackjs"];
             if (vm == null) return new HttpNotFoundResult();
-            if (ViewEngines.Engines.FindView(ControllerContext, vm.ViewTemplate + "_Embed", null) != null)
+            var vrt = ViewEngines.Engines.FindView(ControllerContext, vm.ViewTemplate + "_Embed", null);
+            if (vrt != null && vrt.View != null)
             {
-                return View(vm.ViewTemplate + "_Embed", vm);
+                return View(vrt.View, vm);
             }
             return View(vm.ViewTemplate, vm);
         }

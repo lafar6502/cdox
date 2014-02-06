@@ -6,7 +6,7 @@
 @using NGinnBPM.ProcessModel.Data
 @model ProcessDef
 <h2>Proces @Model.DefinitionId v @Model.Version</h2>
-
+<b><a href="@Url.Action("ProcessDef", new {id=Model.DefinitionId})?format=json">show json</a></b>
 
 @{
     var inputds = Model.Body.GetInputDataSchema();   
