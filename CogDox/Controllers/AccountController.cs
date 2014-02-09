@@ -151,6 +151,12 @@ namespace CogDox.Controllers
             return View();
         }
 
+        [Authorize]
+        public ActionResult UserList2()
+        {
+            return View();
+        }
+
         #region Status Codes
         private static string ErrorCodeToString(MembershipCreateStatus createStatus)
         {

@@ -10,28 +10,20 @@
     
 }
 @section PageHeader {
-
-		<ul class="breadcrumb">
-			<li>
-				<i class="icon-home"></i>
-				<a href="index.html">Home</a> 
-				<i class="icon-angle-right"></i>
-			</li>
-			<li>
-				<a href="#">Lista użytkowników</a>
-				<i class="icon-angle-right"></i>
-			</li>
-		</ul>
+    <div class="portlet-title"><h3>Lista użytkowników</h3></div>
+		
 }
+
 
 <div class="row-fluid">
     <div class="span12">
         <div class="portlet grey">
-            <div class="portlet-title"><div class="caption">Lista użytkowników</div></div>
             <div class="portlet-body" id="theGrid2"></div>
         </div>
     </div>
     
+    
+
         <script type="text/javascript">
             var taskDetailHostApi = function () {
                 this.reload = function () {
@@ -40,6 +32,23 @@
                 };
                 return this;
             };
+
+            Ext.define('CogDox.ui.DOMGridFilter', {
+                extend: 'CogDox.ui.ListFilterPanel',
+                requires: [],
+                width: 400, header: false,
+                initComponent: function () {
+                    if (!Ext.isEmpty(this.contentEl)) {
+                        Ext.fly(this.contentEl).setDisplayed(true);
+                    };
+                    Ext.apply(this, {
+                        
+                    });
+                    this.callParent(arguments);
+                }
+            });
+
+            
 
             Ext.onReady(function () {
                 var tView = Ext.create('Ext.panel.Panel', {
@@ -66,6 +75,8 @@
                         Ext.create('CogDox.ui.UserAccountSearchGrid', {
                             itemId: 'vGrid', height: 300, border: false,
                             region: 'center',
+                            searchPanelClass: 'CogDox.ui.DOMGridFilter',
+                            searchPanelConfig: { header: false, collapseMode: 'mini', split: true, contentEl: '_list_filter1' },
                             listeners: {
                                 itemclick: function (p, i) {
                                     tView.reloadTask(i.data.Id);
@@ -79,6 +90,7 @@
                     var w = Ext.getBody().getViewSize().width;
                     var h = Ext.getBody().getViewSize().height;
                     pnl.setHeight(h - pnl.getY() - 8);
+                    pnl.setWidth(w - pnl.getX() - 10);
                     pnl.doLayout();
                 }
                 Ext.EventManager.onWindowResize(updateSize);
@@ -94,3 +106,61 @@
         });
     });
  </script>
+
+
+<div id="_list_filter1" class="container-fluid form" style="">
+        <form action="#" class="horizontal-form">
+				<h3 class="form-section">Search
+                    <a class="btn" href="#">Szukaj</a>
+				</h3>
+				<div class="row-fluid">
+					<div class="span6 ">
+						<div class="control-group">
+							<label class="control-label" for="firstName">First Name</label>
+							<div class="controls">
+								<input type="text" id="firstName" class="m-wrap span12" placeholder="Chee Kin">
+								<span class="help-block">This is inline help</span>
+							</div>
+						</div>
+					</div>
+					<!--/span-->
+					<div class="span6 ">
+						<div class="control-group error">
+							<label class="control-label" for="lastName">Last Name</label>
+							<div class="controls">
+								<input type="text" id="lastName" class="m-wrap span12" placeholder="Lim">
+								<span class="help-block">This field has error.</span>
+							</div>
+						</div>
+					</div>
+					<!--/span-->
+				</div>
+				<!--/row-->
+				<div class="row-fluid">
+					<div class="span6 ">
+						<div class="control-group">
+							<label class="control-label" >Gender</label>
+							<div class="controls">
+								<select  class="m-wrap span12">
+									<option value="">Male</option>
+									<option value="">Female</option>
+								</select>
+								<span class="help-block">Select your gender.</span>
+							</div>
+						</div>
+					</div>
+					<!--/span-->
+					<div class="span6 ">
+						<div class="control-group">
+							<label class="control-label" >Date of Birth</label>
+							<div class="controls">
+								<input type="text" class="m-wrap span12"  placeholder="dd/mm/yyyy">
+							</div>
+						</div>
+					</div>
+					<!--/span-->
+				</div>
+				<!--/row-->        
+            </form>
+
+    </div>

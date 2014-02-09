@@ -37,9 +37,19 @@
                 </ul>
             </li>
         </ul>
+        <div class="btn-group pull-right">
+            <a class="btn green" href="#" data-toggle="dropdown">
+						    Options
+						    <i class="icon-angle-down"></i>
+						    </a>
+            <a class="btn red" href="#" data-toggle="dropdown">
+						    Options
+						    <i class="icon-angle-down"></i>
+						    </a>
+        </div>
 		<ul class="nav pull-right">
 			<li>
-				<a data-toggle="dropdown" class="dropdown-toggle" href="javascript:;">
+				<a data-toggle="dropdown" class="dropdown-toggle btn red mini" href="javascript:;">
 				<span class="selected"></span>
 				Akcje
 				<span class="arrow"></span>     
@@ -148,7 +158,7 @@
         var exApi = eval('@ViewBag.ViewHostCallbackJS');
         if ($.isFunction(exApi)) exApi = exApi();
         $('#reload_link_@(GID)').click(function () {
-            exApi.reload();
+            exApi.reload('@Model.DocRef');
         });
     });
 </script>
