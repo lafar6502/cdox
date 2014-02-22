@@ -1,0 +1,11 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+}
+@if (!string.IsNullOrEmpty(Request.QueryString["error"]))
+{
+    throw new Exception(Request.QueryString["error"]);
+}
+<div class="page-header">
+  <h1>Strona główna <small>i takie tam</small></h1>
+</div>

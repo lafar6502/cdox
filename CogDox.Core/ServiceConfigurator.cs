@@ -35,12 +35,17 @@ namespace CogDox.Core
 
         public static ServiceConfigurator Begin()
         {
-            return new ServiceConfigurator();
+            return new ServiceConfigurator(new WindsorContainer());
         }
 
-        protected ServiceConfigurator()
+        public static ServiceConfigurator Begin(WindsorContainer wc)
         {
-            _wc = new WindsorContainer();
+            return new ServiceConfigurator(wc);
+        }
+
+        protected ServiceConfigurator(WindsorContainer wc)
+        {
+            _wc = wc;
             log.Info("Start configuration");
         }
 

@@ -16,6 +16,14 @@ namespace CogDox.ITSM
         {
             log.Info("ITSM plugin loading");
             sc.AddMappingFromAssembly(this.GetType().Assembly);
+            DocTypeRegistry.RegisterDocumentType<BusinessObjects.Incident>();
+            
+            sc.RegisterDocumentActionsFromAssembly(this.GetType().Assembly);
+            sc.Modify(wc =>
+            {
+                NGinnBPM.MessageBus.Windsor.MessageBusConfigurator.RegisterMessageHandlersFromAssembly(this.GetType().Assembly, wc);
+            });
+            log.Info("ITSM plugin loaded");
         }
     }
 }

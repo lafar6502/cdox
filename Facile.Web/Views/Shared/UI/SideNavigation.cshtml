@@ -1,0 +1,87 @@
+﻿<div class="panel-group" id="accordion">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+          Start
+        </a>
+      </h4>
+    </div>
+    <div id="collapseOne" class="panel-collapse collapse in">
+      <div class="panel-body">
+          <ul class="nav nav-pills nav-stacked">
+              <li class="active"><a href="#">Strona startowa</a></li>
+              <li><a href="#">Lista spraw <span class="badge">42</span></a></li>
+              <li><a href="#">Kalendarz</a></li>
+              <li><a href="@Url.Action("Funkcje", "Home")">Funkcje</a></li>
+              <li><a href="@Url.Action("VDoc", "Home", new { id = "funkcje_biznesowe.htm" })">Funkcje biznesowe</a></li>
+              <li><a href="@Url.Action("VDoc", "Home", new { id = "architektura.htm" })">Architektura</a></li>
+
+
+
+              <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                  Inne <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu dropdown-menu-right" style="position:inherit">
+                  <li><a href="#">Lista spraw</a></li>
+                  <li><a href="#">Kalendarz</a></li>
+                </ul>
+              </li>
+          </ul>
+      </div>
+    </div>
+  </div>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
+          Zadania
+        </a>
+      </h4>
+    </div>
+    <div id="collapseTwo" class="panel-collapse collapse">
+      <div class="panel-body">
+        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+      </div>
+    </div>
+  </div>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapse3">
+          Raporty
+        </a>
+      </h4>
+    </div>
+    <div id="collapse3" class="panel-collapse collapse">
+      <div class="panel-body">
+          <ul class="nav nav-pills nav-stacked">
+              <li class=""><a href="#">Moje grupy</a></li>
+              <li><a href="#">Ostatni miesiąc</a></li>
+              <li><a href="#">Przekroczenia czasu</a></li>
+              <li><a href="#">KPI</a></li>
+          </ul>
+      </div>
+    </div>
+  </div>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapse4">
+          Administracja
+        </a>
+      </h4>
+    </div>
+    <div id="collapse4" class="panel-collapse collapse">
+      <div class="panel-body">
+          <ul class="nav nav-pills nav-stacked">
+              <li class=""><a href="#">Powiadomienia</a></li>
+              <li><a href="#"></a></li>
+              <li><a href="#">Przekroczenia czasu</a></li>
+              <li><a href="#">KPI</a></li>
+          </ul>
+      </div>
+    </div>
+  </div>
+</div>

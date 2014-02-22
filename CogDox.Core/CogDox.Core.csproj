@@ -74,13 +74,13 @@
     <Reference Include="NGinnBPM.Lib">
       <HintPath>..\extlib\NGinnBPM.Lib.dll</HintPath>
     </Reference>
-    <Reference Include="NGinnBPM.MessageBus, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="NGinnBPM.MessageBus, Version=1.1.1.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\nginn-messagebus.1.1.0.1\lib\net40\NGinnBPM.MessageBus.dll</HintPath>
+      <HintPath>..\packages\nginn-messagebus.1.1.1.0\lib\net40\NGinnBPM.MessageBus.dll</HintPath>
     </Reference>
-    <Reference Include="NGinnBPM.MessageBus.Windsor, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="NGinnBPM.MessageBus.Windsor, Version=1.1.1.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\nginn-messagebus.1.1.0.1\lib\net40\NGinnBPM.MessageBus.Windsor.dll</HintPath>
+      <HintPath>..\packages\nginn-messagebus.1.1.1.0\lib\net40\NGinnBPM.MessageBus.Windsor.dll</HintPath>
     </Reference>
     <Reference Include="NGinnBPM.ProcessModel">
       <HintPath>..\extlib\NGinnBPM.ProcessModel.dll</HintPath>
@@ -88,9 +88,9 @@
     <Reference Include="NGinnBPM.Runtime">
       <HintPath>..\extlib\NGinnBPM.Runtime.dll</HintPath>
     </Reference>
-    <Reference Include="NGinnBPM.ServiceHost, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="NGinnBPM.ServiceHost, Version=1.1.1.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\nginn-messagebus.1.1.0.1\lib\net40\NGinnBPM.ServiceHost.exe</HintPath>
+      <HintPath>..\packages\nginn-messagebus.1.1.1.0\lib\net40\NGinnBPM.ServiceHost.exe</HintPath>
     </Reference>
     <Reference Include="NHibernate">
       <HintPath>..\packages\NHibernate.3.3.3.4001\lib\Net35\NHibernate.dll</HintPath>
@@ -227,8 +227,6 @@
   <ItemGroup>
     <Folder Include="BusinessObjects\ListModels\NewFolder1\" />
     <Folder Include="Configuration\" />
-    <Folder Include="NewFolder1\" />
-    <Folder Include="NH\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="CmdApi.txt" />

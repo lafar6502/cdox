@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Mvc.Html;
 using System.Web.Routing;
 using System.Text.RegularExpressions;
 using System.IO;
@@ -144,6 +145,52 @@ namespace System.Web.Mvc
             }
 
         }
+
+        /// <summary>
+        /// Zwraca vname jesli view istnieje, w przeciwnym razie defaultView
+        /// </summary>
+        /// <param name="hh"></param>
+        /// <param name="vname"></param>
+        /// <param name="defaultView"></param>
+        /// <returns></returns>
+        public static string DefaultPartial(this HtmlHelper hh, string vname, string defaultView)
+        {
+            if (string.IsNullOrEmpty(vname)) return defaultView;
+            var vv = ViewEngines.Engines.FindPartialView(hh.ViewContext.Controller.ControllerContext, vname);
+            if (vv == null || vv.View == null) return defaultView;
+            return vname;
+        }
+
+        public static MvcHtmlString RenderAllPartialsMatching(this HtmlHelper hh, string pattern, string inDirectory)
+        {
+            StringWriter sw = new StringWriter();
+
+            string pth = hh.ViewContext.HttpContext.Server.MapPath(inDirectory);
+            foreach (string file in Directory.GetFiles(pth, pattern))
+            {
+                string fn = Path.GetFileName(file);
+                string tname = inDirectory + "/" + fn;
+                var s = hh.Partial(tname);
+                sw.WriteLine(s.ToString());
+            }
+            return new MvcHtmlString(sw.ToString());
+        }
+
+        public static string DefaultViewName(this HtmlHelper hh, string vname, string defaultView)
+        {
+            if (string.IsNullOrEmpty(vname)) return defaultView;
+            var vv = ViewEngines.Engines.FindView(hh.ViewContext.Controller.ControllerContext, vname, null);
+            if (vv == null || vv.View == null) return defaultView;
+            return vname;
+        }
+
+        public static string DefaultViewName(this Controller c, string vname, string defaultView)
+        {
+            var vv = ViewEngines.Engines.FindView(c.ControllerContext, vname, null);
+            if (vv == null || vv.View == null) return defaultView;
+            return vname;
+        }
+
 
     }
 }
